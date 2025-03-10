@@ -11,6 +11,7 @@ export default defineConfig({
     alias: {
       "@src": resolvedPath("./src"),
       "@components": resolvedPath("./src/components"),
+      "@api": resolvedPath("./src/api"),
     },
   },
 });

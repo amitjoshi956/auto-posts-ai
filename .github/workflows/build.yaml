@@ -1,8 +1,9 @@
 name: AutoPosts.ai CI
 
 on:
-  pull_request:
-    types: [closed] # Trigger only when a pull request is closed (merged)
+  push:
+    branches:
+      - main
 
 jobs:
   build:

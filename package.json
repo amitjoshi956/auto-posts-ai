@@ -1,0 +1,13 @@
+{
+  "name": "auto-posts-ai",
+  "version": "1.0",
+  "private": true,
+  "scripts": {
+    "build:ui": "cd web-ui && npm run build",
+    "deploy:functions": "cd cloud-api && firebase deploy --only functions",
+    "deploy": "npm run build:ui && npm run deploy:functions"
+  },
+  "author": {
+    "name": "Amit Joshi"
+  }
+}

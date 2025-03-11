@@ -11,8 +11,7 @@ jobs:
 
     steps:
       - name: Run UI build
-        run: echo "Running build for the UI app"
-        working-directory: ./web-ui
+        working-directory: web-ui
 
       - name: Checkout code
         uses: actions/checkout@v4

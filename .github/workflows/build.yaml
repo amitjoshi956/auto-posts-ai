@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Run UI build
+        run: cd web-ui
+
       - name: Checkout code
         uses: actions/checkout@v4
 

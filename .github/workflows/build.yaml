@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Run UI build
-        run: cd ./web-ui/
+        working-directory: ./web-ui
 
       - name: Checkout code
         uses: actions/checkout@v4

@@ -26,3 +26,6 @@ dist-ssr
 # Ignore other files
 *.env
 secrets/
+
+# Firebase cache
+.firebase/

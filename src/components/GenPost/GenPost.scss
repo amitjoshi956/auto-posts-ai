@@ -1,0 +1,36 @@
+.gen-post {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    row-gap: 20px;
+    
+    &__article {
+        padding: 20px;
+        border: 1px solid darkcyan;
+        border-radius: 8px;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__actions {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        column-gap: 20px;
+    }
+
+    &__action-btn {
+        border: 1px solid white;
+    }
+}

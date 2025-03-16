@@ -7,7 +7,7 @@
 
 .app {
   padding: 10px 20px;
-  width: 100%;
+  width: fit-content;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,16 @@
 }
 
 .app-header {
-  background-color: rebeccapurple;
-  padding: 0 10px;
+  background-color: #141414;
+  width: 100%;
+  padding: 0 20px;
+
+  &__title {
+    padding: 0;
+    margin: 10px 0;
+
+    text {
+      color: darkcyan;
+    }
+  }
 }

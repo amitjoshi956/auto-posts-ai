@@ -4,9 +4,12 @@ import GenPost from '@components/GenPost';
 function App() {
   return (
     <div className="app">
-      <h1 className="app-header">Auto Posts AI</h1>
-      {/* Will add back later */}
-      {/* <GenPost /> */}
+      <header className="app-header">
+        <h1 className="app-header__title">
+          AutoPosts.<text>ai</text>
+        </h1>
+      </header>
+      <GenPost />
     </div>
   );
 }

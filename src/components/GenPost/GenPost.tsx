@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Copy02Icon, Linkedin02Icon } from '@hugeicons/core-free-icons';
 
 import './GenPost.scss';
 
@@ -28,8 +30,14 @@ const GenPost: React.FC = () => {
     <div className="gen-post">
       {generatedPost && <p className="gen-post__article">{generatedPost}</p>}
       <div className="gen-post__actions">
-        <button className="gen-post__action-btn gen-post__action-btn--copy">Copy</button>
-        <button className="gen-post__action-btn gen-post__action-btn--post">Post</button>
+        <button className="gen-post__action-btn gen-post__action-btn--copy">
+          <HugeiconsIcon  icon={Copy02Icon} />
+          Copy
+        </button>
+        <button className="gen-post__action-btn gen-post__action-btn--post">
+          <HugeiconsIcon icon={Linkedin02Icon} />
+          Post
+        </button>
       </div>
     </div>
   );

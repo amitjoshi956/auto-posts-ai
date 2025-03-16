@@ -32,5 +32,14 @@
 
     &__action-btn {
         border: 1px solid white;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        column-gap: 10px;
+        font-weight: 700;
+
+        &--post {
+            background-color: #00576a;
+        }
     }
 }

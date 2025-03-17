@@ -1,24 +1,18 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
 
-import * as logger from "firebase-functions/logger";
-import { onSchedule } from "firebase-functions/scheduler";
+import * as admin from 'firebase-admin';
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+const appConfig = {
+  apiKey: process.env.FB_API_KEY,
+  authDomain: process.env.FB_AUTH_DOMAIN,
+  projectId: process.env.FB_PROJECT_ID,
+  storageBucket: process.env.FB_STORAGE_BUCKET,
+  messagingSenderId: process.env.FB_MESSAGING_SENDER_ID,
+  appId: process.env.FB_APP_ID,
+};
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+const app = admin.initializeApp(appConfig);
+export const db = admin.firestore(app);
 
-export const scheduledFunction = onSchedule("02 15 * * 3", () => {
-  logger.info("Preparing new article!");
-  
-});
+export function getApiKey(): string {
+  return process.env.GEM_API_KEY || '';
+}

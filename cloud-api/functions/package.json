@@ -1,5 +1,5 @@
 {
-  "name": "functions",
+  "name": "auto-post-ai.api",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "build": "tsc",

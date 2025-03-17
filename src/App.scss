@@ -19,6 +19,9 @@
   background-color: #141414;
   width: 100%;
   padding: 0 20px;
+  display: flex;
+  justify-content: baseline;
+  align-items: flex-end;
 
   &__title {
     padding: 0;
@@ -27,5 +30,10 @@
     text {
       color: darkcyan;
     }
+  }
+
+  &__title-icon {
+    fill: darkcyan;
+    margin-right: 8px;
   }
 }

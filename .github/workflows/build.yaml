@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install UI dependencies
         run: npm install
@@ -27,10 +27,10 @@ jobs:
       - name: Deploy UI App
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-            repoToken: ${{ secrets.GITHUB_TOKEN }}
-            firebaseServiceAccount: ${{ secrets.FB_SVC_AC_AUTO_POSTS }}
-            channelId: live
-            projectId: ${{ secrets.FB_PROJECT_ID}}
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FB_SVC_AC_AUTO_POSTS }}
+          channelId: live
+          projectId: ${{ secrets.FB_PROJECT_ID}}
 
       - name: Install Cloud-Functions dependencies
         run: npm install

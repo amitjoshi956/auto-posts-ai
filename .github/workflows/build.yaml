@@ -18,8 +18,28 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install UI dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build UI Code
         run: npm run build
+
+      - name: Deploy UI App
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+            repoToken: ${{ secrets.GITHUB_TOKEN }}
+            firebaseServiceAccount: ${{ secrets.FB_SVC_AC_AUTO_POSTS }}
+            channelId: live
+            projectId: ${{ secrets.FB_PROJECT_ID}}
+
+      - name: Install Cloud-Functions dependencies
+        run: npm install
+        working-directory: cloud-api/functions
+
+      - name: Build Cloud Functions
+        run: npm run build
+        working-directory: cloud-api/functions
+
+      - name: Deploy Cloud Functions
+        run: npm run deploy
+        working-directory: cloud-api/functions

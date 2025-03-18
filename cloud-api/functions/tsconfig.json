@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "moduleResolution": "nodenext",
     "noImplicitReturns": true,
@@ -16,6 +17,6 @@
       "@jobs/*": ["./src/jobs/*"]
     }
   },
-  "compileOnSave": true,
+  "compileOnSave": true, 
   "include": ["src", "global.d.ts"]
 }

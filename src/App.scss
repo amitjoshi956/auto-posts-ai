@@ -1,14 +1,12 @@
 #root {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 .app {
-  padding: 10px 20px;
-  width: fit-content;
-  height: 100%;
+  padding: 0 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -16,7 +14,7 @@
 }
 
 .app-header {
-  background-color: #141414;
+  background: linear-gradient(to bottom, #000, #111);
   width: 100%;
   padding: 0 20px;
   display: flex;

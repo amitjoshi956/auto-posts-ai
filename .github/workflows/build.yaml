@@ -36,7 +36,7 @@ jobs:
         uses: 'google-github-actions/deploy-cloud-functions@v3'
         timeout-minutes: 10
         with:
-         projectId: ${{ secrets.FB_PROJECT_ID}}
+         project_id: ${{ secrets.FB_PROJECT_ID}}
          name: 'my-function'
          runtime: 'nodejs22'
 

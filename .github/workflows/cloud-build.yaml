@@ -1,0 +1,39 @@
+name: AutoPosts.ai Core CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cloud-api/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: 'cloud-api/functions/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: cloud-api/functions
+        
+      - name: Build functions
+        run: npm run build
+        working-directory: cloud-api/functions
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@v4.0.0
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FB_API_DEPLOY_TOKEN }}
+        working-directory: cloud-api/functions

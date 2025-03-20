@@ -1,4 +1,4 @@
-name: AutoPosts.ai CI
+name: AutoPosts.ai UI CI
 
 on:
   push:
@@ -19,26 +19,10 @@ jobs:
           node-version: 22
 
       - name: Install UI dependencies
-        run: npm install
+        run: npm run ci
 
       - name: Build UI Code
         run: npm run build
-
-      - name: Install Cloud-Functions dependencies
-        run: npm install
-        working-directory: cloud-api/functions
-
-      - name: Build Cloud Functions
-        run: npm run build
-        working-directory: cloud-api/functions
-
-      - name: Deploy Cloud Functions
-        uses: 'google-github-actions/deploy-cloud-functions@v3'
-        timeout-minutes: 10
-        with:
-         project_id: ${{ secrets.FB_PROJECT_ID}}
-         name: 'my-function'
-         runtime: 'nodejs22'
 
       - name: Deploy UI App
         uses: FirebaseExtended/action-hosting-deploy@v0

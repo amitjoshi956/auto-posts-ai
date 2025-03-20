@@ -1,0 +1,26 @@
+.app-header {
+  background: linear-gradient(to bottom, #000, #111);
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__title {
+    padding: 0;
+    margin: 10px 0;
+
+    span {
+      color: darkcyan;
+    }
+  }
+
+  &__title-icon {
+    fill: darkcyan;
+    margin-right: 8px;
+  }
+
+  &__profile-btn {
+    background-color: darkred;
+  }
+}

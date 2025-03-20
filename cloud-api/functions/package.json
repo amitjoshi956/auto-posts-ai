@@ -2,6 +2,7 @@
   "name": "auto-post-ai.api",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
+    "ci": "rm -rf node_modules package-lock.json && npm install",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",

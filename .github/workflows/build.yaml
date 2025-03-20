@@ -1,4 +1,4 @@
-name: AutoPosts.ai UI CI
+name: AutoPosts.ai UI
 
 on:
   push:

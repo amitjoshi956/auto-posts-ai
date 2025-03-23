@@ -7,18 +7,26 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error: AxiosError<unknown, InternalAxiosRequestConfig>) => {
-    console.error('Request Error:', error);
-    return Promise.reject(error);
+    const reqErr = {
+      hasErrors: true,
+      error: error.message,
+    };
+
+    return reqErr;
   }
 );
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
-    return response;
+    return response.data;
   },
   (error: AxiosError) => {
-    console.error('Response Error:', error.response ? error.response.data : error.message);
-    return Promise.reject(error);
+    const resErr = {
+      hasErrors: true,
+      error: error.message,
+    };
+
+    return resErr;
   }
 );
 

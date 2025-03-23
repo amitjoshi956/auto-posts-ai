@@ -3,31 +3,39 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { GoogleIcon } from '@hugeicons/core-free-icons';
 import LoginIllustration from '@assets/illustration-login.svg';
 import LoginForm from './LoginForm';
+import { signupNewUser, loginUser } from '@api/user';
 
 import './Login.scss';
 
 type LoginProps = {
-  onLogin: (email: string, password: string) => void;
-  onSignup: (name: string, email: string, password: string) => void;
-  onGoogleSignIn: () => void;
+  onLoginSignup: (name: string) => void;
 };
 
-const Login: FC<LoginProps> = ({ onLogin, onSignup, onGoogleSignIn }) => {
+const Login: FC<LoginProps> = ({ onLoginSignup }) => {
   const [isNewSignup, setIsNewSignup] = useState<boolean>(false);
 
   const signupPrompt = !isNewSignup ? "Don't have an account?" : 'Already have an account?';
   const signupPromptLink = !isNewSignup ? 'Sign-up' : 'Login';
 
-  const handleSubmit = (email: string, password: string, name?: string) => {
+  const handleSubmit = async (email: string, password: string, name: string = 'Unknown User') => {
     if (isNewSignup) {
-      onSignup(name!, email, password);
-      return;
+      const { hasErrors, userName } = await signupNewUser(email, password, name);
+      if (!hasErrors) {
+        onLoginSignup(userName);
+      }
+    } else {
+      const { hasErrors, userName } = await loginUser(email, password);
+      if (!hasErrors) {
+        onLoginSignup(userName);
+      }
     }
-
-    onLogin(email, password);
   };
 
-  const handleSignup = () => {
+  const handleGoogleSignin = () => {
+    console.log('Google Signin');
+  };
+
+  const switchFormMode = () => {
     setIsNewSignup((prev) => !prev);
   };
 
@@ -40,13 +48,13 @@ const Login: FC<LoginProps> = ({ onLogin, onSignup, onGoogleSignIn }) => {
         <div className="login__user-input-container">
           <LoginForm isSignup={isNewSignup} onSubmit={handleSubmit} />
           <span className="login__choice-separator">OR</span>
-          <button className="login__google-button" onClick={onGoogleSignIn}>
+          <button className="login__google-button" onClick={handleGoogleSignin}>
             <HugeiconsIcon icon={GoogleIcon} />
             Sign in with Google
           </button>
           <p className="login__signup-prompt">
             {signupPrompt}
-            <a className="login__signup-link" onClick={handleSignup}>
+            <a className="login__signup-link" onClick={switchFormMode}>
               {signupPromptLink}
             </a>
           </p>

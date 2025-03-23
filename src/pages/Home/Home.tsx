@@ -1,12 +1,16 @@
+import { FC } from 'react';
 import GenPost from '@components/GenPost';
 
-import './Home.scss'
+import './Home.scss';
 
+type HomeProps = {
+  userName: string;
+};
 
-const Home = () => {
+const Home: FC<HomeProps> = ({ userName }) => {
   return (
     <div className="home">
-      <h1 className='home__welcome-msg'>Welcome back, Amit Joshi</h1>
+      <h1 className="home__welcome-msg">{`Welcome back, ${userName}`}</h1>
       <GenPost />
     </div>
   );

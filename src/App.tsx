@@ -1,31 +1,27 @@
+import { lazy, useState } from 'react';
 import AppHeader from '@components/AppHeader';
-import Home from '@pages/Home';
 import Login from '@pages/Login';
+
+const Home = lazy(() => import('@pages/Home'));
 
 import './App.scss';
 
 function App() {
-  const showHome = false;
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>('');
 
-  const handleLogin = (email: string, password: string) => {
-    console.log('login', email, password);
-  };
-
-  const handleSignup = (name: string, email: string, password: string) => {
-    console.log('signup', name, email, password);
-  };
-
-  const handleGoogleSignIn = () => {
-    console.log('google');
+  const handleLoginSignup = (name: string) => {
+    setIsLoggedIn(true);
+    setUserName(name);
   };
 
   return (
     <div className="app">
-      <AppHeader isLoggedIn={false} />
-      {showHome ? (
-        <Home />
+      <AppHeader isLoggedIn={isLoggedIn} />
+      {isLoggedIn ? (
+        <Home userName={userName} />
       ) : (
-        <Login onLogin={handleLogin} onSignup={handleSignup} onGoogleSignIn={handleGoogleSignIn} />
+        <Login onLoginSignup={handleLoginSignup} />
       )}
     </div>
   );

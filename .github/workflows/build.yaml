@@ -5,14 +5,8 @@ on:
     branches:
       - main
 
-services:
-  web:
-    env:
-      - variable: FB_API_KEY
-        value: ${{ secrets.FB_API_KEY }}
-        availability:
-          - BUILD
-          - RUNTIME
+env:
+  FB_API_KEY: ${{ secrets.FB_API_KEY }}
 
 jobs:
   build:

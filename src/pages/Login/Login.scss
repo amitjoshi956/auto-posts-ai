@@ -8,6 +8,17 @@
   color: white;
   padding: 20px;
   box-sizing: border-box;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 1px;
+    height: 80%;
+    position: absolute;
+    background-color: #1b323288;
+    left: calc(50% + 1px);
+    top: 10%;
+  }
 
   &__branding {
     width: 100%;
@@ -17,35 +28,38 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    border-right: 1px solid #1b323296;
     border-spacing: 0 20px;
 
     &::before {
-      content: 'Auto';
+      content: 'Plan, Schedule, & Post.';
       position: absolute;
-      font-size: 14em;
-      font-weight: 900;
-      color: #7a929255;
-      opacity: 0.1;
-      top: 8%;
-      left: 12%;
-    }
-
-    &::after {
-      content: 'Posts.ai';
-      position: absolute;
-      font-size: 14em;
+      max-width: 7ch;
+      word-wrap: break-word;
+      font-size: 3.2em;
+      line-height: 1.1;
       font-weight: 900;
       color: #7a929288;
       opacity: 0.1;
-      top: 28%;
-      left: 80%;
+      top: 5%;
+      left: 10%;
+    }
+
+    &::after {
+      content: 'Let AI handle it!';
+      position: absolute;
+      font-size: 4em;
+      line-height: 1.1;
+      font-weight: 900;
+      color: #7a929288;
+      opacity: 0.1;
+      bottom: 10%;
+      right: 10%;
     }
   }
 
   &__brand-illustration {
-    width: 75%;
-    height: 75%;
+    width: 70%;
+    height: 70%;
   }
 
   &__user-input {

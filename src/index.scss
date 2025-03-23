@@ -1,3 +1,9 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 :root {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,10 +22,13 @@
 a {
   font-weight: 500;
   color: darkcyan;
+  cursor: pointer;
   text-decoration: inherit;
 }
 a:hover {
   color: darkcyan;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 body {

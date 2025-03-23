@@ -10,8 +10,10 @@ export default defineConfig({
   resolve: {
     alias: {
       "@src": resolvedPath("./src"),
+      "@assets": resolvedPath("./src/assets"),
       "@components": resolvedPath("./src/components"),
       "@api": resolvedPath("./src/api"),
+      "@pages": resolvedPath("./src/pages"),
     },
   },
 });

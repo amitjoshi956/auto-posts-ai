@@ -23,8 +23,10 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@src/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
-      "@api/*": ["./src/api/*"]
+      "@api/*": ["./src/api/*"],
+      "@pages/*": ["./src/pages/*"]
     }
   },
   "include": ["src", "axios.ts"]

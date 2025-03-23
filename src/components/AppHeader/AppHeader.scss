@@ -1,7 +1,8 @@
 .app-header {
-  background: linear-gradient(to bottom, #000, #111);
+  background: linear-gradient(180deg, #000, #111);
   width: 100%;
-  padding: 0 20px;
+  box-sizing: border-box;
+  padding: 8px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;

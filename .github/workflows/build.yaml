@@ -5,6 +5,13 @@ on:
     branches:
       - main
 
+env:
+  - variable: FB_API_KEY
+    value: ${{ secrets.FB_API_KEY }}
+    availability:
+      - BUILD
+      - RUNTIME
+
 jobs:
   build:
     runs-on: ubuntu-latest

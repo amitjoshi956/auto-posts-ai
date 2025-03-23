@@ -1,7 +1,7 @@
 import axios from '@src/../axios';
 
 const isProd = process.env.NODE_ENV === 'production';
-const apiKey = isProd ? process.env.VITE_API_KEY : import.meta.env.VITE_API_KEY;
+const apiKey = isProd ? process.env.FB_API_KEY : import.meta.env.VITE_API_KEY;
 
 type UserRequest = {
   email: string;

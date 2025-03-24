@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import { loginUser, signupUser } from '@routes/auth'
 
 const appConfig = {
   apiKey: process.env.FB_API_KEY,
@@ -9,13 +10,22 @@ const appConfig = {
   appId: process.env.FB_APP_ID,
 };
 
+// Initializations
 const app = admin.initializeApp(appConfig);
 export const db = admin.firestore(app);
 
+
+// API Keys
 export function getGeminiApiKey(): string {
   return process.env.GEM_API_KEY || '';
 }
 
 export function getAPIKey(): string {
   return process.env.FB_API_KEY || '';
+}
+
+// Functions Exports
+export {
+  signupUser,
+  loginUser
 }

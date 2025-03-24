@@ -1,4 +1,3 @@
-
 import * as admin from 'firebase-admin';
 
 const appConfig = {
@@ -13,6 +12,10 @@ const appConfig = {
 const app = admin.initializeApp(appConfig);
 export const db = admin.firestore(app);
 
-export function getApiKey(): string {
+export function getGeminiApiKey(): string {
   return process.env.GEM_API_KEY || '';
+}
+
+export function getAPIKey(): string {
+  return process.env.FB_API_KEY || '';
 }

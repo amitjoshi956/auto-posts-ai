@@ -1,11 +1,10 @@
 import { onSchedule } from 'firebase-functions/scheduler';
 import * as logger from 'firebase-functions/logger';
 import axios from 'axios';
-import { db, getApiKey } from '@src/.';
-
+import { db, getGeminiApiKey } from '@src/.';
 
 export const generatePost = async (prompt: string): Promise<Post> => {
-  const apiKey = getApiKey();
+  const apiKey = getGeminiApiKey();
 
   if (!apiKey) {
     console.error('Error reading API Key!');

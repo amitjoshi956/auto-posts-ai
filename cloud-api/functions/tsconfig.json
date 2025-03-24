@@ -14,9 +14,10 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@routes/*": ["./src/routes/*"],
-      "@jobs/*": ["./src/jobs/*"]
+      "@jobs/*": ["./src/jobs/*"],
+      "@const/*": ["./src/const/*"]
     }
   },
-  "compileOnSave": true, 
+  "compileOnSave": true,
   "include": ["src", "global.d.ts"]
 }

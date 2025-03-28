@@ -20,12 +20,15 @@ jobs:
 
       - name: Install UI dependencies
         run: npm run ci
+        working-directory: auto-posts-ai.ui
 
       - name: Build UI Code
         run: npm run build
+        working-directory: auto-posts-ai.ui
 
       - name: Deploy UI App
         uses: FirebaseExtended/action-hosting-deploy@v0
+        working-directory: auto-posts-ai.ui
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FB_SVC_AC_AUTO_POSTS }}

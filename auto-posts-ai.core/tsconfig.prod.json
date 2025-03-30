@@ -3,5 +3,6 @@
   "references": [{ "path": "./tsconfig.json" }],
   "compilerOptions": {
     "sourceMap": false
-  }
+  },
+  "include": ["src/**/*", "global.d.ts"]
 }

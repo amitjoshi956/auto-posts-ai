@@ -21,7 +21,7 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        run: npm install
+        run: npm run ci
         working-directory: ./auto-posts-ai.core
 
       - name: Run build

@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "npm run build && dotenv -e .env nodemon --watch src build/index.js",
     "start": "nodemon build/index.js",
+    "ci": "rm -rf node_modules package-lock.json && npm install",
     "build": "rm -rf build/ && tsc -p tsconfig.json",
     "build:prod": "rm -rf build/ && tsc -p tsconfig.prod.json",
     "test": "echo \"Error: no test specified\" && exit 1"

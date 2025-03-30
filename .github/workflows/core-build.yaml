@@ -29,14 +29,17 @@ jobs:
         run: npm run build:prod
         working-directory: ./auto-posts-ai.core
 
-      - name: Verify Generated Artifacts
-        run: pwd && ls -a
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
+      - name: Change to APIs Directory
+        run: cd auto-posts-ai.core
+
+      - name: Verify Current Directory
+        run: pwd && ls -a
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:

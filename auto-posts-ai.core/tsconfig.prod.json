@@ -1,8 +1,15 @@
 /* Visit https://aka.ms/tsconfig to read more about this file */
 {
-  "references": [{ "path": "./tsconfig.json" }],
   "compilerOptions": {
-    "sourceMap": false
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "sourceMap": false,
+    "outDir": "build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*", "global.d.ts"]
 }

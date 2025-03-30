@@ -35,10 +35,9 @@ jobs:
 
     steps:
       - name: Deploy to Netlify
-        working-directory: ./auto-posts-ai.core
         uses: nwtgck/actions-netlify@v3.0
         with:
-          publish-dir: './build'
+          publish-dir: 'build'
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'

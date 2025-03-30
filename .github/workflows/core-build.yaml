@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'auto-posts-ai.core/**'
+      - '.github/workflows/core-build.yaml'
 
 jobs:
   build:

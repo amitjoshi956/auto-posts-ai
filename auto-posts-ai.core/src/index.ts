@@ -1,15 +1,18 @@
-import express from "express";
+import express from 'express';
+import { getPort } from './config.js';
+import authRoutes from './routes/auth.js';
+import postRoutes from './routes/post.js';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = getPort();
 
-app.get("/", (req, res) => {
-  res.send("Hello from Express with TypeScript!");
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/', postRoutes);
+app.use('/auth', authRoutes);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-
-export { app }
+export default server;

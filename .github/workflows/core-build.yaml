@@ -1,0 +1,42 @@
+name: AutoPosts.ai Core
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'auto-posts-ai.core/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./auto-posts-ai.core
+
+      - name: Run build
+        run: npm run build:prod
+        working-directory: ./auto-posts-ai.core
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@v3
+        with:
+          args: deploy --dir=./auto-posts-ai.core/build --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

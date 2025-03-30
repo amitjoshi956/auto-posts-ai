@@ -1,12 +1,16 @@
 import axios from 'axios';
-import express from 'express';
-import { GENERIC_ERR_MESSAGE, UNKNOWN_USER } from '@const/index.js';
-import { AuthRequest, AuthResponse, GenericAPIRequest, GenericAPIResponse } from '../../global.js';
+import { Request, Response, Router } from 'express';
+import { GENERIC_ERR_MESSAGE, UNKNOWN_USER } from '../const/index.js';
+import { getAPIKey } from '../config.js';
+import { AuthRequest, AuthResponse, GenericAPIResponse } from '../../global.js';
 
-const router = express.Router();
-const apiKey = process.env.API_KEY;
+const router = Router();
+const apiKey = getAPIKey;
 
-export const signupUser = async (req: any, res: any) => {
+export const signupUser = async (req: Request, res: Response) => {
+  res.status(202).send('signup');
+  return; // TODO: remove this line
+
   const { email, password, fullName } = req.body;
   const {
     hasErrors = false,
@@ -36,7 +40,10 @@ export const signupUser = async (req: any, res: any) => {
   }
 };
 
-export const loginUser = async (req: any, res: any) => {
+export const loginUser = async (req: Request, res: Response) => {
+  res.json({ message: 'login' });
+
+  return;
   const { email, password } = req.body;
   const {
     hasErrors = false,
@@ -74,3 +81,5 @@ export const loginUser = async (req: any, res: any) => {
 
 router.post('/login', loginUser);
 router.post('/signup', signupUser);
+
+export default router;

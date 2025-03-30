@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'auto-posts-ai.ui/**'
 
 jobs:
   build:

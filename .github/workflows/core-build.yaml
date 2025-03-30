@@ -34,11 +34,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Change to APIs Directory
-        run: cd auto-posts-ai.core
-
       - name: Verify Current Directory
         run: pwd && ls -a
+
+      - name: Change to APIs Directory
+        run: cd auto-posts-ai.core
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0

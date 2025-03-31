@@ -1,5 +1,5 @@
 [functions]
-  directory = "src"
+  directory = "build"
 [[redirects]]
   force = true
   from = "/api/*"

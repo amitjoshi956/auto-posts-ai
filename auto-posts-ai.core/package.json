@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "APIs for the AutoPosts apps",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "dev": "npm run build && dotenv -e .env nodemon --watch src build/index.js",
+    "dev": "NODE_OPTIONS=--loader=ts-node/esm dotenv -e .env nodemon --watch src src/index.ts",
     "start": "nodemon build/index.js",
     "ci": "rm -rf node_modules package-lock.json && npm install",
-    "build": "rm -rf build/ && tsc -p tsconfig.json",
-    "build:prod": "rm -rf build/ && tsc -p tsconfig.prod.json",
+    "build": "rm -rf build/ && node esbuild.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -27,6 +25,7 @@
     "@types/express": "^5.0.1",
     "@types/node": "^22.13.14",
     "dotenv-cli": "^8.0.0",
+    "esbuild": "^0.25.5",
     "nodemon": "^3.1.9",
     "typescript": "^5.8.2"
   },

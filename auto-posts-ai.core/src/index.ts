@@ -1,7 +1,7 @@
 import express from 'express';
 
-import authRoutes from './routes/auth.js';
-import postRoutes from './routes/post.js';
+import authRoutes from '@routes/auth.js';
+import postRoutes from '@routes/post.js';
 
 const app = express();
 
@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', postRoutes);
 app.use('/auth', authRoutes);
 
-app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}'`);
 });

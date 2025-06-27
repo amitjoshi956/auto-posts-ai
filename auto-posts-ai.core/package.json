@@ -31,9 +31,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@netlify/functions": "^3.0.4",
     "axios": "^1.8.4",
-    "express": "^4.21.2",
-    "serverless-http": "^3.2.0"
+    "express": "^4.21.2"
   }
 }

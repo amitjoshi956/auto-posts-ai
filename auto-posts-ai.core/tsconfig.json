@@ -14,7 +14,8 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@routes/*": ["./src/routes/*"],
-      "@const/*": ["./src/const/*"]
+      "@const/*": ["./src/const/*"],
+      "@bootup/*": ["./src/bootup/*"],
     }
   },
   "include": ["src/**/*", "global.d.ts"]

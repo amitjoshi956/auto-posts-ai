@@ -1,7 +1,7 @@
 import express from 'express';
-
 import authRoutes from '@routes/auth.js';
 import postRoutes from '@routes/post.js';
+import '@bootup/index.js';
 
 const app = express();
 
@@ -12,5 +12,5 @@ app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}'`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

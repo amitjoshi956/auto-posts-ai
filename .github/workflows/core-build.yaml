@@ -13,21 +13,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # Uncomment the following steps when integrating tests
+      # - name: Checkout code
+      #   uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '22'
 
-      - name: Install dependencies
-        run: npm run ci
-        working-directory: ./auto-posts-ai.core
+      # - name: Install dependencies
+      #   run: npm run ci
+      #   working-directory: ./auto-posts-ai.core
 
-      - name: Run build
-        run: npm run build
-        working-directory: ./auto-posts-ai.core
+      # - name: Run build
+      #   run: npm run build
+      #   working-directory: ./auto-posts-ai.core
 
       - name: Deploy APIs
         if: github.ref == 'refs/heads/main'

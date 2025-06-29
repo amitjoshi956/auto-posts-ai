@@ -1,17 +1,18 @@
 import 'dotenv/config';
+import express, { Express } from 'express';
 import { connectDB } from './db';
+import { setupRoutes } from './routing.js';
 
-export async function bootup() {
+export async function bootup(app: Express) {
   // Connect to the database
   await connectDB();
 
-  console.log('Bootup completed successfully.');
-}
+  // Setup midldlewares
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
-// If this file is run directly, execute bootup
-if (require.main === module) {
-  bootup().catch((err) => {
-    console.error('Bootup failed:', err);
-    process.exit(1);
-  });
+  // setup routes
+  setupRoutes(app);
+
+  console.log('Application bootup successful.');
 }

@@ -16,6 +16,7 @@
       "@routes/*": ["./src/routes/*"],
       "@const/*": ["./src/const/*"],
       "@bootup/*": ["./src/bootup/*"],
+      "@model/*": ["./src/model/*"]
     }
   },
   "include": ["src/**/*", "global.d.ts"]

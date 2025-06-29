@@ -11,4 +11,5 @@ build({
   external: ['express'], // don't bundle node_modules
   tsconfig: './tsconfig.json',
   format: 'cjs',
+  minify: true,
 }).catch(() => process.exit(1));

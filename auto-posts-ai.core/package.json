@@ -4,7 +4,6 @@
   "description": "APIs for the AutoPosts apps",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_OPTIONS=--loader=ts-node/esm dotenv -e .env nodemon --watch src src/index.ts",
     "start": "nodemon build/index.js",
     "ci": "rm -rf node_modules package-lock.json && npm install",
     "build": "rm -rf build/ && node esbuild.config.js",

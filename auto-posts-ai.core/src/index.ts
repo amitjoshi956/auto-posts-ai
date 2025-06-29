@@ -1,16 +1,16 @@
 import express from 'express';
-import authRoutes from '@routes/auth.js';
-import postRoutes from '@routes/post.js';
-import '@bootup/index.js';
+import { bootup } from '@bootup/index.js';
 
 const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/', postRoutes);
-app.use('/auth', authRoutes);
-
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+
+const startup = async () => {
+  await bootup(app);
+
+  app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+};
+
+startup().catch((error) => {
+  console.error('Error starting the app: ', error);
+  process.exit(1);
 });

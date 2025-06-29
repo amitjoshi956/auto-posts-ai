@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const DB_URI = process.env.DB_CONNECT || '';
+const DB_NAME = process.env.DB_NAME || '';
 
 export const connectDB = async () => {
   if (!DB_URI) {
@@ -11,6 +12,7 @@ export const connectDB = async () => {
   try {
     await mongoose.connect(DB_URI, {
       serverApi: { version: '1', strict: true, deprecationErrors: true },
+      dbName: DB_NAME,
     });
     console.log('Connection to DB established successfully');
   } catch (error) {

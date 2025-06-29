@@ -29,9 +29,9 @@ jobs:
         run: npm run build
         working-directory: ./auto-posts-ai.core
 
-      # - name: Deploy
-      #   if: github.ref == 'refs/heads/main'
-      #   env:
-      #     deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-      #   run: |
-      #     curl "$deploy_url"
+      - name: Deploy APIs
+        if: github.ref == 'refs/heads/main'
+        env:
+          deploy_url: ${{ secrets.ONRENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"

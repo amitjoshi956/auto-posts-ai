@@ -100,7 +100,7 @@
     justify-content: center;
     align-items: center;
 
-    &::before{
+    &::before {
       content: '';
       background-color: #77777785;
       border-radius: 1px 0 0 1px;
@@ -109,7 +109,7 @@
       position: absolute;
       left: 0;
     }
-    
+
     &::after {
       content: '';
       background-color: #77777785;
@@ -121,10 +121,10 @@
     }
   }
 
-  &__google-button {
+  &__linkedin-button {
     width: 300px;
     padding: 10px;
-    background-color: #4285f4;
+    background-color: #1c7294;
     color: white;
     border: none;
     border-radius: 4px;
@@ -136,7 +136,7 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #2c60b0;
+      background-color: #12516a;
     }
   }
 
@@ -147,7 +147,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  
+
   &__signup-link {
     font-size: 18px;
     font-weight: 700;

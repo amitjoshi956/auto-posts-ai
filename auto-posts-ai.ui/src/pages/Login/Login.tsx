@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { GoogleIcon } from '@hugeicons/core-free-icons';
+import { Linkedin02Icon } from '@hugeicons/core-free-icons';
 import LoginIllustration from '@assets/illustration-login.svg';
 import LoginForm from './LoginForm';
 import { signupNewUser, loginUser } from '@api/user';
@@ -49,8 +49,8 @@ const Login: FC<LoginProps> = ({ onLoginSignup }) => {
           <LoginForm isSignup={isNewSignup} onSubmit={handleSubmit} />
           <span className="login__choice-separator">OR</span>
           <button className="login__google-button" onClick={handleGoogleSignin}>
-            <HugeiconsIcon icon={GoogleIcon} />
-            Sign in with Google
+            <HugeiconsIcon icon={Linkedin02Icon} />
+            Sign in with Linkedin
           </button>
           <p className="login__signup-prompt">
             {signupPrompt}

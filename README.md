@@ -1,54 +1,39 @@
 # AutoPosts.ai App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered application that helps create and manage Linkedin content automatically.
 
-Currently, two official plugins are available:
+### Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Automated content generation
+- Linkedin scheduling
+- Analytics dashboard
+- AI-driven content optimization
 
-## Expanding the ESLint configuration
+### Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start development server: `npm run dev`
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# Contributing
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+We welcome contributions to improve this project! Here's how you can contribute:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Raising Pull Requests
+
+1.  Clone the repository.
+2.  Create a new branch from the `main` branch for your feature or bug fix.
+3.  Make your changes and ensure they follow the project's coding standards.
+4.  Write clear and concise commit messages.
+5.  Test your changes thoroughly.
+6.  Submit a pull request to the `main` branch.
+7.  Add screenshots of local builds and UI changes.
+
+### Contribution Guidelines
+
+- Follow the existing code style.
+- Write tests for new features and bug fixes.
+- Keep pull requests focused on a single issue.
+- Provide a clear description of your changes in the pull request.

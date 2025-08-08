@@ -1,4 +1,4 @@
-import { DEFAULT_PORT } from './const/index.js';
+import { DEFAULT_PORT } from '@base/const';
 
 export const getAPIKey = () => process.env.API_KEY || '';
 

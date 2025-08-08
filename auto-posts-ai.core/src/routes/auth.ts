@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { AuthRequest, AuthResponse, Req, Res } from '../../global.js';
+import { AuthRequest, AuthResponse, Req, Res } from '@base/types';
 
 const router = Router();
 

@@ -14,10 +14,10 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@routes/*": ["./src/routes/*"],
-      "@const/*": ["./src/const/*"],
+      "@base/*": ["./src/base/*"],
       "@bootup/*": ["./src/bootup/*"],
       "@model/*": ["./src/model/*"]
     }
   },
-  "include": ["src/**/*", "global.d.ts"]
+  "include": ["src/**/*"]
 }

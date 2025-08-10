@@ -12,11 +12,11 @@
     "skipLibCheck": true,
 
     "paths": {
-      "@src/*": ["./src/*"],
       "@routes/*": ["./src/routes/*"],
       "@base/*": ["./src/base/*"],
       "@bootup/*": ["./src/bootup/*"],
-      "@model/*": ["./src/model/*"]
+      "@model/*": ["./src/model/*"],
+      "@middleware/*": ["./src/middleware/*"]
     }
   },
   "include": ["src/**/*"]

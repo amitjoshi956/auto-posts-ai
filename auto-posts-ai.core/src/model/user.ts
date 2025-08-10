@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import mongoose, { Schema } from 'mongoose';
 import { User } from '@base/types';
-import { EMAIL_REGEX, PASSWORD_REGEX, ErrorMessages } from '@base/const';
+import { EMAIL_REGEX, PASSWORD_REGEX, ErrorMessages, UserRole } from '@base/const';
 
 const UserSchema: Schema = new Schema({
   fullName: {
@@ -33,6 +33,10 @@ const UserSchema: Schema = new Schema({
       },
       message: ErrorMessages.INVALID_PASSWORD,
     },
+  },
+  permissions: {
+    type: [String],
+    default: UserRole.GUEST_USER,
   },
 });
 

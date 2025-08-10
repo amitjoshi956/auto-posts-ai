@@ -1,17 +1,12 @@
-export const BasePermissions = {
-  READ: 'user.read',
-  CREATE: 'user.create',
-  UPDATE: 'user.update',
-  SUPER: 'user.super',
-};
+import { BasePermission } from '@base/enums/user';
 
 export const UserRole = {
-  GUEST_USER: [BasePermissions.READ],
-  USER: [BasePermissions.READ, BasePermissions.CREATE, BasePermissions.UPDATE],
+  GUEST_USER: [BasePermission.READ],
+  USER: [BasePermission.READ, BasePermission.CREATE, BasePermission.UPDATE],
   SUPER_USER: [
-    BasePermissions.SUPER,
-    BasePermissions.READ,
-    BasePermissions.UPDATE,
-    BasePermissions.CREATE,
+    BasePermission.SUPER,
+    BasePermission.READ,
+    BasePermission.UPDATE,
+    BasePermission.CREATE,
   ],
 };

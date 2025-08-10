@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { AuthRequest, AuthResponse, ProfileReq, Req, Res } from '@base/types';
 import { ErrorMessages, UserRole, ReqHeaders } from '@base/const';
 import User from '@model/user';
@@ -11,18 +11,20 @@ export const userProfile = async (
   req: ProfileReq<AuthRequest>,
   res: Res<AuthResponse>
 ): Promise<void> => {
-  const user = req.user;
+  const { _id = '' } = req.user || {};
 
+  const user = await User.findById(_id).select('-password -__v');
   if (!user) {
-    res.status(403).json({ hasErrors: true, error: ErrorMessages.UNAUTHORIZED });
+    res.status(404).json({ hasErrors: true, error: ErrorMessages.USER_NOT_FOUND });
     return;
   }
 
+  const { email = '', fullName = '', permissions = [] } = user;
   res.status(200).json({
     data: {
-      email: user.email,
-      fullName: user.fullName || '',
-      permissions: user.permissions || [],
+      email: email,
+      fullName: fullName,
+      permissions: permissions,
     },
   });
 };
@@ -60,5 +62,7 @@ const registerNewUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>): P
     });
 };
 
-router.get('/profile', auth, userProfile);
+router.get('/me', auth, userProfile);
 router.post('/signup', registerNewUser);
+
+export default router;

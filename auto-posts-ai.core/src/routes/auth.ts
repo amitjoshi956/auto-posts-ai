@@ -1,17 +1,41 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import bcrypt from 'bcrypt';
 import { AuthRequest, AuthResponse, Req, Res } from '@base/types';
+import { ErrorMessages, ReqHeaders } from '@base/const';
+import User from '@model/user';
 
 const router = Router();
 
-export const signupUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>) => {
-  const { email, password, fullName = '' } = req.body;
-};
+export const loginUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>): Promise<void> => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
-export const loginUser = async (req: Request, res: Response) => {
-  res.json({ message: 'login' });
+  if (!user || user.password !== password) {
+    res.status(401).json({ hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS });
+    return;
+  }
+
+  const isValidPassword = await bcrypt.compare(password, user.password);
+  if (!isValidPassword) {
+    res.status(400).json({ hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS });
+    return;
+  }
+
+  // Generate JWT token
+  const token = user.generateAuthToken?.() || '';
+  const { fullName, permissions = [] } = user;
+
+  res
+    .status(200)
+    .setHeader(ReqHeaders.AUTH_TOKEN, token)
+    .json({
+      data: {
+        fullName: fullName,
+        permissions: permissions || [],
+      },
+    });
 };
 
 router.post('/login', loginUser);
-router.post('/signup', signupUser);
 
 export default router;

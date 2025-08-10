@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { User } from './user';
 
 export * from './user';
+export * from './posts';
 
 export type GenericAPIResponse<D> = {
   hasErrors?: boolean;

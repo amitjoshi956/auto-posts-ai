@@ -1,9 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
-
-export interface Post extends Document {
-  title: string;
-  article: string;
-}
+import { Schema, model } from 'mongoose';
+import { Post } from '@base/types';
 
 const PostSchema = new Schema<Post>(
   {

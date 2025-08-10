@@ -1,5 +1,3 @@
-import { DEFAULT_PORT } from '@base/const';
-
 export const getAPIKey = () => process.env.API_KEY || '';
 
-export const getPort = () => process.env.PORT || DEFAULT_PORT;
+export const getPort = () => process.env.PORT || '';

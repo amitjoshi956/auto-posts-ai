@@ -1,11 +1,13 @@
 import { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { Request, Response } from 'express';
+import { User } from './user';
+
+export * from './user';
 
 export type GenericAPIResponse<D> = {
   hasErrors?: boolean;
   error?: string;
-  status: number;
-  data: D;
+  data?: D;
 };
 
 export type GenericAPIRequest<B> = {
@@ -21,18 +23,16 @@ export type AuthRequest = {
 };
 
 export type AuthResponse = {
-  idToken: string;
-  email: string;
-  displayName?: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
+  email?: string;
+  fullName?: string;
+  permissions?: string[];
 };
 
-export type QParams = {
-  [key: string]: string;
-};
+export type QParams = Record<string, string | string[]>;
 
 export type Req<ReqB, ResB = any> = Request<QParams, ResB, ReqB>;
 export type Res<ResB = unknown> = Response<GenericAPIResponse<ResB>>;
+
+export type ProfileReq<ReqB = AuthRequest, ResB = any> = Request<ReqB, ResB> & {
+  user?: User;
+};

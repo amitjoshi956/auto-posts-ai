@@ -31,9 +31,7 @@ export type AuthResponse = {
 
 export type QParams = Record<string, string | string[]>;
 
-export type Req<ReqB, ResB = any> = Request<QParams, ResB, ReqB>;
-export type Res<ResB = unknown> = Response<GenericAPIResponse<ResB>>;
-
-export type ProfileReq<ReqB = AuthRequest, ResB = any> = Request<ReqB, ResB> & {
+export type Req<ReqB, ResB = any> = Request<QParams, ResB, ReqB> & {
   user?: User;
 };
+export type Res<ResB = unknown> = Response<GenericAPIResponse<ResB>>;

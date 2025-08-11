@@ -1,4 +1,5 @@
 export * from './user';
+export * from './posts';
 
 export const ErrorMessages = {
   INVALID_EMAIL: 'Invalid email format',

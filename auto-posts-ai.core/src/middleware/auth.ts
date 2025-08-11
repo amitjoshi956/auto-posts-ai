@@ -1,6 +1,6 @@
 import { NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { Req, AuthRequest, Res, AuthResponse, ProfileReq, User } from '@base/types';
+import { Req, Res, AuthResponse, User } from '@base/types';
 import { ErrorMessages, ReqHeaders } from '@base/const';
 
 const getUserFromToken = (token: string): User | null => {
@@ -13,7 +13,7 @@ const getUserFromToken = (token: string): User | null => {
   }
 };
 
-export const auth = (req: Req<AuthRequest>, res: Res<AuthResponse>, next: NextFunction): void => {
+export const auth = (req: Req<unknown>, res: Res<AuthResponse>, next: NextFunction): void => {
   const token = req.header(ReqHeaders.AUTH_TOKEN);
 
   if (!token) {
@@ -27,6 +27,6 @@ export const auth = (req: Req<AuthRequest>, res: Res<AuthResponse>, next: NextFu
     return;
   }
 
-  (req as ProfileReq).user = user;
+  req.user = user;
   next();
 };

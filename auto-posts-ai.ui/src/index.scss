@@ -1,4 +1,5 @@
 @use '@assets/scss/colors' as color;
+@use '@assets/scss/typography' as typ;
 
 * {
   box-sizing: border-box;
@@ -7,7 +8,7 @@
 }
 
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: typ.$font-primary;
   line-height: 1.5;
   font-weight: 400;
 

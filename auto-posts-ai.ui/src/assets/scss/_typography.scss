@@ -1,0 +1,34 @@
+@use './mixins' as mixin;
+
+/****************************
+*********** FONTS ***********
+*****************************/
+
+$font-primary: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+$font-size--xs: mixin.toRem(11px);
+$font-size--sm: mixin.toRem(12px);
+$font-size--base: mixin.toRem(14px);
+$font-size--md: mixin.toRem(16px);
+$font-size--lg: mixin.toRem(18px);
+
+$font-size--h1: mixin.toRem(48px);
+$font-size--h2: mixin.toRem(42px);
+$font-size--h3: mixin.toRem(36px);
+$font-size--h4: mixin.toRem(30px);
+$font-size--h5: mixin.toRem(24px);
+$font-size--h6: mixin.toRem(20px);
+
+$font-size--app-title: mixin.toRem(32px);
+$font-size--btn: mixin.toRem(16px);
+$font-size--label: mixin.toRem(14px);
+$font-size--tags: mixin.toRem(10px);
+
+$font-weight--light: 200;
+$font-weight--regular: 400;
+$font-weight--medium: 500;
+$font-weight--bold: 700;
+$font-weight--black: 900;
+
+$line-height--normal: normal;
+$line-height--default: 1.15;

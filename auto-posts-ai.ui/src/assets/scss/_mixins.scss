@@ -1,0 +1,97 @@
+@use 'sass:color';
+
+/************************
+****** CONVERSIONS ******
+*************************/
+
+@function toRem($px) {
+  @return calc($px/14px) * 1rem;
+}
+
+/************************
+****** DIMENSIONS ******
+*************************/
+
+@mixin icon-dimensions($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+/************************
+******* OUTLINES ********
+*************************/
+
+@mixin outline-style($width, $color, $offset) {
+  outline: $width solid $color;
+  outline-offset: $offset;
+}
+
+/*************************
+********** FONTS *********
+**************************/
+
+@mixin font-style(
+  $family,
+  $size,
+  $color,
+  $weight: typ.$font-weight--regular,
+  $line-height: typ.$line-height--normal
+) {
+  font-family: $family;
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  line-height: $line-height;
+}
+
+@mixin text-overflow-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/*************************
+********* FLEXBOX ********
+**************************/
+
+@mixin flex($main-axis, $cross-axis, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $main-axis;
+  align-items: $cross-axis;
+}
+
+/*************************
+******* SCROLLBAR ********
+**************************/
+
+@mixin scrollbar($width, $height, $trackColor, $thumbColor) {
+  &::-webkit-scrollbar {
+    width: toRem($width);
+    height: toRem($height);
+    cursor: pointer !important;
+  }
+  &::-webkit-scrollbar-track {
+    background: $trackColor;
+  }
+  &::-webkit-scrollbar-thumb {
+    height: toRem(4px);
+    border-radius: toRem(8px);
+    background: $thumbColor;
+    cursor: pointer !important;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer !important;
+  }
+  &::-webkit-scrollbar:hover {
+    cursor: pointer !important;
+  }
+}
+
+/*************************
+********* COLORS *********
+**************************/
+
+@function hexa($hexColor, $alpha) {
+  @return rgba(color.red($hexColor), color.green($hexColor), color.blue($hexColor), $alpha);
+}

@@ -1,5 +1,7 @@
+@use '@assets/scss/colors' as color;
+
 .app-header {
-  background: linear-gradient(180deg, #000, #111);
+  background: linear-gradient(180deg, color.$black-100, color.$gray-100);
   width: 100%;
   box-sizing: border-box;
   padding: 8px 20px;
@@ -12,16 +14,16 @@
     margin: 10px 0;
 
     span {
-      color: darkcyan;
+      color: color.$cyan-500;
     }
   }
 
   &__title-icon {
-    fill: darkcyan;
+    fill: color.$cyan-500;
     margin-right: 8px;
   }
 
   &__profile-btn {
-    background-color: darkred;
+    background-color: color.$red-100;
   }
 }

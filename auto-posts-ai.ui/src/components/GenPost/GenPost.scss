@@ -1,3 +1,5 @@
+@use '@assets/scss/colors' as color;
+
 .gen-post {
   width: 100%;
   height: auto;
@@ -18,11 +20,10 @@
     height: 100%;
     box-sizing: border-box;
     border-radius: 8px;
-    border: 1px solid darkcyan;
-    background: linear-gradient(150deg, #181818 60%, #008b8b66);
+    border: 1px solid color.$cyan-500;
+    background: linear-gradient(150deg, color.$gray-200 60%, color.$cyan-200--op-40);
   }
-  
-  
+
   &__article-actions {
     width: 100%;
     max-width: 100%;
@@ -37,14 +38,14 @@
     font-size: 14px;
     box-sizing: border-box;
     border-radius: 0 8px 0 8px;
-    border: 1px solid darkcyan;
+    border: 1px solid color.$cyan-500;
     transform: translateY(-1px);
     display: flex;
     justify-content: space-between;
     align-items: center;
     column-gap: 8px;
   }
-  
+
   &__article {
     max-width: 100%;
     max-height: 100%;
@@ -65,7 +66,7 @@
   }
 
   &__action-btn {
-    border: 1px solid white;
+    border: 1px solid color.$white-100;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -73,7 +74,7 @@
     font-weight: 700;
 
     &--post {
-      background: linear-gradient(135deg, #387e7e, #00576a);
+      background: linear-gradient(135deg, color.$cyan-300, color.$cyan-400);
     }
   }
 }

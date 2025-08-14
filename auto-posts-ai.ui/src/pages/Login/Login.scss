@@ -1,11 +1,13 @@
+@use '@assets/scss/colors' as color;
+
 .login {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #111;
-  color: white;
+  background-color: color.$gray-100;
+  color: color.$white-100;
   padding: 20px;
   box-sizing: border-box;
   position: relative;
@@ -15,7 +17,7 @@
     width: 1px;
     height: 80%;
     position: absolute;
-    background-color: #1b323288;
+    background-color: color.$gray-400--op-53;
     left: calc(50% + 1px);
     top: 10%;
   }
@@ -38,7 +40,7 @@
       font-size: 3.2em;
       line-height: 1.1;
       font-weight: 900;
-      color: #7a929288;
+      color: color.$cyan-200--op-40;
       opacity: 0.1;
       top: 5%;
       left: 10%;
@@ -50,7 +52,7 @@
       font-size: 4em;
       line-height: 1.1;
       font-weight: 900;
-      color: #7a929288;
+      color: color.$cyan-200--op-40;
       opacity: 0.1;
       bottom: 10%;
       right: 10%;
@@ -85,7 +87,7 @@
   &__form-container {
     width: 100%;
     padding: 40px;
-    border: 2px solid darkcyan;
+    border: 2px solid color.$cyan-500;
     border-radius: 8px;
     margin-bottom: 20px;
     box-sizing: border-box;
@@ -102,7 +104,7 @@
 
     &::before {
       content: '';
-      background-color: #77777785;
+      background-color: color.$gray-600--op-52;
       border-radius: 1px 0 0 1px;
       width: 40%;
       height: 1px;
@@ -112,7 +114,7 @@
 
     &::after {
       content: '';
-      background-color: #77777785;
+      background-color: color.$gray-600--op-52;
       border-radius: 0 1px 1px 0;
       width: 40%;
       height: 1px;
@@ -124,8 +126,8 @@
   &__linkedin-button {
     width: 300px;
     padding: 10px;
-    background-color: #1c7294;
-    color: white;
+    background-color: color.$blue-100;
+    color: color.$white-100;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -136,7 +138,7 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #12516a;
+      background-color: color.$blue-200;
     }
   }
 

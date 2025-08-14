@@ -1,3 +1,5 @@
+@use '@assets/scss/colors' as color;
+
 .user-input {
   flex: 1 0 auto;
   width: 80%;
@@ -12,7 +14,7 @@
   }
 
   &__required-indicator {
-    color: crimson;
+    color: color.$red-200;
     margin: 2px;
     font-size: 12px;
   }
@@ -20,16 +22,16 @@
   &__field {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid darkcyan;
+    border: 1px solid color.$cyan-500;
     border-radius: 4px;
-    background-color: #111;
+    background-color: color.$gray-100;
     font-size: 14px;
-    color: white;
+    color: color.$white-100;
     box-sizing: border-box;
 
     &:focus {
       outline: none;
-      border-color: white;
+      border-color: color.$white-100;
     }
   }
 }

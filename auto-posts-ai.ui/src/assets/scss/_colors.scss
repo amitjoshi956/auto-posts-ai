@@ -9,19 +9,20 @@ $gray-600--op-52: #77777785;
 
 // Whites & Neutrals
 $white-100: #ffffff;
+$white-100--op-87: rgba(255, 255, 255, 0.87);
 $white-200: #f9f9f9;
 
 // Blues & Cyans
+$cyan-100: #00ffff;
 $cyan-100--op-70: #00ffffb3;
 $cyan-200--op-40: #008b8b66;
 $cyan-300: #387e7e;
 $cyan-400: #00576a;
-$cyan-500: #006060;
+$cyan-500: #008b8b;
 $blue-100: #1c7294;
 $blue-200: #12516a;
 
 // Reds
+$red-100: #8b0000;
 $red-100--op-20: rgba(220, 0, 0, 0.2);
-
-// Opacity/Alpha colors
-$white-100--op-87: rgba(255, 255, 255, 0.87);
+$red-200: #dc143c;

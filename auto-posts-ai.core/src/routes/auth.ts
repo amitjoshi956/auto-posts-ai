@@ -15,7 +15,9 @@ export const loginUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>): 
     return;
   }
 
-  const isValidPassword = await bcrypt.compare(password, user.password);
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const isValidPassword = await bcrypt.compare(hashedPassword, user.password);
   if (!isValidPassword) {
     res.status(400).json({ hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS });
     return;

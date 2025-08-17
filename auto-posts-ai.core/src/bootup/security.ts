@@ -16,6 +16,7 @@ export const setupSecurity = (app: Express) => {
     res.header(Header.Access_Control_Allow_Origin, getAllowedOrigins());
     res.header(Header.Access_Control_Allow_Methods, 'GET, POST, PUT, DELETE, OPTIONS');
     res.header(Header.Access_Control_Allow_Headers, 'Content-Type, X-Auth-Token');
+    res.header(Header.Access_Control_Allow_Credentials, 'true');
 
     next();
   });

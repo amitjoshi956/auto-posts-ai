@@ -6,5 +6,6 @@
   "X_XSS_Protection": "X-XSS-Protection",
   "Access_Control_Allow_Origin": "Access-Control-Allow-Origin",
   "Access_Control_Allow_Methods": "Access-Control-Allow-Methods",
-  "Access_Control_Allow_Headers": "Access-Control-Allow-Headers"
+  "Access_Control_Allow_Headers": "Access-Control-Allow-Headers",
+  "Access_Control_Allow_Credentials": "Access-Control-Allow-Credentials"
 }

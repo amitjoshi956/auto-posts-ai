@@ -1,7 +1,8 @@
 import { NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { Req, Res, AuthResponse, User } from '@base/types';
-import { ErrorMessages, ReqHeaders } from '@base/const';
+import { ErrorMessages } from '@base/const';
+import * as Headers from '@base/config/headers.json';
 
 const getUserFromToken = (token: string): User | null => {
   const JwtSecret = process.env.JWT_SECRET || '';
@@ -14,7 +15,7 @@ const getUserFromToken = (token: string): User | null => {
 };
 
 export const auth = (req: Req<unknown>, res: Res<AuthResponse>, next: NextFunction): void => {
-  const token = req.header(ReqHeaders.AUTH_TOKEN);
+  const token = req.header(Headers.Auth_Token);
 
   if (!token) {
     res.status(401).json({ hasErrors: true, error: ErrorMessages.NO_AUTH_TOKEN });

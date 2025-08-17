@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import { AuthRequest, AuthResponse, Req, Res } from '@base/types';
-import { ErrorMessages, UserRole, ReqHeaders } from '@base/const';
+import { ErrorMessages, UserRole } from '@base/const';
+import * as Headers from '@base/config/headers.json';
 import User from '@model/user';
 import { auth } from '@middleware/auth';
 
@@ -49,7 +50,7 @@ const registerNewUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>): P
   const token = newUser.generateAuthToken?.() || '';
   res
     .status(201)
-    .setHeader(ReqHeaders.AUTH_TOKEN, token)
+    .setHeader(Headers.Auth_Token, token)
     .json({
       data: {
         email: newUser.email,

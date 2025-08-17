@@ -7,7 +7,8 @@
     "start": "nodemon build/index.js",
     "ci": "rm -rf node_modules package-lock.json && npm install && npm run build",
     "build": "rm -rf build/ && node esbuild.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "npm run build && nodemon --inspect build/index.js"
   },
   "engines": {
     "node": "22"

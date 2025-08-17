@@ -5,4 +5,6 @@ export const setupRoutes = (app: Express) => {
   app.use('/', postRoutes);
   app.use('/auth', authRoutes);
   app.use('/user', userRoutes);
+
+  console.log('✅ Routes setup complete');
 };

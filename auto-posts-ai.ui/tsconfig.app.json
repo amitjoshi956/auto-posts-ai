@@ -26,8 +26,9 @@
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
       "@api/*": ["./src/api/*"],
-      "@pages/*": ["./src/pages/*"]
+      "@pages/*": ["./src/pages/*"],
+      "@base/*": ["./src/base/*"]
     }
   },
-  "include": ["src", "axios.ts"]
+  "include": ["src", "src/base/config/axios.ts"]
 }

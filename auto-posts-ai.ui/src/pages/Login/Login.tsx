@@ -1,9 +1,9 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { LinkedinIcon } from '@hugeicons/core-free-icons';
+import { useLazyLogin } from '@api/user/mutation';
 import LoginIllustration from '@assets/image/illustration-login.svg';
 import LoginForm from './LoginForm';
-import { signupNewUser, loginUser } from '@api/user';
 
 import './Login.scss';
 
@@ -13,21 +13,23 @@ type LoginProps = {
 
 const Login: FC<LoginProps> = ({ onLoginSignup }) => {
   const [isNewSignup, setIsNewSignup] = useState<boolean>(false);
+  const [
+    loginUser,
+    {
+      isSuccess: isLoginSuccess,
+      isPending: isLoginLoading,
+      data: { fullName = 'Unknown User' } = {},
+    },
+  ] = useLazyLogin();
 
   const signupPrompt = !isNewSignup ? "Don't have an account?" : 'Already have an account?';
   const signupPromptLink = !isNewSignup ? 'Sign-up' : 'Login';
 
   const handleSubmit = async (email: string, password: string, name: string = 'Unknown User') => {
     if (isNewSignup) {
-      const { hasErrors, userName } = await signupNewUser(email, password, name);
-      if (!hasErrors) {
-        onLoginSignup(userName);
-      }
+      console.log('Signup:', { email, password, name });
     } else {
-      const { hasErrors, userName } = await loginUser(email, password);
-      if (!hasErrors) {
-        onLoginSignup(userName);
-      }
+      loginUser({ email, password });
     }
   };
 
@@ -38,6 +40,12 @@ const Login: FC<LoginProps> = ({ onLoginSignup }) => {
   const switchFormMode = () => {
     setIsNewSignup((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (isLoginSuccess && !isLoginLoading) {
+      onLoginSignup(fullName);
+    }
+  }, [isLoginSuccess, isLoginLoading]);
 
   return (
     <div className="login">

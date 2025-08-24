@@ -9,7 +9,6 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@src': resolvedPath('./src'),
       '@assets': resolvedPath('./src/assets'),
       '@components': resolvedPath('./src/components'),
       '@api': resolvedPath('./src/api'),

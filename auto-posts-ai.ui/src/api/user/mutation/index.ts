@@ -4,7 +4,7 @@ import { AuthPayload, AuthResponse, PMutation } from '@base/type';
 
 const useLazyLogin: PMutation<AuthPayload, AuthResponse> = () => {
   const { mutate, ...rest } = useMutation({
-    mutationFn: ({ email, password }: AuthPayload) => loginUser(email, password),
+    mutationFn: async ({ email, password }: AuthPayload) => await loginUser(email, password),
     retry: false,
   });
 

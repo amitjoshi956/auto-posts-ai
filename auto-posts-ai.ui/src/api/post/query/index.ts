@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllPosts, getGeneratedPost } from '../post-service';
-import { PQuery, Post } from '@src/base/type';
+import { PQuery, Post } from '@base/type';
 
 const useGetPosts: PQuery<void, Post[]> = () => {
   const { refetch, ...rest } = useQuery({

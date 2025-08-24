@@ -13,14 +13,10 @@ type LoginProps = {
 
 const Login: FC<LoginProps> = ({ onLoginSignup }) => {
   const [isNewSignup, setIsNewSignup] = useState<boolean>(false);
-  const [
-    loginUser,
-    {
-      isSuccess: isLoginSuccess,
-      isPending: isLoginLoading,
-      data: { fullName = 'Unknown User' } = {},
-    },
-  ] = useLazyLogin();
+  const [loginUser, { isSuccess: isLoginSuccess, isPending: isLoginLoading, data }] =
+    useLazyLogin();
+
+  const { fullName = '' } = data || {};
 
   const signupPrompt = !isNewSignup ? "Don't have an account?" : 'Already have an account?';
   const signupPromptLink = !isNewSignup ? 'Sign-up' : 'Login';
@@ -45,7 +41,7 @@ const Login: FC<LoginProps> = ({ onLoginSignup }) => {
     if (isLoginSuccess && !isLoginLoading) {
       onLoginSignup(fullName);
     }
-  }, [isLoginSuccess, isLoginLoading]);
+  }, [isLoginSuccess, isLoginLoading, fullName]);
 
   return (
     <div className="login">

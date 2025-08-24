@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Alert02Icon, Login03Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import UserInput from '@src/components/UserInput';
+import UserInput from '@components/UserInput';
 
 import './LoginForm.scss';
 

@@ -1,16 +1,15 @@
 import axios, { AxiosError, InternalAxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios';
-import { API_BASE_URL, API_TIMEOUT } from '@base/const';
+import { API_BASE_URL, API_TIMEOUT, Headers, StorageKey } from '@base/const';
 import { GenericAPIError } from '@base/type';
-import * as Headers from '@base/config/headers.json';
 
 // Retrieve client-side data
-const authToken = localStorage.getItem('authToken') || '';
+const authToken = localStorage.getItem(StorageKey.AuthToken) || '';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     [Headers.ContentType]: 'application/json',
-    [Headers.AuthToken]: authToken,
+    ...(authToken && { [Headers.AuthToken]: authToken }),
   },
   timeout: API_TIMEOUT,
 });
@@ -25,8 +24,13 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    return response;
+  (response: AxiosResponse<any>) => {
+    const authToken: string = response.headers[Headers.AuthToken] || '';
+    if (authToken) {
+      localStorage.setItem(StorageKey.AuthToken, authToken);
+    }
+
+    return response.data.data;
   },
   (error: AxiosError): GenericAPIError => {
     throw new Error(error.message);

@@ -26,8 +26,12 @@ export const setupSecurity = (app: Express) => {
       Header.Access_Control_Allow_Methods,
       `${GET}, ${POST}, ${PUT}, ${DELETE}, ${OPTIONS}`
     );
-    res.header(Header.Access_Control_Allow_Headers, 'Content-Type, X-Auth-Token');
+    res.header(Header.Access_Control_Allow_Headers, `${Header.Content_Type}, ${Header.Auth_Token}`);
     res.header(Header.Access_Control_Allow_Credentials, 'true');
+    res.header(
+      Header.Access_Control_Expose_Headers,
+      `${Header.Content_Type}, ${Header.Auth_Token}`
+    );
 
     // handle preflight requests
     if (req.method === OPTIONS) {

@@ -1,6 +1,10 @@
 import apiClient from '@base/config/axios';
-import { AuthResponse } from '@base/type/user';
+import { User } from '@base/type/user';
 
-export const loginUser = (email: string, password: string): Promise<AuthResponse> => {
+export const loginUser = (email: string, password: string): Promise<User> => {
   return apiClient.post('/auth/login', { email, password });
+};
+
+export const fetchUserProfile = (): Promise<User> => {
+  return apiClient.get('/user/me');
 };

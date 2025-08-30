@@ -14,6 +14,7 @@ export default defineConfig({
       '@api': resolvedPath('./src/api'),
       '@pages': resolvedPath('./src/pages'),
       '@base': resolvedPath('./src/base'),
+      '@common': resolvedPath('./src/common'),
     },
   },
 });

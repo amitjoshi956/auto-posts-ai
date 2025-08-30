@@ -3,7 +3,7 @@ export type AuthPayload = {
   password: string;
 };
 
-export type AuthResponse = {
+export type User = {
   email: string;
   fullName: string;
   permissions: string[];

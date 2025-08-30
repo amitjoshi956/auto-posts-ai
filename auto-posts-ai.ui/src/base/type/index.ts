@@ -24,6 +24,13 @@ export type GenericAPIRequest<B> = {
 };
 
 // Query types
+export type Query<R> = () => UseQueryResult<R, Error>;
+
+export type LazyQuery<R> = () => [
+  () => Promise<QueryObserverResult<R, Error>>,
+  Omit<UseQueryResult<R, Error>, 'refetch'>
+];
+
 export type PQuery<P, R> = (
   params: P
 ) => [() => Promise<QueryObserverResult<R, Error>>, Omit<UseQueryResult<R, Error>, 'refetch'>];

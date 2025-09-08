@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllPosts, getGeneratedPost } from '../post-service';
-import { PQuery, Post } from '@base/type';
+import { PLazyQuery, Post } from '@base/type';
 
-const useGetPosts: PQuery<void, Post[]> = () => {
+const useGetPosts: PLazyQuery<void, Post[]> = () => {
   const { refetch, ...rest } = useQuery({
     queryKey: ['posts'],
     queryFn: () => getAllPosts(),
@@ -12,7 +12,7 @@ const useGetPosts: PQuery<void, Post[]> = () => {
   return [refetch, rest];
 };
 
-const useGetGeneratedPost: PQuery<void, Post> = () => {
+const useGetGeneratedPost: PLazyQuery<void, Post> = () => {
   const { refetch, ...rest } = useQuery({
     queryKey: ['generatedPost'],
     queryFn: () => getGeneratedPost(),

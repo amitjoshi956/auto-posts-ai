@@ -24,21 +24,22 @@ export type GenericAPIRequest<B> = {
 };
 
 // Query types
-export type Query<R> = () => UseQueryResult<R, Error>;
-
-export type LazyQuery<R> = () => [
+export type ReturnLazyQuery<R> = [
   () => Promise<QueryObserverResult<R, Error>>,
   Omit<UseQueryResult<R, Error>, 'refetch'>
 ];
 
-export type PQuery<P, R> = (
-  params: P
-) => [() => Promise<QueryObserverResult<R, Error>>, Omit<UseQueryResult<R, Error>, 'refetch'>];
-
-export type PMutation<P, R> = () => [
+export type ReturnMutation<R, P> = [
   UseMutateFunction<R, Error, P>,
   Omit<UseMutationResult<R, Error, P>, 'mutate'>
 ];
 
+export type Query<R> = () => UseQueryResult<R, Error>;
+export type LazyQuery<R> = () => ReturnLazyQuery<R>;
+export type PLazyQuery<P, R> = (params: P) => ReturnLazyQuery<R>;
+
+export type PMutation<P, R> = () => ReturnMutation<R, P>;
+
+// Barrel exports
 export * from './post';
 export * from './user';

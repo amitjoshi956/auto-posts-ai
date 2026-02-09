@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import { AuthRequest, AuthResponse, Req, Res } from '@base/types';
-import { ErrorMessages, UserRole } from '@base/const';
+import { ErrorMessages, HttpStatus, UserRole } from '@base/const';
 import * as Headers from '@base/config/headers.json';
 import User from '@model/user';
 import { auth } from '@middleware/auth';
@@ -13,12 +13,12 @@ export const userProfile = async (req: Req<AuthRequest>, res: Res<AuthResponse>)
 
   const user = await User.findById(_id).select('-password -__v');
   if (!user) {
-    res.status(404).json({ hasErrors: true, error: ErrorMessages.USER_NOT_FOUND });
+    res.status(HttpStatus.NOT_FOUND).json({ hasErrors: true, error: ErrorMessages.USER_NOT_FOUND });
     return;
   }
 
   const { email = '', fullName = '', permissions = [] } = user;
-  res.status(200).json({
+  res.status(HttpStatus.OK).json({
     data: {
       email: email,
       fullName: fullName,
@@ -33,7 +33,9 @@ const registerNewUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>): P
   // Check if user already exists
   const existingUser = await User.findOne({ email });
   if (existingUser) {
-    res.status(400).json({ hasErrors: true, error: ErrorMessages.USER_ALREADY_EXISTS });
+    res
+      .status(HttpStatus.BAD_REQUEST)
+      .json({ hasErrors: true, error: ErrorMessages.USER_ALREADY_EXISTS });
     return;
   }
 
@@ -49,7 +51,7 @@ const registerNewUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>): P
 
   const token = newUser.generateAuthToken?.() || '';
   res
-    .status(201)
+    .status(HttpStatus.CREATED)
     .setHeader(Headers.Auth_Token, token)
     .json({
       data: {

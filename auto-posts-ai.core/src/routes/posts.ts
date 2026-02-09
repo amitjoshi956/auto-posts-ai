@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Post, PostContent, Req, Res } from '@base/types';
-import { PostErrors } from '@base/const';
+import { HttpStatus, PostErrors } from '@base/const';
 import Posts from '@model/posts.js';
 import { auth } from '@middleware/auth';
 
@@ -10,7 +10,7 @@ router.get('/', async (req: Req<never>, res: Res<Post[]>) => {
     const posts: Post[] = await Posts.find({});
     res.json({ data: posts });
   } catch (error) {
-    res.status(500).json({ error: PostErrors.FETCH_FAILED });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: PostErrors.FETCH_FAILED });
   }
 });
 
@@ -19,13 +19,13 @@ router.get('/:id', async (req: Req<never>, res: Res<Post>) => {
   try {
     const post = await Posts.findById(id);
     if (!post) {
-      res.status(404).json({ hasErrors: true, error: PostErrors.NOT_FOUND });
+      res.status(HttpStatus.NOT_FOUND).json({ hasErrors: true, error: PostErrors.NOT_FOUND });
       return;
     }
 
     res.json({ data: post });
   } catch (error) {
-    res.status(500).json({ error: PostErrors.FETCH_FAILED });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: PostErrors.FETCH_FAILED });
   }
 });
 
@@ -33,11 +33,11 @@ router.post('/', auth, async (req: Req<PostContent>, res: Res<Post>) => {
   const { title, article } = req.body;
   try {
     const post = await Posts.create({ title, article });
-    res.status(201).json({
+    res.status(HttpStatus.CREATED).json({
       data: post,
     });
   } catch (error) {
-    res.status(500).json({ error: PostErrors.CREATE_FAILED });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: PostErrors.CREATE_FAILED });
   }
 });
 
@@ -48,14 +48,14 @@ router.put('/:id', auth, async (req: Req<PostContent>, res: Res<Post>) => {
     const post = await Posts.findByIdAndUpdate(id, { title, article }, { new: true });
 
     if (!post) {
-      res.status(404).json({ error: PostErrors.NOT_FOUND });
+      res.status(HttpStatus.NOT_FOUND).json({ error: PostErrors.NOT_FOUND });
       return;
     }
     res.json({
       data: post,
     });
   } catch (error) {
-    res.status(500).json({ error: PostErrors.UPDATE_FAILED });
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: PostErrors.UPDATE_FAILED });
   }
 });
 

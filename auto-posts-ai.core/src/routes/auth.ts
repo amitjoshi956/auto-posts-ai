@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import { AuthRequest, AuthResponse, Req, Res } from '@base/types';
-import { ErrorMessages } from '@base/const';
+import { ErrorMessages, HttpStatus } from '@base/const';
 import * as Headers from '@base/config/headers.json';
 import User from '@model/user';
 
@@ -13,7 +13,9 @@ export const loginUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>): 
   const isValidPassword = await bcrypt.compare(password, user?.password || '');
 
   if (!user || !isValidPassword) {
-    res.status(401).json({ hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS });
+    res
+      .status(HttpStatus.UNAUTHORIZED)
+      .json({ hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS });
     return;
   }
 
@@ -22,7 +24,7 @@ export const loginUser = async (req: Req<AuthRequest>, res: Res<AuthResponse>): 
   const { fullName, permissions = [] } = user;
 
   res
-    .status(200)
+    .status(HttpStatus.OK)
     .setHeader(Headers.Auth_Token, token)
     .json({
       data: {

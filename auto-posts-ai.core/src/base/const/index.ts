@@ -1,5 +1,6 @@
 export * from './user';
 export * from './posts';
+export * from './https';
 
 export const ErrorMessages = {
   INVALID_EMAIL: 'Invalid email format',

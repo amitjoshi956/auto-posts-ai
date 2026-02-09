@@ -1,7 +1,7 @@
 import { NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { Req, Res, AuthResponse, User } from '@base/types';
-import { ErrorMessages } from '@base/const';
+import { ErrorMessages, HttpStatus } from '@base/const';
 import * as Headers from '@base/config/headers.json';
 
 const getUserFromToken = (token: string): User | null => {
@@ -18,13 +18,17 @@ export const auth = (req: Req<unknown>, res: Res<AuthResponse>, next: NextFuncti
   const token = req.header(Headers.Auth_Token);
 
   if (!token) {
-    res.status(401).json({ hasErrors: true, error: ErrorMessages.NO_AUTH_TOKEN });
+    res
+      .status(HttpStatus.UNAUTHORIZED)
+      .json({ hasErrors: true, error: ErrorMessages.NO_AUTH_TOKEN });
     return;
   }
 
   const user = getUserFromToken(token);
   if (!user) {
-    res.status(403).json({ hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS });
+    res
+      .status(HttpStatus.FORBIDDEN)
+      .json({ hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS });
     return;
   }
 

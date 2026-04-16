@@ -1,12 +1,13 @@
 {
   "name": "auto-posts-ai",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "start": "npm-run-all --parallel start:core start:ui",
-    "start:core": "cd auto-posts-ai.core && npm start",
-    "start:ui": "cd auto-posts-ai.ui && npm run start"
-  },
-  "devDependencies": {
-    "npm-run-all": "^4.1.5"
+    "start": "bun run --filter '*' dev",
+    "start:core": "bun run --filter '@autoposts/core' dev",
+    "start:web": "bun run --filter '@autoposts/web' dev"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["bun-types"],
+    "paths": {
+      "@routes/*": ["./src/routes/*"],
+      "@model/*": ["./src/model/*"],
+      "@plugins/*": ["./src/plugins/*"],
+      "@middleware/*": ["./src/middleware/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@base/*": ["./src/base/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

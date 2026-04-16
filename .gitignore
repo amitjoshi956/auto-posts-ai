@@ -1,3 +1,7 @@
+# Bun
+bun.lock
+*.lockb
+
 # Node.js dependencies
 node_modules/
 npm-debug.log*

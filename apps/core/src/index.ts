@@ -4,6 +4,7 @@ import { connectDB } from '@plugins/db';
 import { authRoutes } from '@routes/auth';
 import { userRoutes } from '@routes/user';
 import { postRoutes } from '@routes/posts';
+import { topicRoutes } from '@routes/topics';
 
 const PORT = Number(process.env.PORT) || 5055;
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
@@ -27,6 +28,7 @@ const app = new Elysia()
   .use(authRoutes)
   .use(userRoutes)
   .use(postRoutes)
+  .use(topicRoutes)
   .get('/health', () => ({ status: 'ok' }))
   .listen(PORT);
 

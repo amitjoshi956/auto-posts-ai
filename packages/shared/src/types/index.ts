@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { loginSchema, signupSchema } from '../schemas/user.schema';
 import { createPostSchema, updatePostSchema, postResponseSchema } from '../schemas/post.schema';
+import { CreateTopicSchema, UpdateTopicSchema, TopicResponseSchema } from '../schemas/topic.schema';
 import { BasePermission } from '../enums/permissions';
 
 // ─── Auth Types ───────────────────────────────────────────────────────────────
@@ -27,6 +28,12 @@ export type JwtPayload = {
 export type PostContent = z.infer<typeof createPostSchema>;
 export type UpdatePostPayload = z.infer<typeof updatePostSchema>;
 export type Post = z.infer<typeof postResponseSchema>;
+
+// ─── Topic Types ──────────────────────────────────────────────────────────────
+
+export type CreateTopicPayload = z.infer<typeof CreateTopicSchema>;
+export type UpdateTopicPayload = z.infer<typeof UpdateTopicSchema>;
+export type Topic = z.infer<typeof TopicResponseSchema>;
 
 // ─── Generic API Types ────────────────────────────────────────────────────────
 

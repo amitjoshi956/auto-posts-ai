@@ -21,3 +21,13 @@ export const PostErrors = {
   UPDATE_FAILED: 'Failed to update post',
   FORBIDDEN: 'You do not have permission to modify this post',
 } as const;
+
+export const TopicErrors = {
+  NOT_FOUND: 'Topic not found',
+  FORBIDDEN: 'You do not have permission to access this topic',
+  CREATE_FAILED: 'Failed to create topic',
+  UPDATE_FAILED: 'Failed to update topic',
+  DELETE_FAILED: 'Failed to delete topic',
+  GENERATION_DATE_REQUIRED:
+    'A generation date and time is required when moving a topic back to draft',
+} as const;

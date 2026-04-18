@@ -49,7 +49,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
       set.status = HttpStatus.BAD_REQUEST;
       return {
         hasErrors: true,
-        error: parsed.error.errors[0]?.message ?? TopicErrors.CREATE_FAILED,
+        error: parsed.error.issues[0]?.message ?? TopicErrors.CREATE_FAILED,
       };
     }
 
@@ -84,7 +84,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
       set.status = HttpStatus.BAD_REQUEST;
       return {
         hasErrors: true,
-        error: parsed.error.errors[0]?.message ?? TopicErrors.UPDATE_FAILED,
+        error: parsed.error.issues[0]?.message ?? TopicErrors.UPDATE_FAILED,
       };
     }
 

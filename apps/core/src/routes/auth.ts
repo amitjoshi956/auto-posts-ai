@@ -21,7 +21,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
       set.status = HttpStatus.BAD_REQUEST;
       return {
         hasErrors: true,
-        error: parsed.error.errors[0]?.message ?? ErrorMessages.BAD_REQUEST,
+        error: parsed.error.issues[0]?.message ?? ErrorMessages.BAD_REQUEST,
       };
     }
 
@@ -63,7 +63,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
       set.status = HttpStatus.BAD_REQUEST;
       return {
         hasErrors: true,
-        error: parsed.error.errors[0]?.message ?? ErrorMessages.BAD_REQUEST,
+        error: parsed.error.issues[0]?.message ?? ErrorMessages.BAD_REQUEST,
       };
     }
 

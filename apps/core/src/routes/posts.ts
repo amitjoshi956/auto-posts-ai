@@ -38,7 +38,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
       set.status = HttpStatus.BAD_REQUEST;
       return {
         hasErrors: true,
-        error: parsed.error.errors[0]?.message ?? PostErrors.CREATE_FAILED,
+        error: parsed.error.issues[0]?.message ?? PostErrors.CREATE_FAILED,
       };
     }
 
@@ -66,7 +66,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
       set.status = HttpStatus.BAD_REQUEST;
       return {
         hasErrors: true,
-        error: parsed.error.errors[0]?.message ?? PostErrors.UPDATE_FAILED,
+        error: parsed.error.issues[0]?.message ?? PostErrors.UPDATE_FAILED,
       };
     }
 

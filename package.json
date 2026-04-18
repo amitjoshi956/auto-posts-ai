@@ -8,6 +8,9 @@
   "scripts": {
     "start": "bun run --filter '*' dev",
     "start:core": "bun run --filter '@autoposts/core' dev",
-    "start:web": "bun run --filter '@autoposts/web' dev"
+    "start:web": "bun run --filter '@autoposts/web' dev",
+    "typecheck": "bun run --filter '*' typecheck",
+    "typecheck:core": "bun run --filter '@autoposts/core' typecheck",
+    "typecheck:web": "bun run --filter '@autoposts/web' typecheck"
   }
 }

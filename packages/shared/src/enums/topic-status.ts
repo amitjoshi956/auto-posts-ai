@@ -7,7 +7,7 @@ export enum TopicStatus {
 
 // Statuses a user is allowed to set manually via PUT /topics/:id.
 // Excludes PUBLISHED — used in UpdateTopicSchema to stay coupled with the enum.
-export const USER_SETTABLE_TOPIC_STATUSES = [
+export const UserSettableTopicStatuses = [
   TopicStatus.DRAFT,
   TopicStatus.THINKING,
   TopicStatus.ARCHIVED,

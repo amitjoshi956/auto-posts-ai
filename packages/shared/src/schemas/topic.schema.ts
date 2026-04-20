@@ -1,9 +1,9 @@
 import { z } from 'zod';
 import { TopicDefaults } from '../constants/values';
-import { TopicStatus, USER_SETTABLE_TOPIC_STATUSES } from '../enums/topic-status';
+import { TopicStatus, UserSettableTopicStatuses } from '../enums/topic-status';
 
 // ISO 8601 datetime with timezone offset required (e.g. "2026-05-02T18:00:00.000Z")
-const DateTimeSchema = z.string().datetime({ offset: true });
+const DateTimeSchema = z.iso.datetime({ offset: true });
 
 export const CreateTopicSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -28,7 +28,7 @@ export const UpdateTopicSchema = z.object({
     .optional(),
   // Required when status = 'draft'; cleared server-side when status = 'thinking' | 'archived'
   generationDateTime: DateTimeSchema.optional(),
-  status: z.enum(USER_SETTABLE_TOPIC_STATUSES).optional(),
+  status: z.enum(UserSettableTopicStatuses).optional(),
 });
 
 // Response schema — Topic type is fully inferred from this

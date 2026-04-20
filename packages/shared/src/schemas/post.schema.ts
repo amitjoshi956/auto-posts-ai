@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-export const createPostSchema = z.object({
+export const CreatePostSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   article: z.string().min(1, 'Article content is required'),
 });
 
-export const updatePostSchema = createPostSchema.partial();
+export const UpdatePostSchema = CreatePostSchema.partial();
 
-export const postResponseSchema = z.object({
+export const PostResponseSchema = z.object({
   _id: z.string(),
   title: z.string(),
   article: z.string(),

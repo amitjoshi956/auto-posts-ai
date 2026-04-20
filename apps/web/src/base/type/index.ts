@@ -4,25 +4,6 @@ import {
   UseMutationResult,
   UseQueryResult,
 } from '@tanstack/react-query';
-import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-
-// ─── Common API Types ─────────────────────────────────────────────────────────
-
-export type GenericAPIError = {
-  hasErrors?: boolean;
-  error?: string;
-};
-
-export type GenericAPIResponse<T> = AxiosResponse<T, InternalAxiosRequestConfig> & {
-  hasErrors?: boolean;
-  error?: string;
-};
-
-export type GenericAPIRequest<B> = {
-  headers: Record<string, string>;
-  config: InternalAxiosRequestConfig;
-  body: B;
-};
 
 // ─── React Query Helper Types ─────────────────────────────────────────────────
 
@@ -49,6 +30,6 @@ export type {
   UserProfile,
   LoginPayload,
   SignupPayload,
-  APIResponse,
-  APIError,
+  ApiResponse,
+  ApiRequest,
 } from '@autoposts/shared';

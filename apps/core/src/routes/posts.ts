@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
 import mongoose from 'mongoose';
-import { HttpStatus, PostErrors, createPostSchema, updatePostSchema } from '@autoposts/shared';
+import { HttpStatus, PostErrors, CreatePostSchema, UpdatePostSchema } from '@autoposts/shared';
 import Posts from '@model/posts';
 import { authGuard } from '@plugins/auth';
 
@@ -33,7 +33,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   // ─── POST /posts ──────────────────────────────────────────────────────────
   // Creates a new post attributed to the authenticated user.
   .post('/', async ({ body, user, set }) => {
-    const parsed = createPostSchema.safeParse(body);
+    const parsed = CreatePostSchema.safeParse(body);
     if (!parsed.success) {
       set.status = HttpStatus.BAD_REQUEST;
       return {
@@ -61,7 +61,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   // ─── PUT /posts/:id ───────────────────────────────────────────────────────
   // Updates a post — only if it belongs to the authenticated user.
   .put('/:id', async ({ params, body, user, set }) => {
-    const parsed = updatePostSchema.safeParse(body);
+    const parsed = UpdatePostSchema.safeParse(body);
     if (!parsed.success) {
       set.status = HttpStatus.BAD_REQUEST;
       return {

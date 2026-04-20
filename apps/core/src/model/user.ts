@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { EMAIL_REGEX, ErrorMessages, UserRole } from '@autoposts/shared';
-import type { BasePermission } from '@autoposts/shared';
+import { EmailRegex, ErrorMessages, UserRole, type BasePermission } from '@autoposts/shared';
 
 export type UserDocument = {
   _id: mongoose.Types.ObjectId;
@@ -22,14 +21,14 @@ const UserSchema = new Schema<UserDocument>({
     required: true,
     unique: true,
     validate: {
-      validator: (value: string) => EMAIL_REGEX.test(value),
+      validator: (value: string) => EmailRegex.test(value),
       message: ErrorMessages.INVALID_EMAIL,
     },
   },
   password: {
     type: String,
     required: true,
-    // Note: hashed passwords won't match PASSWORD_REGEX — validation happens before hashing at route level
+    // Note: hashed passwords won't match PasswordRegex — validation happens before hashing at route level
   },
   permissions: {
     type: [String],

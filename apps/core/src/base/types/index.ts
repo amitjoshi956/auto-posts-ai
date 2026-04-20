@@ -1,12 +1,6 @@
 export * from './user';
 export * from './posts';
 
-export type GenericAPIResponse<D> = {
-  hasErrors?: boolean;
-  error?: string;
-  data?: D;
-};
-
 export type AuthRequest = {
   email: string;
   password: string;

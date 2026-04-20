@@ -1,0 +1,42 @@
+@use '@assets/scss/colors' as color;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/typography' as typ;
+
+.loader {
+  @include mixin.flex(center, center);
+  width: 100%;
+  height: 100%;
+
+  &__content {
+    @include mixin.flex(center, center, column);
+    gap: mixin.toRem(10px);
+    padding: mixin.toRem(20px);
+  }
+
+  &__spinner {
+    width: mixin.toRem(40px);
+    --b: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 1px;
+    background: conic-gradient(#0000 10%, color.$cyan-100--op-70) content-box;
+    -webkit-mask:
+      repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
+      radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+    animation: loading 1s infinite steps(10);
+  }
+
+  &__message {
+    color: color.$white-100;
+    font-size: typ.$font-size--md;
+    font-weight: typ.$font-weight--medium;
+  }
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(1turn);
+  }
+}

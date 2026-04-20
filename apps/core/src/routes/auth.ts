@@ -5,8 +5,8 @@ import {
   ErrorMessages,
   JWT_EXPIRY,
   Headers,
-  loginSchema,
-  signupSchema,
+  LoginSchema,
+  SignupSchema,
   UserRole,
 } from '@autoposts/shared';
 import User from '@model/user';
@@ -16,7 +16,7 @@ import { setAuthCookie, clearAuthCookie } from '@utils/cookie';
 export const authRoutes = new Elysia({ prefix: '/auth' })
   // ─── POST /auth/login ─────────────────────────────────────────────────────
   .post('/login', async ({ body, cookie, set }) => {
-    const parsed = loginSchema.safeParse(body);
+    const parsed = LoginSchema.safeParse(body);
     if (!parsed.success) {
       set.status = HttpStatus.BAD_REQUEST;
       return {
@@ -58,7 +58,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
 
   // ─── POST /auth/signup ────────────────────────────────────────────────────
   .post('/signup', async ({ body, cookie, set }) => {
-    const parsed = signupSchema.safeParse(body);
+    const parsed = SignupSchema.safeParse(body);
     if (!parsed.success) {
       set.status = HttpStatus.BAD_REQUEST;
       return {

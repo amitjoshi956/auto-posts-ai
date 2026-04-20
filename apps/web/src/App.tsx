@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { useUserProfile } from '@api/user/query';
 import AppHeader from '@components/AppHeader';
 import Login from '@pages/Login';
+import Loader from '@components/Loader';
 
 const Home = lazy(() => import('@pages/Home'));
 
@@ -10,11 +11,11 @@ import './App.scss';
 function App() {
   const { data: userProfile, isLoading, isSuccess } = useUserProfile();
 
-  const isLoggedIn = isSuccess && !!userProfile;
+  const isLoggedIn = isSuccess && !!userProfile?.fullName;
   const userName = userProfile?.fullName || '';
 
   if (isLoading) {
-    return <div className="app__loading">Loading...</div>;
+    return <Loader message="Loading" />;
   }
 
   return (

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { LinkedinIcon } from '@hugeicons/core-free-icons';
 import { useLazyLogin } from '@api/user/mutation';
@@ -7,16 +7,9 @@ import LoginForm from './LoginForm';
 
 import './Login.scss';
 
-type LoginProps = {
-  onLoginSignup: (name: string) => void;
-};
-
-const Login: FC<LoginProps> = ({ onLoginSignup }) => {
+const Login: FC = () => {
   const [isNewSignup, setIsNewSignup] = useState<boolean>(false);
-  const [loginUser, { isSuccess: isLoginSuccess, isPending: isLoginLoading, data }] =
-    useLazyLogin();
-
-  const { fullName = '' } = data || {};
+  const [loginUser] = useLazyLogin();
 
   const signupPrompt = !isNewSignup ? "Don't have an account?" : 'Already have an account?';
   const signupPromptLink = !isNewSignup ? 'Sign-up' : 'Login';
@@ -37,11 +30,6 @@ const Login: FC<LoginProps> = ({ onLoginSignup }) => {
     setIsNewSignup((prev) => !prev);
   };
 
-  useEffect(() => {
-    if (isLoginSuccess && !isLoginLoading) {
-      onLoginSignup(fullName);
-    }
-  }, [isLoginSuccess, isLoginLoading, fullName]);
 
   return (
     <div className="login">

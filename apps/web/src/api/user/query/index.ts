@@ -9,6 +9,7 @@ export const useLazyUserProfile: LazyQuery<UserProfile> = () => {
     queryKey: [QueryCacheKey.UserProfile],
     queryFn: fetchUserProfile,
     enabled: false,
+    retry: false,
   });
 
   return [refetch, rest];
@@ -19,5 +20,6 @@ export const useUserProfile: Query<UserProfile> = () => {
     queryKey: [QueryCacheKey.UserProfile],
     queryFn: fetchUserProfile,
     enabled: true,
+    retry: false,
   });
 };

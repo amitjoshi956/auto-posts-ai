@@ -1,4 +1,5 @@
-import { lazy, useState } from 'react';
+import { lazy } from 'react';
+import { useUserProfile } from '@api/user/query';
 import AppHeader from '@components/AppHeader';
 import Login from '@pages/Login';
 
@@ -7,22 +8,19 @@ const Home = lazy(() => import('@pages/Home'));
 import './App.scss';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string>('');
+  const { data: userProfile, isLoading, isSuccess } = useUserProfile();
 
-  const handleLoginSignup = (name: string) => {
-    setIsLoggedIn(true);
-    setUserName(name);
-  };
+  const isLoggedIn = isSuccess && !!userProfile;
+  const userName = userProfile?.fullName || '';
+
+  if (isLoading) {
+    return <div className="app__loading">Loading...</div>;
+  }
 
   return (
     <div className="app">
       <AppHeader isLoggedIn={isLoggedIn} />
-      {isLoggedIn ? (
-        <Home userName={userName} />
-      ) : (
-        <Login onLoginSignup={handleLoginSignup} />
-      )}
+      {isLoggedIn ? <Home userName={userName} /> : <Login />}
     </div>
   );
 }

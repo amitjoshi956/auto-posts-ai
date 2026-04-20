@@ -20,4 +20,8 @@ export default defineConfig({
       '@common': resolvedPath('./src/common'),
     },
   },
+
+  server: {
+    port: 1728,
+  },
 });

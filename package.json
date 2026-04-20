@@ -9,8 +9,8 @@
     "start": "bun run --filter '*' dev",
     "start:core": "bun run --filter '@autoposts/core' dev",
     "start:web": "bun run --filter '@autoposts/web' dev",
-    "ci:web": "bun install && bun run --filter '@autoposts/web' build",
-    "ci:core": "bun install && bun run --filter '@autoposts/core' build",
+    "build:web": "bun run --filter '@autoposts/web' build",
+    "build:core": "bun run --filter '@autoposts/core' build",
     "typecheck": "bun run --filter '*' typecheck",
     "typecheck:core": "bun run --filter '@autoposts/core' typecheck",
     "typecheck:web": "bun run --filter '@autoposts/web' typecheck"

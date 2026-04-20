@@ -5,17 +5,22 @@ import { AiFileIcon } from '@hugeicons/core-free-icons';
 import './AppHeader.scss';
 
 type AppHeaderProps = {
-  isLoggedIn: boolean;
+  isAuthenticated: boolean;
+  onLogout: () => void;
 };
 
-const AppHeader: FC<AppHeaderProps> = ({ isLoggedIn }) => {
+const AppHeader: FC<AppHeaderProps> = ({ isAuthenticated, onLogout }) => {
   return (
     <header className="app-header">
-      <h1 className="app-header__title">
+      <div className="app-header__title">
         <HugeiconsIcon className="app-header__title-icon" icon={AiFileIcon} size={32} />
         AutoPosts.<span>ai</span>
-      </h1>
-      {isLoggedIn && <button className="app-header__profile-btn">Profile</button>}
+      </div>
+      {isAuthenticated && (
+        <button className="app-header__profile-btn" onClick={onLogout}>
+          Logout
+        </button>
+      )}
     </header>
   );
 };

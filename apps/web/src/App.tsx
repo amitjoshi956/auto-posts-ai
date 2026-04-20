@@ -1,18 +1,14 @@
 import { lazy } from 'react';
-import { useUserProfile } from '@api/user/query';
-import AppHeader from '@components/AppHeader';
+import { useAuth } from '@common/hooks';
+import { AppHeader, Loader } from '@components/.';
 import Login from '@pages/Login';
-import Loader from '@components/Loader';
 
 const Home = lazy(() => import('@pages/Home'));
 
 import './App.scss';
 
 function App() {
-  const { data: userProfile, isLoading, isSuccess } = useUserProfile();
-
-  const isLoggedIn = isSuccess && !!userProfile?.fullName;
-  const userName = userProfile?.fullName || '';
+  const { isAuthenticated, userName, isLoading, logout } = useAuth();
 
   if (isLoading) {
     return <Loader message="Loading" />;
@@ -20,8 +16,8 @@ function App() {
 
   return (
     <div className="app">
-      <AppHeader isLoggedIn={isLoggedIn} />
-      {isLoggedIn ? <Home userName={userName} /> : <Login />}
+      <AppHeader isAuthenticated={isAuthenticated} onLogout={logout} />
+      {isAuthenticated ? <Home userName={userName} /> : <Login />}
     </div>
   );
 }

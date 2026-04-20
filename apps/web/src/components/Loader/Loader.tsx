@@ -1,10 +1,12 @@
+import { FC } from 'react';
+
 import './Loader.scss';
 
 type LoaderProps = {
   message?: string;
 };
 
-const Loader = ({ message = '' }: LoaderProps) => {
+const Loader: FC<LoaderProps> = ({ message = '' }) => {
   return (
     <div className="loader">
       <div className="loader__content">

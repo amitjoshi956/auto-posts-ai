@@ -17,7 +17,7 @@ Tempore ad quidem eum similique nisi ea sapiente laborum voluptatum, suscipit ma
 `;
 
 const GenPost: React.FC = () => {
-  const [generatedPost] = useState<Post>(msg);
+  const [generatedPost] = useState<string>(msg);
 
   const handlePost = () => {
     if (generatedPost) {

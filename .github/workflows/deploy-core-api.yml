@@ -1,0 +1,49 @@
+name: Deploy Core API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/core/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'bun.lock'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Build Core Binary
+        run: bun run build:core
+
+      - name: Prepare Publish Directory
+        run: |
+          mkdir -p apps/core/dist
+          mv apps/core/autoposts-core apps/core/dist/
+          # Ensure execution permissions on the binary
+          chmod +x apps/core/dist/autoposts-core
+
+      - name: Deploy to Release Branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apps/core/dist
+          publish_branch: release-core-api
+          force_orphan: true
+          commit_message: 'chore(deploy): build core api binary [skip ci]'

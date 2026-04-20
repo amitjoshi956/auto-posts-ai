@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "start": "bun src/index.ts",
+    "build": "bun build ./src/index.ts --compile --target=bun-linux-x64 --outfile=autoposts-core",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

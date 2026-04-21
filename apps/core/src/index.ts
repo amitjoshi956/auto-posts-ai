@@ -1,16 +1,11 @@
 import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { connectDB } from '@plugins/db';
-import { authRoutes } from '@routes/auth';
-import { userRoutes } from '@routes/user';
-import { postRoutes } from '@routes/posts';
-import { topicRoutes } from '@routes/topics';
+import { authRoutes, postRoutes, userRoutes, topicRoutes } from '@routes/.';
+import { getAllowedOrigins, getPort } from './config';
 
-const PORT = Number(process.env.PORT) || 5055;
-const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
-  .split(',')
-  .map((o) => o.trim())
-  .filter(Boolean);
+const PORT = getPort();
+const ALLOWED_ORIGINS = getAllowedOrigins();
 
 // Connect to database first
 await connectDB();

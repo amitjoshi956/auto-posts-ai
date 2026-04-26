@@ -1,34 +1,34 @@
 @use '@assets/scss/colors' as color;
+@use '@assets/scss/typography' as typ;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/variables' as var;
 
 .login-form {
+  @include mixin.flex(space-between, center, column);
   width: 100%;
-  padding: 10px 40px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  row-gap: 20px;
+  padding: var.$space-10 var.$space-40;
+  border-radius: var.$radius-md;
+  row-gap: var.$space-20;
 
   &__title {
     font-size: 2.5em;
-    font-weight: 200;
-    margin-bottom: 10px;
+    font-weight: typ.$font-weight--light;
+    margin-bottom: var.$space-10;
   }
 
   &__submit-btn {
     display: flex;
-    background-color: color.$cyan-500;
+    background-color: color.$cyan-400;
     color: color.$white-100;
-    column-gap: 4px;
-    padding: 10px 40px;
-    margin-top: 10px;
+    column-gap: var.$space-4;
+    padding: var.$space-10 var.$space-40;
+    margin-top: var.$space-10;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color var.$transition-base;
 
     &:hover {
-      background-color: color.$cyan-500;
+      background-color: color.$cyan-400;
     }
   }
 
@@ -37,15 +37,13 @@
   }
 
   &__error {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    column-gap: 8px;
-    background-color: color.$red-100--op-20;
-    font-size: 12px;
+    @include mixin.flex(space-between, center);
+    column-gap: var.$space-8;
+    background-color: mixin.hexa(color.$red-200, 0.2);
+    font-size: mixin.toRem(12px);
     color: color.$red-200;
-    padding: 4px 12px;
+    padding: var.$space-4 var.$space-12;
     border: 1px solid color.$red-200;
-    border-radius: 20px;
+    border-radius: var.$radius-pill;
   }
 }

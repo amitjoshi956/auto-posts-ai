@@ -1,0 +1,105 @@
+@use '@assets/scss/colors' as color;
+@use '@assets/scss/typography' as typ;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/variables' as var;
+
+$status-draft: color.$cyan-300;
+$status-draft--bg: mixin.hexa(color.$cyan-300, 0.12);
+
+$status-thinking: color.$orange-200;
+$status-thinking--bg: mixin.hexa(color.$orange-200, 0.12);
+
+$status-archived: color.$gray-100;
+$status-archived--bg: mixin.hexa(color.$gray-100, 0.12);
+
+$status-published: color.$green-200;
+$status-published--bg: mixin.hexa(color.$green-200, 0.12);
+
+.topic-card {
+  background-color: color.$black-300;
+  border: 1px solid mixin.hexa(color.$gray-600, 0.53);
+  border-radius: var.$radius-lg;
+  padding: mixin.toRem(18px) var.$space-20;
+  transition:
+    border-color var.$transition-fast,
+    box-shadow var.$transition-fast;
+
+  &:hover {
+    border-color: mixin.hexa(color.$cyan-400, 0.4);
+    box-shadow: 0 0 mixin.toRem(12px) mixin.hexa(color.$cyan-400, 0.4);
+  }
+
+  &__header {
+    @include mixin.flex(space-between, center);
+    gap: var.$space-12;
+    margin-bottom: var.$space-10;
+  }
+
+  &__title {
+    @include mixin.font-style(
+      typ.$font-primary,
+      typ.$font-size--md,
+      mixin.hexa(color.$white-100, 0.87),
+      typ.$font-weight--medium
+    );
+    @include mixin.text-overflow-ellipsis;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__status {
+    font-size: typ.$font-size--xs;
+    font-weight: typ.$font-weight--medium;
+    padding: mixin.toRem(3px) var.$space-10;
+    border-radius: var.$radius-pill;
+    white-space: nowrap;
+    text-transform: capitalize;
+    letter-spacing: mixin.toRem(0.3px);
+
+    &--draft {
+      color: $status-draft;
+      background-color: $status-draft--bg;
+    }
+
+    &--thinking {
+      color: $status-thinking;
+      background-color: $status-thinking--bg;
+    }
+
+    &--archived {
+      color: $status-archived;
+      background-color: $status-archived--bg;
+    }
+
+    &--published {
+      color: $status-published;
+      background-color: $status-published--bg;
+    }
+  }
+
+  &__plan {
+    @include mixin.font-style(
+      typ.$font-primary,
+      typ.$font-size--sm,
+      mixin.hexa(color.$gray-200, 0.52)
+    );
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 3;
+    line-height: typ.$line-height--default;
+    margin-bottom: var.$space-12;
+  }
+
+  &__meta {
+    @include mixin.flex(flex-start, center);
+    gap: var.$space-6;
+    color: mixin.hexa(color.$gray-200, 0.8);
+  }
+
+  &__date {
+    font-size: typ.$font-size--xs;
+    color: mixin.hexa(color.$gray-200, 0.8);
+  }
+}

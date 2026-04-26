@@ -1,0 +1,40 @@
+@use './mixins' as mixin;
+
+/*****************************
+********** SPACING ***********
+******************************/
+
+$space-2: mixin.toRem(2px);
+$space-4: mixin.toRem(4px);
+$space-6: mixin.toRem(6px);
+$space-8: mixin.toRem(8px);
+$space-10: mixin.toRem(10px);
+$space-12: mixin.toRem(12px);
+$space-14: mixin.toRem(14px);
+$space-16: mixin.toRem(16px);
+$space-20: mixin.toRem(20px);
+$space-24: mixin.toRem(24px);
+$space-28: mixin.toRem(28px);
+$space-32: mixin.toRem(30px);
+$space-40: mixin.toRem(40px);
+$space-64: mixin.toRem(60px);
+$space-80: mixin.toRem(80px);
+
+/*****************************
+******* BORDER RADIUS ********
+******************************/
+
+$radius-xs: mixin.toRem(4px);
+$radius-sm: mixin.toRem(6px);
+$radius-md: mixin.toRem(8px);
+$radius-lg: mixin.toRem(10px);
+$radius-xl: mixin.toRem(14px);
+$radius-pill: mixin.toRem(20px);
+
+/*****************************
+******** TRANSITIONS *********
+******************************/
+
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+$transition-slow: 0.45s ease;

@@ -3,6 +3,8 @@ import {
   UseMutateFunction,
   UseMutationResult,
   UseQueryResult,
+  UseQueryOptions,
+  UseMutationOptions,
 } from '@tanstack/react-query';
 
 // ─── React Query Helper Types ─────────────────────────────────────────────────
@@ -17,10 +19,19 @@ export type ReturnMutation<R, P> = [
   Omit<UseMutationResult<R, Error, P>, 'mutate'>,
 ];
 
-export type Query<R> = () => UseQueryResult<R, Error>;
-export type LazyQuery<R> = () => ReturnLazyQuery<R>;
+export type Query<R> = (
+  options?: Omit<UseQueryOptions<R, Error>, 'queryKey' | 'queryFn'>
+) => UseQueryResult<R, Error>;
+
+export type LazyQuery<R> = (
+  options?: Omit<UseQueryOptions<R, Error>, 'queryKey' | 'queryFn' | 'enabled'>
+) => ReturnLazyQuery<R>;
+
 export type PLazyQuery<P, R> = (params: P) => ReturnLazyQuery<R>;
-export type PMutation<P, R> = () => ReturnMutation<R, P>;
+
+export type PMutation<P, R> = (
+  options?: Omit<UseMutationOptions<R, Error, P>, 'mutationFn'>
+) => ReturnMutation<R, P>;
 
 // ─── Re-exports from Shared Module ───────────────────────────────────────────
 // Domain types come from @autoposts/shared to avoid duplication
@@ -32,4 +43,6 @@ export type {
   SignupPayload,
   ApiResponse,
   ApiRequest,
+  Topic,
+  CreateTopicPayload,
 } from '@autoposts/shared';

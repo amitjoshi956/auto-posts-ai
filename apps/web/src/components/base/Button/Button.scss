@@ -1,0 +1,148 @@
+@use '@assets/scss/colors' as color;
+@use '@assets/scss/typography' as typ;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/variables' as var;
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn {
+  @include mixin.flex(center, center);
+  column-gap: var.$space-10;
+  border-radius: var.$radius-md;
+  padding: var.$space-16 var.$space-40;
+  font-size: typ.$font-size--btn;
+  font-weight: typ.$font-weight--bold;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var.$transition-fast;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  line-height: typ.$line-height--tight;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &--filled {
+    background: linear-gradient(135deg, color.$cyan-500, color.$cyan-600);
+    color: color.$white-100;
+    border-color: color.$white-100;
+
+    &:hover {
+      background: linear-gradient(135deg, color.$cyan-400, color.$cyan-500);
+    }
+
+    &:active {
+      background: linear-gradient(135deg, color.$cyan-600, color.$cyan-600);
+    }
+  }
+
+  &--outlined {
+    background: transparent;
+    color: color.$cyan-300;
+    border-color: color.$cyan-400;
+
+    &:hover {
+      background: mixin.hexa(color.$cyan-400, 0.1);
+    }
+
+    &:active {
+      background: mixin.hexa(color.$cyan-400, 0.2);
+    }
+  }
+
+  &--ghost {
+    background: mixin.hexa(color.$white-100, 0.06);
+    color: color.$white-100;
+    border-color: transparent;
+
+    &:hover {
+      background: mixin.hexa(color.$white-100, 0.12);
+      border-color: transparent;
+    }
+
+    &:active {
+      background: mixin.hexa(color.$white-100, 0.18);
+      border-color: transparent;
+    }
+  }
+
+  &--text {
+    background: transparent;
+    color: color.$white-100;
+    border-color: transparent;
+    padding: var.$space-4 var.$space-8;
+
+    &:hover {
+      border-color: transparent;
+      color: color.$cyan-200;
+    }
+
+    &:active {
+      color: color.$cyan-200;
+    }
+  }
+
+  &--link {
+    background: transparent;
+    color: color.$cyan-400;
+    border-color: transparent;
+    padding: 0;
+    font-weight: typ.$font-weight--medium;
+    text-decoration: underline;
+    text-underline-offset: var.$space-4;
+
+    &:hover {
+      color: color.$cyan-200;
+      border-color: transparent;
+    }
+  }
+
+  &--icon {
+    background: transparent;
+    color: color.$white-100;
+    border-color: transparent;
+    padding: var.$space-8;
+    border-radius: var.$radius-md;
+
+    &:hover {
+      background: mixin.hexa(color.$white-100, 0.1);
+    }
+
+    &:active {
+      background: mixin.hexa(color.$white-100, 0.18);
+    }
+  }
+
+  &--sm {
+    padding: var.$space-10 var.$space-16;
+    font-size: typ.$font-size--sm;
+  }
+
+  &--md {
+    padding: var.$space-12 var.$space-24;
+    font-size: typ.$font-size--base;
+  }
+
+  &--lg {
+    padding: var.$space-16 var.$space-40;
+    font-size: typ.$font-size--lg;
+  }
+
+  &__spinner {
+    animation: spin 1s linear infinite;
+  }
+}

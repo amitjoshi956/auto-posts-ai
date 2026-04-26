@@ -1,37 +1,64 @@
-import { useMutation, useQuery, QueryFunction, MutationFunction } from '@tanstack/react-query';
-import { LazyQuery, PMutation, Query } from '@base/type';
+import {
+  useMutation,
+  useQuery,
+  QueryFunction,
+  MutationFunction,
+  UseQueryOptions,
+  UseMutationOptions,
+} from '@tanstack/react-query';
+import type { LazyQuery, PMutation, Query } from '@base/type';
 
-export const createQuery = <D>(queryFn: QueryFunction<D>, queryKey?: string[]): Query<D> => {
-  return () =>
+// ─── Query Factory ────────────────────────────────────────────────────────────
+// Creates an auto-fetching query hook (enabled by default).
+// Accepts hook-level overrides so consumers can customise per call-site.
+
+export const createQuery = <D>(
+  queryKey: string[],
+  queryFn: QueryFunction<D>,
+  defaults?: Omit<UseQueryOptions<D, Error>, 'queryKey' | 'queryFn'>
+): Query<D> => {
+  return (options?: Omit<UseQueryOptions<D, Error>, 'queryKey' | 'queryFn'>) =>
     useQuery({
-      queryKey: queryKey || [],
+      queryKey,
       queryFn,
+      ...defaults,
+      ...options,
     });
 };
 
+// ─── Lazy Query Factory ──────────────────────────────────────────────────────
+// Creates a manually-triggered query hook (enabled: false).
+
 export const createLazyQuery = <D>(
+  queryKey: string[],
   queryFn: QueryFunction<D>,
-  queryKey?: string[]
+  defaults?: Omit<UseQueryOptions<D, Error>, 'queryKey' | 'queryFn' | 'enabled'>
 ): LazyQuery<D> => {
-  return () => {
+  return (options?: Omit<UseQueryOptions<D, Error>, 'queryKey' | 'queryFn' | 'enabled'>) => {
     const { refetch, ...rest } = useQuery({
-      queryKey: queryKey || [],
+      queryKey,
       queryFn,
       enabled: false,
+      ...defaults,
+      ...options,
     });
 
     return [refetch, rest];
   };
 };
 
+// ─── Mutation Factory ────────────────────────────────────────────────────────
+// Creates a mutation hook with predictable [mutate, rest] return shape.
+
 export const createMutation = <D, P>(
   mutationFn: MutationFunction<D, P>,
-  mutationKey?: string[]
+  defaults?: Omit<UseMutationOptions<D, Error, P>, 'mutationFn'>
 ): PMutation<P, D> => {
-  return () => {
+  return (options?: Omit<UseMutationOptions<D, Error, P>, 'mutationFn'>) => {
     const { mutate, ...rest } = useMutation({
-      mutationKey: mutationKey || [],
       mutationFn,
+      ...defaults,
+      ...options,
     });
 
     return [mutate, rest];

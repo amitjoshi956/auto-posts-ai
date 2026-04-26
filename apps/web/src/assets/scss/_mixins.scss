@@ -1,11 +1,9 @@
-@use 'sass:color';
-
 /************************
 ****** CONVERSIONS ******
 *************************/
 
 @function toRem($px) {
-  @return calc($px/14px) * 1rem;
+  @return calc($px/16px) * 1rem;
 }
 
 /************************
@@ -30,13 +28,7 @@
 ********** FONTS *********
 **************************/
 
-@mixin font-style(
-  $family,
-  $size,
-  $color,
-  $weight: typ.$font-weight--regular,
-  $line-height: typ.$line-height--normal
-) {
+@mixin font-style($family, $size, $color, $weight: 400, $line-height: normal) {
   font-family: $family;
   font-size: $size;
   font-weight: $weight;
@@ -93,5 +85,62 @@
 **************************/
 
 @function hexa($hexColor, $alpha) {
-  @return rgba(color.red($hexColor), color.green($hexColor), color.blue($hexColor), $alpha);
+  @return rgba($color: $hexColor, $alpha: $alpha);
+}
+
+/*****************************
+******** BREAKPOINTS *********
+******************************/
+
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+/*****************************
+***** BREAKPOINT MIXINS ******
+******************************/
+
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+/*****************************
+****** PAGE PADDING **********
+******************************/
+
+@mixin page-padding {
+  padding: toRem(10px) toRem(18px) toRem(18px);
+
+  @include md {
+    padding: toRem(12px) toRem(24px) toRem(24px);
+  }
+
+  @include lg {
+    padding: toRem(24px) toRem(40px) toRem(40px);
+  }
+
+  @include xl {
+    padding: toRem(18px) toRem(64px) toRem(64px);
+  }
 }

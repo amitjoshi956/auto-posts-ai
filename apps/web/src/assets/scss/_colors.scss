@@ -1,28 +1,76 @@
-// Grays & Blacks
-$black-100: #000;
-$gray-100: #111;
-$gray-200: #181818;
-$gray-300: #1a1a1a;
-$gray-400--op-53: #1b323288;
-$gray-500: #213547;
-$gray-600--op-52: #77777785;
+// ─── Color Palette ───────────────────────────────────────────────────────────
+// 6 shades per family, ordered lightest (100) → darkest (600).
+// Original design colors are preserved at their natural position in the scale.
+// Use hexa($color, $alpha) from _mixins.scss for any opacity variants.
 
-// Whites & Neutrals
+// ─── White (100 = pure white, 600 = warm gray) ──────────────────────────────
 $white-100: #ffffff;
-$white-100--op-87: rgba(255, 255, 255, 0.87);
 $white-200: #f9f9f9;
+$white-300: #f0f0f0;
+$white-400: #e0e0e0;
+$white-500: #d0d0d0;
+$white-600: #bdbdbd;
 
-// Blues & Cyans
+// ─── Black (100 = softest black, 600 = pure black) ──────────────────────────
+$black-100: #2c2c2c;
+$black-200: #1a1a1a;
+$black-300: #181818;
+$black-400: #111111;
+$black-500: #0a0a0a;
+$black-600: #000000;
+
+// ─── Gray (100 = light gray, 600 = dark teal-gray) ─────────────────────────
+$gray-100: #9e9e9e;
+$gray-200: #777777;
+$gray-300: #555555;
+$gray-400: #333333;
+$gray-500: #213547;
+$gray-600: #1b3232;
+
+// ─── Cyan (100 = brightest cyan, 600 = deep teal) ──────────────────────────
 $cyan-100: #00ffff;
-$cyan-100--op-70: #00ffffb3;
-$cyan-200--op-40: #008b8b66;
-$cyan-300: #387e7e;
-$cyan-400: #00576a;
-$cyan-500: #008b8b;
-$blue-100: #1c7294;
-$blue-200: #12516a;
+$cyan-200: #00e5e5;
+$cyan-300: #02d0d0;
+$cyan-400: #008b8b;
+$cyan-500: #387e7e;
+$cyan-600: #00576a;
 
-// Reds
-$red-100: #8b0000;
-$red-100--op-20: rgba(220, 0, 0, 0.2);
+// ─── Blue (100 = light blue, 600 = deep blue) ──────────────────────────────
+$blue-100: #42a5f5;
+$blue-200: #2196f3;
+$blue-300: #1c7294;
+$blue-400: #1565c0;
+$blue-500: #12516a;
+$blue-600: #0d47a1;
+
+// ─── Red (100 = light red, 600 = darkest red) ──────────────────────────────
+$red-100: #ef5350;
 $red-200: #dc143c;
+$red-300: #c62828;
+$red-400: #b71c1c;
+$red-500: #8b0000;
+$red-600: #5c0000;
+
+// ─── Green (100 = soft green, 600 = deep green) ────────────────────────────
+$green-100: #a5d6a7;
+$green-200: #66bb6a;
+$green-300: #43a047;
+$green-400: #2e7d32;
+$green-500: #1b5e20;
+$green-600: #0a3d0a;
+
+// ─── Yellow (100 = pale yellow, 600 = deep amber) ──────────────────────────
+$yellow-100: #fff9c4;
+$yellow-200: #fff176;
+$yellow-300: #ffee58;
+$yellow-400: #fdd835;
+$yellow-500: #f9a825;
+$yellow-600: #f57f17;
+
+// ─── Orange (100 = soft peach, 600 = burnt orange) ─────────────────────────
+$orange-100: #ffcc80;
+$orange-200: #ffa726;
+$orange-300: #fb8c00;
+$orange-400: #ef6c00;
+$orange-500: #e65100;
+$orange-600: #bf360c;

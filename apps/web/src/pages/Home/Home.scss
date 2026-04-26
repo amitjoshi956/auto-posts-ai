@@ -1,8 +1,12 @@
-.home {
-    padding: 20px;
+@use '@assets/scss/typography' as typ;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/variables' as var;
 
-    &__welcome-msg {
-        margin: 20px 0 60px;
-        font-weight: 200;
-    }
+.home {
+  @include mixin.page-padding;
+
+  &__welcome-msg {
+    margin-bottom: var.$space-64;
+    font-weight: typ.$font-weight--light;
+  }
 }

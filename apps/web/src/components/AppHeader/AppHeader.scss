@@ -1,39 +1,78 @@
 @use '@assets/scss/colors' as color;
 @use '@assets/scss/typography' as typ;
 @use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/variables' as var;
 
 .app-header {
-  background: linear-gradient(
-    180deg,
-    rgba($color: color.$black-100, $alpha: 0.4) 30%,
-    color.$gray-100
-  );
+  @include mixin.flex(space-between, center);
+  background: linear-gradient(180deg, mixin.hexa(color.$black-200, 0.3) 10%, color.$black-400);
   width: 100%;
   box-sizing: border-box;
-  padding: mixin.toRem(8px) mixin.toRem(20px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: var.$space-12 mixin.toRem(18px);
+  user-select: none;
+
+  &--premium {
+    background: linear-gradient(180deg, mixin.hexa(color.$cyan-600, 0.3) 10%, color.$black-400);
+  }
 
   &__title {
     @include mixin.flex(center, center);
     font-size: typ.$font-size--app-title;
     font-weight: typ.$font-weight--bold;
     padding: 0;
-    margin: mixin.toRem(10px) 0;
+    margin: var.$space-10 0;
 
     span {
-      color: color.$cyan-500;
+      color: color.$cyan-400;
     }
   }
 
   &__title-icon {
-    @include mixin.icon-dimensions(20px);
-    fill: color.$cyan-500;
-    margin-right: mixin.toRem(8px);
+    @include mixin.icon-dimensions(mixin.toRem(20px));
+    fill: color.$cyan-400;
+    margin-right: var.$space-8;
+  }
+
+  &__nav {
+    @include mixin.flex(center, center);
+    gap: var.$space-6;
+  }
+
+  &__link {
+    font-size: typ.$font-size--sm;
+    font-weight: typ.$font-weight--medium;
+    color: mixin.hexa(color.$gray-200, 0.52);
+    text-decoration: none;
+    padding: var.$space-6 var.$space-14;
+    border-radius: var.$radius-sm;
+    transition:
+      color var.$transition-fast,
+      background-color var.$transition-fast;
+
+    &:hover {
+      color: mixin.hexa(color.$white-100, 0.87);
+      text-decoration: none;
+    }
+
+    &.active {
+      color: color.$cyan-100;
+      background-color: mixin.hexa(color.$cyan-400, 0.4);
+    }
   }
 
   &__profile-btn {
-    background-color: color.$red-100;
+    background-color: color.$red-500;
+  }
+
+  @include mixin.md {
+    padding: var.$space-12 var.$space-24;
+  }
+
+  @include mixin.lg {
+    padding: var.$space-16 var.$space-40;
+  }
+
+  @include mixin.xl {
+    padding: var.$space-16 var.$space-64;
   }
 }

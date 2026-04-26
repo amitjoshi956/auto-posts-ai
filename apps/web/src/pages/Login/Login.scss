@@ -1,14 +1,15 @@
 @use '@assets/scss/colors' as color;
+@use '@assets/scss/typography' as typ;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/variables' as var;
 
 .login {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include mixin.flex(space-between, center);
   width: 100%;
   height: 100%;
-  background-color: color.$gray-100;
+  background-color: color.$black-400;
   color: color.$white-100;
-  padding: 20px;
+  padding: var.$space-20;
   box-sizing: border-box;
   position: relative;
 
@@ -17,20 +18,27 @@
     width: 1px;
     height: 80%;
     position: absolute;
-    background-color: color.$gray-400--op-53;
+    background-color: mixin.hexa(color.$gray-600, 0.53);
     left: calc(50% + 1px);
     top: 10%;
+
+    @include mixin.sm {
+      display: block;
+    }
   }
 
   &__branding {
     width: 100%;
     height: 100%;
     flex: 1 0 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include mixin.flex(center, center);
     position: relative;
-    border-spacing: 0 20px;
+    border-spacing: 0 mixin.toRem(20px);
+    display: none;
+
+    @include mixin.md {
+      display: flex;
+    }
 
     &::before {
       content: 'Plan, Schedule, & Post.';
@@ -38,9 +46,9 @@
       max-width: 7ch;
       word-wrap: break-word;
       font-size: 3.2em;
-      line-height: 1.1;
-      font-weight: 900;
-      color: color.$cyan-200--op-40;
+      line-height: typ.$line-height--tight;
+      font-weight: typ.$font-weight--black;
+      color: mixin.hexa(color.$cyan-400, 0.4);
       opacity: 0.1;
       top: 5%;
       left: 10%;
@@ -50,9 +58,9 @@
       content: 'Let AI handle it!';
       position: absolute;
       font-size: 4em;
-      line-height: 1.1;
-      font-weight: 900;
-      color: color.$cyan-200--op-40;
+      line-height: typ.$line-height--tight;
+      font-weight: typ.$font-weight--black;
+      color: mixin.hexa(color.$cyan-400, 0.4);
       opacity: 0.1;
       bottom: 10%;
       right: 10%;
@@ -65,46 +73,55 @@
   }
 
   &__user-input {
+    @include mixin.flex(center, center);
     width: 100%;
     height: 100%;
-    flex: 1 0 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: 1 0 100%;
     position: relative;
+
+    @include mixin.md {
+      flex: 1 0 50%;
+    }
   }
 
   &__user-input-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include mixin.flex(center, center, column);
     width: 100%;
     height: 100%;
-    padding: 80px;
+    padding: var.$space-20;
+
+    @include mixin.md {
+      padding: var.$space-80;
+    }
   }
 
   &__form-container {
     width: 100%;
-    padding: 40px;
-    border: 2px solid color.$cyan-500;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: var.$space-24;
+    border: mixin.toRem(2px) solid color.$cyan-400;
+    border-radius: var.$radius-md;
+    margin-bottom: var.$space-20;
     box-sizing: border-box;
+
+    @include mixin.md {
+      padding: var.$space-32;
+    }
+
+    @include mixin.lg {
+      padding: var.$space-40;
+    }
   }
 
   &__choice-separator {
-    padding: 10px 0 20px;
-    font-size: 16px;
+    @include mixin.flex(center, center);
+    padding: var.$space-10 0 var.$space-20;
+    font-size: mixin.toRem(16px);
     position: relative;
     width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     &::before {
       content: '';
-      background-color: color.$gray-600--op-52;
+      background-color: mixin.hexa(color.$gray-200, 0.52);
       border-radius: 1px 0 0 1px;
       width: 40%;
       height: 1px;
@@ -114,7 +131,7 @@
 
     &::after {
       content: '';
-      background-color: color.$gray-600--op-52;
+      background-color: mixin.hexa(color.$gray-200, 0.52);
       border-radius: 0 1px 1px 0;
       width: 40%;
       height: 1px;
@@ -124,40 +141,30 @@
   }
 
   &__linkedin-button {
-    width: 300px;
-    padding: 10px;
-    background-color: color.$blue-100;
+    @include mixin.flex(center, center);
+    width: mixin.toRem(300px);
+    padding: var.$space-10;
+    background-color: color.$blue-300;
     color: color.$white-100;
     border: none;
-    border-radius: 4px;
+    border-radius: var.$radius-xs;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    column-gap: 8px;
-    transition: background-color 0.3s ease;
+    column-gap: var.$space-8;
+    transition: background-color var.$transition-base;
 
     &:hover {
-      background-color: color.$blue-200;
+      background-color: color.$blue-500;
     }
   }
 
   &__signup-prompt {
-    margin-top: 40px;
+    @include mixin.flex(space-between, center);
+    margin-top: var.$space-40;
     column-gap: 1ch;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
   &__signup-link {
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  @media (min-width: 768px) {
-    &__form-container {
-      padding: 30px;
-    }
+    font-size: mixin.toRem(18px);
+    font-weight: typ.$font-weight--bold;
   }
 }

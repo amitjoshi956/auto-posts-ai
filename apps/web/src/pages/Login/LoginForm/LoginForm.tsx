@@ -1,7 +1,9 @@
-import { FC, useState } from 'react';
-import { Alert02Icon, Login03Icon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
-import UserInput from '@components/UserInput';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Login03Icon } from '@hugeicons/core-free-icons';
+import { Input, Button } from '@components/base';
 
 import './LoginForm.scss';
 
@@ -11,73 +13,82 @@ type UserInputFormProps = {
 };
 
 export const LoginForm: FC<UserInputFormProps> = ({ isSignup, onSubmit }) => {
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [isError, setIsError] = useState<boolean>(false);
+  const formSchema = z.object({
+    name: isSignup ? z.string().min(1, 'Full name is required') : z.string().optional(),
+    email: z.string().min(1, 'Email is required').email('Invalid email address'),
+    password: z
+      .string()
+      .min(1, 'Password is required')
+      .min(6, 'Password must be at least 6 characters'),
+  });
+
+  type FormValues = z.infer<typeof formSchema>;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+  });
 
   const formTitle = isSignup ? 'Create your new account' : 'Login to begin';
   const submitBtnLabel = isSignup ? 'Sign-up' : 'Login';
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      setIsError(true);
-      return;
-    }
-
-    if (isSignup && !name) {
-      setIsError(true);
-      return;
-    }
-
-    setIsError(false);
-    onSubmit(email, password, name);
+  const onFormSubmit = (data: FormValues) => {
+    onSubmit(data.email, data.password, data.name);
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
+    <form className="login-form" onSubmit={handleSubmit(onFormSubmit)} noValidate>
       <h2 className="login-form__title">{formTitle}</h2>
+
       {isSignup && (
-        <UserInput
+        <Input
+          {...register('name')}
           id="login-userFullname"
           isRequired
           label="Full Name"
           type="text"
-          value={name}
           placeholder="John Doe"
-          onChange={setName}
+          error={errors.name?.message}
         />
       )}
-      <UserInput
+
+      <Input
+        {...register('email')}
         id="login-userEmail"
         isRequired
         label="Email"
         type="email"
-        value={email}
         placeholder="john.doe@gmail.com"
-        onChange={setEmail}
+        error={errors.email?.message}
       />
-      <UserInput
+
+      <Input
+        {...register('password')}
         id="login-userPassword"
         isRequired
         label="Password"
         type="password"
-        value={password}
         placeholder="****************"
-        onChange={setPassword}
+        error={errors.password?.message}
       />
-      {isError && (
-        <p className="login-form__error">
-          <HugeiconsIcon size={14} icon={Alert02Icon} />
-          Please fill all required fields
-        </p>
-      )}
-      <button className="login-form__submit-btn" type="submit">
+
+      <Button
+        className="login-form__submit-btn"
+        type="submit"
+        icon={Login03Icon}
+        iconPosition="right"
+        isLoading={isSubmitting}
+      >
         {submitBtnLabel}
-        <HugeiconsIcon className="login-form__submit-btn-icon" icon={Login03Icon} />
-      </button>
+      </Button>
     </form>
   );
 };

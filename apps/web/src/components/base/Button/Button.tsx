@@ -4,8 +4,7 @@ import { classes } from '@common/utils';
 
 import './Button.scss';
 
-type ButtonVariant = 'filled' | 'outlined' | 'ghost' | 'text' | 'link' | 'icon';
-
+type ButtonVariant = 'filled' | 'gradient' | 'outlined' | 'ghost' | 'text' | 'link' | 'icon';
 type ButtonSize = 'sm' | 'md' | 'lg';
 type IconPosition = 'left' | 'right';
 

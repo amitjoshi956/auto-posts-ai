@@ -2,10 +2,8 @@ import { FC, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { NoteAddIcon, StickyNote01Icon } from '@hugeicons/core-free-icons';
 import { useTopics } from '@api/topic/query';
-import { Loader } from '@components/.';
-import TopicCard from '@components/TopicCard';
-import { Button } from '@components/base';
-import AddTopicModal from '@components/AddTopicModal';
+import { Button, Loader } from '@components/base';
+import { TopicCard, AddTopicModal } from '@components/.';
 
 import './Topics.scss';
 

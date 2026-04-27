@@ -13,13 +13,16 @@
   },
   "dependencies": {
     "@autoposts/shared": "workspace:*",
+    "@hookform/resolvers": "^5.2.2",
     "@hugeicons/core-free-icons": "^4.1.1",
     "@hugeicons/react": "^1.1.6",
     "@tanstack/react-query": "^5.99.0",
     "axios": "^1.15.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "react-router": "^7.14.2"
+    "react-hook-form": "^7.74.0",
+    "react-router": "^7.14.2",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -17,23 +17,18 @@
   }
 
   &__submit-btn {
-    display: flex;
-    background-color: color.$cyan-400;
-    color: color.$white-100;
-    column-gap: var.$space-4;
-    padding: var.$space-10 var.$space-40;
     margin-top: var.$space-10;
     border: none;
     cursor: pointer;
     transition: background-color var.$transition-base;
 
-    &:hover {
-      background-color: color.$cyan-400;
+    svg {
+      transition: transform 300ms ease-in-out;
     }
-  }
 
-  &__submit-btn-icon {
-    transform: rotateZ(180deg);
+    &:hover svg {
+      transform: rotateZ(180deg);
+    }
   }
 
   &__error {

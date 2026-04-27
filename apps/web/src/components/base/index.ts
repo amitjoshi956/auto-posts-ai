@@ -1,2 +1,3 @@
 export { Button } from './Button';
-export { default as Loader } from './Loader';
+export { Input } from './Input';
+export { Loader } from './Loader';

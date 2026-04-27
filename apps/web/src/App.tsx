@@ -1,7 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router';
 import { useAuth } from '@common/hooks';
-import { AppHeader, Loader } from '@components/.';
+import { AppHeader } from '@components/.';
+import { Loader } from '@components/base';
+
 import Login from '@pages/Login';
 
 const Home = lazy(() => import('@pages/Home'));

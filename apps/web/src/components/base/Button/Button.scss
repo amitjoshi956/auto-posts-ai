@@ -37,6 +37,20 @@
   }
 
   &--filled {
+    background-color: color.$cyan-400;
+    color: color.$white-100;
+    border-color: transparent;
+
+    &:hover {
+      background-color: color.$cyan-500;
+    }
+
+    &:active {
+      background-color: color.$cyan-400;
+    }
+  }
+
+  &--gradient {
     background: linear-gradient(135deg, color.$cyan-500, color.$cyan-600);
     color: color.$white-100;
     border-color: color.$white-100;

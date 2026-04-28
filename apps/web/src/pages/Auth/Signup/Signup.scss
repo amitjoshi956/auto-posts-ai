@@ -1,0 +1,44 @@
+@use '@assets/scss/colors' as color;
+@use '@assets/scss/typography' as typ;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/variables' as var;
+
+.signup {
+  @include mixin.flex(space-between, center, column);
+  width: 100%;
+  padding: var.$space-10 var.$space-40;
+  border-radius: var.$radius-md;
+  row-gap: var.$space-20;
+
+  &__title {
+    font-size: 2.5em;
+    font-weight: typ.$font-weight--light;
+    margin-bottom: var.$space-10;
+  }
+
+  &__submit-btn {
+    margin-top: var.$space-10;
+    border: none;
+    cursor: pointer;
+    transition: background-color var.$transition-base;
+
+    svg {
+      transition: transform 300ms ease-in-out;
+    }
+
+    &:hover svg {
+      transform: rotateZ(180deg);
+    }
+  }
+
+  &__error {
+    @include mixin.flex(space-between, center);
+    column-gap: var.$space-8;
+    background-color: mixin.hexa(color.$red-200, 0.2);
+    font-size: mixin.toRem(12px);
+    color: color.$red-200;
+    padding: var.$space-4 var.$space-12;
+    border: 1px solid color.$red-200;
+    border-radius: var.$radius-pill;
+  }
+}

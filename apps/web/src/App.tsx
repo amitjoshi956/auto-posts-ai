@@ -4,8 +4,7 @@ import { useAuth } from '@common/hooks';
 import { AppHeader } from '@components/.';
 import { Loader } from '@components/base';
 
-import Login from '@pages/Login';
-
+const Auth = lazy(() => import('@pages/Auth'));
 const Home = lazy(() => import('@pages/Home'));
 const Topics = lazy(() => import('@pages/Topics'));
 
@@ -22,7 +21,7 @@ function App() {
     return (
       <div className="app">
         <AppHeader isAuthenticated={false} onLogout={logout} />
-        <Login />
+        <Auth />
       </div>
     );
   }

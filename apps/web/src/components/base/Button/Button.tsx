@@ -1,6 +1,9 @@
 import { FC, ButtonHTMLAttributes } from 'react';
-import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
+import { IconSvgElement } from '@hugeicons/react';
+import { IconSize } from '@base/type';
+import { ICON_SIZE } from '@base/const';
 import { classes } from '@common/utils';
+import { Icon } from '../Icon';
 
 import './Button.scss';
 
@@ -13,7 +16,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   icon?: IconSvgElement;
-  iconSize?: number;
+  iconSize?: IconSize;
   iconPosition?: IconPosition;
   isLoading?: boolean;
   fullWidth?: boolean;
@@ -24,7 +27,7 @@ const Button: FC<ButtonProps> = ({
   variant = 'filled',
   size = 'md',
   icon,
-  iconSize = 18,
+  iconSize = 'base',
   iconPosition = 'left',
   isLoading = false,
   fullWidth = false,
@@ -48,8 +51,8 @@ const Button: FC<ButtonProps> = ({
       return (
         <svg
           className="btn__spinner"
-          width={iconSize}
-          height={iconSize}
+          width={ICON_SIZE[iconSize]}
+          height={ICON_SIZE[iconSize]}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -62,7 +65,7 @@ const Button: FC<ButtonProps> = ({
       );
     }
     if (icon) {
-      return <HugeiconsIcon icon={icon} size={iconSize} />;
+      return <Icon icon={icon} size={iconSize} />;
     }
     return null;
   };

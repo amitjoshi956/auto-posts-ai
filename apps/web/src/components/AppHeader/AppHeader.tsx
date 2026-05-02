@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { AiFileIcon } from '@hugeicons/core-free-icons';
 import { classes } from '@common/utils';
+import { AiFileIcon } from '@assets/icons';
+import { Icon } from '@components/base';
 
 import './AppHeader.scss';
 
@@ -19,7 +19,7 @@ const AppHeader: FC<AppHeaderProps> = ({ isAuthenticated, onLogout }) => {
   return (
     <header className={headerClass}>
       <div className="app-header__title">
-        <HugeiconsIcon className="app-header__title-icon" icon={AiFileIcon} size={32} />
+        <Icon className="app-header__title-icon" icon={AiFileIcon} size="lg" />
         AutoPosts.<span>ai</span>
       </div>
 

@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { NoteAddIcon, StickyNote01Icon } from '@hugeicons/core-free-icons';
 import { useTopics } from '@api/topic/query';
-import { Button, Loader } from '@components/base';
+import { NoteAddIcon, StickyNoteIcon } from '@assets/icons';
+import { Button, Icon, Loader } from '@components/base';
 import { TopicCard, AddTopicModal } from '@components/.';
 
 import './Topics.scss';
@@ -21,10 +20,14 @@ const Topics: FC = () => {
     <div className="topics">
       <div className="topics__header">
         <h2 className="topics__title">Topics</h2>
-        <Button variant="filled" size="sm" onClick={() => setIsModalOpen(true)}>
-          <HugeiconsIcon icon={NoteAddIcon} size={18} />
-          Add Topic
-        </Button>
+        <Button
+          variant="filled"
+          size="sm"
+          icon={NoteAddIcon}
+          iconSize="base"
+          label="Add Topic"
+          onClick={() => setIsModalOpen(true)}
+        />
       </div>
 
       {hasTopics ? (
@@ -37,7 +40,7 @@ const Topics: FC = () => {
         </ul>
       ) : (
         <div className="topics__empty">
-          <HugeiconsIcon className="topics__empty-icon" icon={StickyNote01Icon} size={56} />
+          <Icon className="topics__empty-icon" icon={StickyNoteIcon} size="xl" />
           <p className="topics__empty-text">
             No topics planned yet. Create your first one to get started!
           </p>

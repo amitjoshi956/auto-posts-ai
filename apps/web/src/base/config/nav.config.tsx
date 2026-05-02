@@ -1,19 +1,19 @@
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Home01Icon, LibraryIcon } from '@hugeicons/core-free-icons';
 import type { NavMenuItem } from '@base/type';
 import { AppRoutes } from '@base/const';
+import { HomeIcon, LibraryIcon } from '@assets/icons';
+import { Icon } from '@components/base';
 
 export const NavConfig: NavMenuItem[] = [
   {
     label: 'Home',
     path: AppRoutes.Home,
     showMenu: true,
-    icon: (props) => <HugeiconsIcon icon={Home01Icon} {...props} />,
+    icon: (props) => <Icon {...props} icon={HomeIcon} />,
   },
   {
     label: 'Topics',
     path: AppRoutes.Topics,
     showMenu: true,
-    icon: (props) => <HugeiconsIcon icon={LibraryIcon} {...props} />,
+    icon: (props) => <Icon {...props} icon={LibraryIcon} />,
   },
 ];

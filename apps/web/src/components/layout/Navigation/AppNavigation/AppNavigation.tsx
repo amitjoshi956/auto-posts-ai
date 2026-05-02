@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router';
-import { NavConfig } from '@base/config/nav.config';
-import './AppNavigation.scss';
 import { classes } from '@common/utils';
+import { NavConfig } from '@base/config/nav.config';
+
+import './AppNavigation.scss';
 
 export const AppNavigation: React.FC = () => {
   return (
@@ -18,7 +19,7 @@ export const AppNavigation: React.FC = () => {
           return (
             <li key={path} className="app-navigation__item">
               <NavLink to={path} className={({ isActive }) => navLinkClass(isActive)}>
-                <Icon size={24} className="app-navigation__icon" />
+                <Icon size="md" className="app-navigation__icon" />
                 <span className="app-navigation__label">{label}</span>
               </NavLink>
             </li>

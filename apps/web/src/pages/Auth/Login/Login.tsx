@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Login03Icon } from '@hugeicons/core-free-icons';
-import { Input, Button } from '@components/base';
 import { LoginPayload, LoginSchema } from '@autoposts/shared';
+import { LoginIcon } from '@assets/icons';
+import { Input, Button } from '@components/base';
 
 import './Login.scss';
 
@@ -58,7 +58,7 @@ export const Login: FC<LoginProps> = ({ onLogin }) => {
       <Button
         className="login__submit-btn"
         type="submit"
-        icon={Login03Icon}
+        icon={LoginIcon}
         iconPosition="right"
         isLoading={isSubmitting}
       >

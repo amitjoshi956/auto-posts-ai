@@ -1,3 +1,4 @@
+import { HugeiconsProps } from '@hugeicons/react';
 import {
   QueryObserverResult,
   UseMutateFunction,
@@ -32,6 +33,13 @@ export type PLazyQuery<P, R> = (params: P) => ReturnLazyQuery<R>;
 export type PMutation<P, R> = (
   options?: Omit<UseMutationOptions<R, Error, P>, 'mutationFn'>
 ) => ReturnMutation<R, P>;
+
+// ─── Icon Props Type ─────────────────────────────────────────────────────────
+export type IconSize = 'xs' | 'sm' | 'base' | 'md' | 'lg' | 'xl';
+
+export type IconProps = HugeiconsProps & {
+  size?: IconSize;
+};
 
 // ─── Re-exports from Shared Module ───────────────────────────────────────────
 // Domain types come from @autoposts/shared to avoid duplication

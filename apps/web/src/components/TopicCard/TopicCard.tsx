@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Calendar03Icon } from '@hugeicons/core-free-icons';
 import { TopicStatus } from '@autoposts/shared';
 import type { Topic } from '@base/type';
+import { CalenderIcon } from '@assets/icons';
+import { Icon } from '@components/base';
 
 import './TopicCard.scss';
 
@@ -43,7 +43,7 @@ const TopicCard: FC<TopicCardProps> = ({ topic }) => {
       {plan && <p className="topic-card__plan">{plan}</p>}
 
       <div className="topic-card__meta">
-        <HugeiconsIcon icon={Calendar03Icon} size={14} />
+        <Icon icon={CalenderIcon} size="xs" />
         <span className="topic-card__date">{formatDateTime(generationDateTime)}</span>
       </div>
     </article>

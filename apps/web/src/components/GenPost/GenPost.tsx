@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Copy02Icon, Linkedin02Icon, Edit02Icon } from '@hugeicons/core-free-icons';
+import { CopyIcon, LinkedinIcon, EditIcon } from '@assets/icons';
+import { Button, Icon } from '@components/base';
 
 import './GenPost.scss';
-import { Button } from '@components/base/Button';
 
 const msg = `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum aliquid suscipit nostrum autem soluta ad fugit maiores odio asperiores natus, accusantium debitis temporibus id placeat error commodi, in deserunt fugiat.
 Necessitatibus omnis amet hic officiis asperiores facilis, quibusdam veritatis fugit, exercitationem quas laudantium, ab aliquid ipsam dolorum suscipit quasi labore quos architecto expedita repudiandae nesciunt aliquam. Distinctio recusandae eligendi aut.
@@ -45,15 +44,15 @@ const GenPost: React.FC = () => {
       <div className="gen-post__article-container">
         <div className="gen-post__article-actions">
           <button className="gen-post__article-action">
-            <HugeiconsIcon icon={Edit02Icon} size={14} />
+            <Icon icon={EditIcon} size="sm" />
             Edit
           </button>
         </div>
         <p className="gen-post__article">{generatedPost}</p>
       </div>
       <div className="gen-post__actions">
-        <Button variant="ghost" icon={Copy02Icon} label="Copy" />
-        <Button variant="filled" icon={Linkedin02Icon} label="Post" onClick={handlePost} />
+        <Button variant="ghost" icon={CopyIcon} label="Copy" />
+        <Button variant="filled" icon={LinkedinIcon} label="Post" onClick={handlePost} />
       </div>
     </div>
   );

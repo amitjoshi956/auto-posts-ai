@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { LinkedinIcon } from '@hugeicons/core-free-icons';
+import { LinkedinIcon } from '@assets/icons';
 import { useLazyLogin, useLazySignup } from '@api/user/mutation';
 import AuthIllustration from '@assets/image/illustration-login.svg';
 import { Button, Loader } from '@components/base';
@@ -49,10 +48,14 @@ const Auth: FC = () => {
         <div className="auth__user-input-container">
           {isNewSignup ? <Signup onSignup={handleSignup} /> : <Login onLogin={handleLogin} />}
           <span className="auth__choice-separator">OR</span>
-          <Button disabled className="auth__linkedin-button" onClick={handleGoogleSignin}>
-            <HugeiconsIcon icon={LinkedinIcon} />
-            <span className="auth__linkedin-btn-label">Sign in with Linkedin</span>
-          </Button>
+          <Button
+            disabled
+            className="auth__linkedin-button"
+            icon={LinkedinIcon}
+            iconSize="md"
+            label="Sign in with Linkedin"
+            onClick={handleGoogleSignin}
+          />
           <p className="auth__signup-prompt">
             {signupPrompt}
             <a className="auth__signup-link" onClick={switchFormMode}>

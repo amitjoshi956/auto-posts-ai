@@ -1,8 +1,8 @@
-import { HugeiconsProps } from '@hugeicons/react';
+import { IconProps } from './index';
 
 export type NavMenuItem = {
   label: string;
   path: string;
   showMenu: boolean;
-  icon: React.ComponentType<HugeiconsProps>;
+  icon: React.FC<IconProps>;
 };

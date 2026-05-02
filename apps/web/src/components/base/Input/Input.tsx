@@ -1,7 +1,7 @@
 import { forwardRef, InputHTMLAttributes, useState } from 'react';
-import { ViewIcon, ViewOffSlashIcon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
+import { ViewIcon, ViewOffSlashIcon } from '@assets/icons';
 import { classes } from '@common/utils';
+import { Icon } from '@components/base';
 
 import './Input.scss';
 
@@ -49,7 +49,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               data-active={showPassword}
               onClick={() => setShowPassword((prev) => !prev)}
             >
-              <HugeiconsIcon icon={showPasswordIcon} size={20} />
+              <Icon icon={showPasswordIcon} size="base" />
             </button>
           )}
         </div>

@@ -38,3 +38,12 @@ $radius-pill: mixin.toRem(20px);
 $transition-fast: 0.2s ease;
 $transition-base: 0.3s ease;
 $transition-slow: 0.45s ease;
+
+/*****************************
+******** Z-INDEX *********
+******************************/
+
+$z-index-header: 100;
+$z-index-modal: 120;
+$z-index-dropdown: 110;
+$z-index-app-navigation: 90;

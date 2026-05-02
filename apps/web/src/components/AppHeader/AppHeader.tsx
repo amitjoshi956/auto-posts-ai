@@ -1,10 +1,9 @@
 import { FC } from 'react';
-import { NavLink } from 'react-router';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { AiFileIcon } from '@hugeicons/core-free-icons';
+import { classes } from '@common/utils';
 
 import './AppHeader.scss';
-import { classes } from '@common/utils';
 
 type AppHeaderProps = {
   isAuthenticated: boolean;
@@ -23,17 +22,6 @@ const AppHeader: FC<AppHeaderProps> = ({ isAuthenticated, onLogout }) => {
         <HugeiconsIcon className="app-header__title-icon" icon={AiFileIcon} size={32} />
         AutoPosts.<span>ai</span>
       </div>
-
-      {isAuthenticated && (
-        <nav className="app-header__nav">
-          <NavLink to="/" className="app-header__link" end>
-            Home
-          </NavLink>
-          <NavLink to="/topics" className="app-header__link">
-            Topics
-          </NavLink>
-        </nav>
-      )}
 
       {isAuthenticated && (
         <button className="app-header__profile-btn" onClick={onLogout}>

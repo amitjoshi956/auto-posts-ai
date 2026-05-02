@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router';
 import { useAuth } from '@common/hooks';
-import { AppHeader } from '@components/.';
+import { AppLayout } from '@components/layout';
 import { Loader } from '@components/base';
 
 const Auth = lazy(() => import('@pages/Auth'));
@@ -17,26 +17,18 @@ function App() {
     return <Loader message="Loading" />;
   }
 
-  if (!isAuthenticated) {
-    return (
-      <div className="app">
-        <AppHeader isAuthenticated={false} onLogout={logout} />
-        <Auth />
-      </div>
-    );
-  }
-
+  // TODO: Make routes reusable
   return (
-    <div className="app">
-      <AppHeader isAuthenticated={isAuthenticated} onLogout={logout} />
+    <AppLayout isAuthenticated={isAuthenticated} logout={logout}>
       <Suspense fallback={<Loader message="Loading" />}>
         <Routes>
-          <Route path="/" element={<Home userName={userName} />} />
-          <Route path="/topics" element={<Topics />} />
+          {isAuthenticated && <Route path="/" element={<Home userName={userName} />} />}
+          {isAuthenticated && <Route path="/topics" element={<Topics />} />}
+          {!isAuthenticated && <Route path="/" element={<Auth />} />}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
-    </div>
+    </AppLayout>
   );
 }
 

@@ -1,0 +1,56 @@
+@use '@assets/scss/colors' as color;
+@use '@assets/scss/variables' as var;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/typography' as typ;
+
+.app-navigation {
+  @include mixin.flex(center, center);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: var.$space-8 var.$space-16;
+  background-color: color.$black-300;
+  border-top: 1px solid color.$black-100;
+  border-radius: var.$radius-md var.$radius-md 0 0;
+  z-index: var.$z-index-app-navigation;
+
+  &__list {
+    @include mixin.flex(space-around, center);
+    width: 100%;
+    height: 100%;
+  }
+
+  &__item {
+    @include mixin.flex(center, center);
+    flex: 0 0;
+  }
+
+  &__link {
+    @include mixin.flex(center, center, column);
+    gap: var.$space-4;
+    width: 100%;
+    height: 100%;
+    padding: var.$space-4 var.$space-8;
+    border-radius: var.$radius-md;
+    color: color.$gray-200;
+    transition: color var.$transition-fast;
+    text-decoration: none !important;
+
+    &:hover {
+      background-color: mixin.hexa(color.$black-100, 0.5);
+      color: color.$cyan-400;
+      text-decoration: none;
+    }
+
+    &--active {
+      color: color.$cyan-400;
+    }
+  }
+
+  &__label {
+    text-decoration: none;
+    font-size: typ.$font-size--xs;
+    font-weight: typ.$font-weight--medium;
+  }
+}

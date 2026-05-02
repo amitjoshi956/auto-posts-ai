@@ -6,3 +6,4 @@ export const API_TIMEOUT = 10000;
 
 export * from './storage';
 export * from './api';
+export * from './routes';

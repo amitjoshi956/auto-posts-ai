@@ -77,6 +77,11 @@ h6 {
   font-size: typ.$font-size--h6;
 }
 
+ul,
+ol {
+  list-style: none;
+}
+
 button {
   border-radius: var.$radius-md;
   border: 1px solid transparent;

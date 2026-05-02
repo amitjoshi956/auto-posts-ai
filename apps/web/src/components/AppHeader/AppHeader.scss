@@ -73,6 +73,6 @@
   }
 
   @include mixin.xl {
-    padding: var.$space-16 var.$space-64;
+    padding: var.$space-16 var.$space-40;
   }
 }

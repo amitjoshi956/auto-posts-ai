@@ -46,3 +46,5 @@ export type {
   Topic,
   CreateTopicPayload,
 } from '@autoposts/shared';
+
+export * from './config';

@@ -92,6 +92,7 @@
 ******** BREAKPOINTS *********
 ******************************/
 
+$breakpoint-xs: 320px;
 $breakpoint-sm: 480px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
@@ -100,6 +101,12 @@ $breakpoint-xl: 1280px;
 /*****************************
 ***** BREAKPOINT MIXINS ******
 ******************************/
+
+@mixin xs {
+  @media (min-width: $breakpoint-xs) {
+    @content;
+  }
+}
 
 @mixin sm {
   @media (min-width: $breakpoint-sm) {

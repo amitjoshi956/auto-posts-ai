@@ -5,10 +5,17 @@ import { Button, Icon, Loader } from '@components/base';
 import { TopicCard, AddTopicModal } from '@components/.';
 
 import './Topics.scss';
+import { useDevice } from '@common/hooks';
 
 const Topics: FC = () => {
-  const { data: topics, isLoading } = useTopics();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isTablet, isMobile } = useDevice();
+
+  const { data: topics, isLoading } = useTopics();
+
+  const addBtnVariant = isMobile || isTablet ? 'icon' : 'filled';
+  const addBtnSize = isMobile || isTablet ? 'lg' : 'sm';
+  const addIconSize = isMobile || isTablet ? 'md' : 'base';
 
   if (isLoading) {
     return <Loader message="Loading topics" />;
@@ -21,10 +28,11 @@ const Topics: FC = () => {
       <div className="topics__header">
         <h2 className="topics__title">Topics</h2>
         <Button
-          variant="filled"
-          size="sm"
+          variant={addBtnVariant}
+          size={addBtnSize}
+          className="topics__add-btn"
           icon={NoteAddIcon}
-          iconSize="base"
+          iconSize={addIconSize}
           label="Add Topic"
           onClick={() => setIsModalOpen(true)}
         />

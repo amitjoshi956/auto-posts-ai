@@ -52,4 +52,18 @@
     max-width: mixin.toRem(320px);
     line-height: typ.$line-height--relaxed;
   }
+
+  @include mixin.xs {
+    &__add-btn {
+      position: fixed;
+      bottom: mixin.toRem(100px);
+      right: mixin.toRem(18px);
+    }
+  }
+
+  @include mixin.lg {
+    &__add-btn {
+      position: initial;
+    }
+  }
 }

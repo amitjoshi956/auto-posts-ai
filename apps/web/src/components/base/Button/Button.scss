@@ -126,18 +126,18 @@
   }
 
   &--icon {
-    background: transparent;
+    background: color.$cyan-400;
     color: color.$white-100;
     border-color: transparent;
-    padding: var.$space-8;
-    border-radius: var.$radius-md;
+    padding: var.$space-16 !important;
+    border-radius: var.$radius-pill;
 
     &:hover {
-      background: mixin.hexa(color.$white-100, 0.1);
+      background: mixin.hexa(color.$cyan-400, 0.7);
     }
 
     &:active {
-      background: mixin.hexa(color.$white-100, 0.18);
+      background: mixin.hexa(color.$cyan-400, 0.8);
     }
   }
 

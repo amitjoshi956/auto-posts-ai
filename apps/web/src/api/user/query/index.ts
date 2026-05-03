@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchUserProfile } from '@api/user/user-service';
 import type { LazyQuery, Query } from '@base/type';
 import type { UserProfile } from '@autoposts/shared';
-import { QueryCacheKey } from '@base/const';
+import { QueryCacheKey, QueryCacheTime } from '@base/const';
 
 export const useLazyUserProfile: LazyQuery<UserProfile> = () => {
   const { refetch, ...rest } = useQuery({
@@ -21,5 +21,8 @@ export const useUserProfile: Query<UserProfile> = () => {
     queryFn: fetchUserProfile,
     enabled: true,
     retry: false,
+    staleTime: QueryCacheTime.ProfileStale,
+    gcTime: QueryCacheTime.ProfileGc,
+    placeholderData: (previousData) => previousData,
   });
 };

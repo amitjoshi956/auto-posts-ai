@@ -17,7 +17,7 @@ export const AppSidebar: React.FC = () => {
               }
               title={label}
             >
-              <Icon size={24} className="app-sidebar__icon" />
+              <Icon size="md" className="app-sidebar__icon" />
               <span className="app-sidebar__link-label">{label}</span>
             </NavLink>
           </li>

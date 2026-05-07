@@ -24,6 +24,6 @@ export const env = envSchema.parse({
   apiKey: process.env.API_KEY,
   internalApiKey: process.env.INTERNAL_API_KEY,
 
-  dbUri: process.env.DB_CONNECTION,
+  dbUri: process.env.DB_CONNECT,
   dbName: process.env.DB_NAME,
 });

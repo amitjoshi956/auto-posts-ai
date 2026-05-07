@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { TopicStatus } from '@autoposts/shared';
-import type { Topic } from '@base/type';
+import type { Topic } from '@autoposts/shared';
 import { CalenderIcon } from '@assets/icons';
 import { Icon } from '@components/base';
 

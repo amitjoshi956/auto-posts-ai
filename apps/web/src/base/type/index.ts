@@ -41,18 +41,4 @@ export type IconProps = HugeiconsProps & {
   size?: IconSize;
 };
 
-// ─── Re-exports from Shared Module ───────────────────────────────────────────
-// Domain types come from @autoposts/shared to avoid duplication
-
-export type {
-  Post,
-  UserProfile,
-  LoginPayload,
-  SignupPayload,
-  ApiResponse,
-  ApiRequest,
-  Topic,
-  CreateTopicPayload,
-} from '@autoposts/shared';
-
 export * from './config';

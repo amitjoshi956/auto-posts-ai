@@ -1,22 +1,37 @@
-import { useQuery } from '@tanstack/react-query';
-import { getLatestPost, getAllPosts } from '../post-service';
-import type { PLazyQuery, LazyQuery } from '@base/type';
-import type { Post } from '@autoposts/shared';
+import { qClient } from '@api/client';
+import { getLatestPost, getAllPosts, getPostById, updatePost, deletePost } from '../post-service';
+import { createQuery, createLazyQuery, createMutation } from '@common/utils/query';
+import { QueryCacheKey } from '@base/const';
+import type { Post, UpdatePostPayload } from '@autoposts/shared';
 
-export const useGetLatestPost: LazyQuery<Post> = () => {
-  const { refetch, ...rest } = useQuery({
-    queryKey: ['latestPost'],
-    queryFn: () => getLatestPost(),
-    enabled: false,
-  });
-  return [refetch, rest];
-};
+// ─── Queries ────────────────────────────────────────────────────────────────
 
-export const useGetPosts: PLazyQuery<void, Post[]> = () => {
-  const { refetch, ...rest } = useQuery({
-    queryKey: ['posts'],
-    queryFn: () => getAllPosts(),
-    enabled: false,
-  });
-  return [refetch, rest];
-};
+export const useLatestPost = createLazyQuery<Post>(
+  [QueryCacheKey.GeneratedPost],
+  () => getLatestPost(),
+  { retry: false }
+);
+
+export const usePosts = createQuery<Post[]>([QueryCacheKey.Posts], () => getAllPosts(), {
+  retry: false,
+});
+
+export const usePostById = (id: string) =>
+  createQuery<Post>([QueryCacheKey.Posts, id], () => getPostById(id), { enabled: !!id });
+
+// ─── Mutations ──────────────────────────────────────────────────────────────
+
+export const useUpdatePost = createMutation<Post, { id: string; payload: UpdatePostPayload }>(
+  ({ id, payload }) => updatePost(id, payload),
+  {
+    onSuccess: () => {
+      qClient.invalidateQueries({ queryKey: [QueryCacheKey.Posts, QueryCacheKey.GeneratedPost] });
+    },
+  }
+);
+
+export const useDeletePost = createMutation<{ deleted: boolean }, string>((id) => deletePost(id), {
+  onSuccess: () => {
+    qClient.invalidateQueries({ queryKey: [QueryCacheKey.Posts, QueryCacheKey.GeneratedPost] });
+  },
+});

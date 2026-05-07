@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { qClient } from '@api/client';
 import { loginUser, logoutUser, signupUser } from '@api/user/user-service';
-import type { UserProfile } from '@autoposts/shared';
-import type { LoginPayload, SignupPayload, PMutation } from '@base/type';
+import type { UserProfile, LoginPayload, SignupPayload } from '@autoposts/shared';
+import type { PMutation } from '@base/type';
 import { QueryCacheKey } from '@base/const/api';
 
 export const useLazyLogin: PMutation<LoginPayload, UserProfile> = () => {

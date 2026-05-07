@@ -19,6 +19,8 @@ export const PostErrors = {
   NOT_FOUND: 'Post not found',
   CREATE_FAILED: 'Failed to create post',
   UPDATE_FAILED: 'Failed to update post',
+  DELETE_FAILED: 'Failed to delete post',
+  BULK_DELETE_FAILED: 'Failed to delete posts for topic',
   FORBIDDEN: 'You do not have permission to modify this post',
 } as const;
 

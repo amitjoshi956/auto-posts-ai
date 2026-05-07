@@ -27,3 +27,27 @@ export const HttpStatus = {
   SERVICE_UNAVAILABLE: 503,
   GATEWAY_TIMEOUT: 504,
 } as const;
+
+export const HttpMethods = {
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  DELETE: 'DELETE',
+  OPTIONS: 'OPTIONS',
+} as const;
+
+export const HttpHeaders = {
+  ContentType: 'Content-Type',
+  Accept: 'Accept',
+  Authorization: 'Authorization',
+  ClearSiteData: 'Clear-Site-Data',
+  XContentTypeOptions: 'X-Content-Type-Options',
+  XFrameOptions: 'X-Frame-Options',
+  XXSSProtection: 'X-XSS-Protection',
+  AccessControlAllowOrigin: 'Access-Control-Allow-Origin',
+  AccessControlAllowMethods: 'Access-Control-Allow-Methods',
+  AccessControlAllowHeaders: 'Access-Control-Allow-Headers',
+  AccessControlAllowCredentials: 'Access-Control-Allow-Credentials',
+  AccessControlExposeHeaders: 'Access-Control-Expose-Headers',
+  XInternalKey: 'X-Internal-Key',
+} as const;

@@ -9,4 +9,5 @@ export type UserProfile = {
 export type JwtPayload = {
   _id: string;
   email: string;
+  permissions: BasePermission[];
 };

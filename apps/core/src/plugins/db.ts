@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
+import { env } from '@base/config/env';
 
 export const connectDB = async () => {
-  const DB_URI = process.env.DB_CONNECT || '';
-  const DB_NAME = process.env.DB_NAME || '';
+  const DB_URI = env.dbUri;
+  const DB_NAME = env.dbName;
 
   if (!DB_URI) {
     console.error('🚫 Database connection URI is not defined');

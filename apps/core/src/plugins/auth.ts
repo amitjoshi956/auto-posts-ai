@@ -1,21 +1,59 @@
 import { Elysia } from 'elysia';
 import jwt from 'jsonwebtoken';
-import { HttpStatus, ErrorMessages, COOKIE_NAME, type JwtPayload } from '@autoposts/shared';
+import {
+  HttpStatus,
+  ErrorMessages,
+  COOKIE_NAME,
+  SESSION_MAX_AGE,
+  type JwtPayload,
+} from '@autoposts/shared';
+import { env } from '@base/config/env';
 
-const extractUser = new Elysia({ name: 'extract-user' }).derive({ as: 'global' }, ({ cookie }) => {
-  const token = cookie[COOKIE_NAME]?.value as string | undefined;
-  if (!token) return { user: null as JwtPayload | null };
+const isProduction = env.nodeEnv === 'production';
+const JwtSecret = env.jwtSecret;
 
-  try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
-    return { user: payload };
-  } catch {
-    return { user: null as JwtPayload | null };
+export const authPlugin = new Elysia({ name: 'auth-plugin' }).derive(
+  { as: 'global' },
+  ({ cookie }) => {
+    const token = cookie[COOKIE_NAME]?.value as string | undefined;
+
+    const setAuthCookie = (newToken: string) => {
+      cookie[COOKIE_NAME].set({
+        value: newToken,
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? 'none' : 'lax',
+        maxAge: SESSION_MAX_AGE,
+        path: '/',
+      });
+    };
+
+    const clearAuthCookie = () => {
+      cookie[COOKIE_NAME].set({
+        value: '',
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? 'none' : 'lax',
+        maxAge: 0,
+        path: '/',
+      });
+    };
+
+    let user: JwtPayload | null = null;
+    if (token) {
+      try {
+        user = jwt.verify(token, JwtSecret) as JwtPayload;
+      } catch {
+        user = null;
+      }
+    }
+
+    return { user, setAuthCookie, clearAuthCookie };
   }
-});
+);
 
 export const authGuard = new Elysia({ name: 'auth-guard' })
-  .use(extractUser)
+  .use(authPlugin)
   .onBeforeHandle({ as: 'scoped' }, ({ user, set }) => {
     if (!user) {
       set.status = HttpStatus.UNAUTHORIZED;

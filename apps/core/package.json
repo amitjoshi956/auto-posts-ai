@@ -14,7 +14,8 @@
     "@sinclair/typebox": "^0.34.49",
     "elysia": "^1.4.28",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.4.1"
+    "mongoose": "^9.4.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",

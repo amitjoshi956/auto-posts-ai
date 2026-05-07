@@ -2,112 +2,109 @@ import { Elysia } from 'elysia';
 import jwt from 'jsonwebtoken';
 import {
   HttpStatus,
+  HttpHeaders,
   ErrorMessages,
   JWT_EXPIRY,
-  Headers,
   LoginSchema,
   SignupSchema,
   UserRole,
 } from '@autoposts/shared';
+import { env } from '@base/config/env';
 import User from '@model/user';
-import { authGuard } from '@plugins/auth';
-import { setAuthCookie, clearAuthCookie } from '@utils/cookie';
+import { authGuard, authPlugin } from '@plugins/auth';
+
+const JwtSecret = env.jwtSecret;
 
 export const authRoutes = new Elysia({ prefix: '/auth' })
+  .use(authPlugin)
   // ─── POST /auth/login ─────────────────────────────────────────────────────
-  .post('/login', async ({ body, cookie, set }) => {
-    const parsed = LoginSchema.safeParse(body);
-    if (!parsed.success) {
-      set.status = HttpStatus.BAD_REQUEST;
+  .post(
+    '/login',
+    async ({ body, set, setAuthCookie }) => {
+      const { email, password } = body;
+      const user = await User.findOne({ email });
+      if (!user) {
+        set.status = HttpStatus.UNAUTHORIZED;
+        return { hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS };
+      }
+
+      const isValid = await Bun.password.verify(password, user.password);
+      if (!isValid) {
+        set.status = HttpStatus.UNAUTHORIZED;
+        return { hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS };
+      }
+
+      const token = jwt.sign(
+        { _id: user._id.toString(), email: user.email, permissions: user.permissions },
+        JwtSecret,
+        { expiresIn: JWT_EXPIRY }
+      );
+
+      setAuthCookie(token);
+
+      set.status = HttpStatus.OK;
       return {
-        hasErrors: true,
-        error: parsed.error.issues[0]?.message ?? ErrorMessages.BAD_REQUEST,
+        data: {
+          fullName: user.fullName,
+          email: user.email,
+          permissions: user.permissions,
+        },
       };
+    },
+    {
+      body: LoginSchema,
     }
-
-    const { email, password } = parsed.data;
-    const user = await User.findOne({ email });
-    if (!user) {
-      set.status = HttpStatus.UNAUTHORIZED;
-      return { hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS };
-    }
-
-    const isValid = await Bun.password.verify(password, user.password);
-    if (!isValid) {
-      set.status = HttpStatus.UNAUTHORIZED;
-      return { hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS };
-    }
-
-    const token = jwt.sign(
-      { _id: user._id.toString(), email: user.email },
-      process.env.JWT_SECRET!,
-      { expiresIn: JWT_EXPIRY }
-    );
-
-    setAuthCookie(cookie as any, token);
-
-    set.status = HttpStatus.OK;
-    return {
-      data: {
-        fullName: user.fullName,
-        email: user.email,
-        permissions: user.permissions,
-      },
-    };
-  })
+  )
 
   // ─── POST /auth/signup ────────────────────────────────────────────────────
-  .post('/signup', async ({ body, cookie, set }) => {
-    const parsed = SignupSchema.safeParse(body);
-    if (!parsed.success) {
-      set.status = HttpStatus.BAD_REQUEST;
+  .post(
+    '/signup',
+    async ({ body, set, setAuthCookie }) => {
+      const { email, password, fullName } = body;
+
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        set.status = HttpStatus.CONFLICT;
+        return { hasErrors: true, error: ErrorMessages.USER_ALREADY_EXISTS };
+      }
+
+      const hashedPassword = await Bun.password.hash(password);
+
+      const newUser = await new User({
+        email,
+        password: hashedPassword,
+        fullName,
+        permissions: UserRole.USER,
+      }).save();
+
+      const token = jwt.sign(
+        { _id: newUser._id.toString(), email: newUser.email, permissions: newUser.permissions },
+        JwtSecret,
+        { expiresIn: JWT_EXPIRY }
+      );
+
+      setAuthCookie(token);
+
+      set.status = HttpStatus.CREATED;
       return {
-        hasErrors: true,
-        error: parsed.error.issues[0]?.message ?? ErrorMessages.BAD_REQUEST,
+        data: {
+          fullName: newUser.fullName,
+          email: newUser.email,
+          permissions: newUser.permissions,
+        },
       };
+    },
+    {
+      body: SignupSchema,
     }
-
-    const { email, password, fullName } = parsed.data;
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      set.status = HttpStatus.CONFLICT;
-      return { hasErrors: true, error: ErrorMessages.USER_ALREADY_EXISTS };
-    }
-
-    const hashedPassword = await Bun.password.hash(password);
-
-    const newUser = await new User({
-      email,
-      password: hashedPassword,
-      fullName,
-      permissions: UserRole.USER,
-    }).save();
-
-    const token = jwt.sign(
-      { _id: newUser._id.toString(), email: newUser.email },
-      process.env.JWT_SECRET!,
-      { expiresIn: JWT_EXPIRY }
-    );
-
-    setAuthCookie(cookie as any, token);
-
-    set.status = HttpStatus.CREATED;
-    return {
-      data: {
-        fullName: newUser.fullName,
-        email: newUser.email,
-        permissions: newUser.permissions,
-      },
-    };
-  })
+  )
 
   // ─── POST /auth/logout ────────────────────────────────────────────────────
   .use(authGuard)
-  .post('/logout', ({ cookie, set }) => {
-    clearAuthCookie(cookie as any);
+  .post('/logout', ({ clearAuthCookie, set }) => {
+    clearAuthCookie();
     // Force browser to wipe all site data securely
-    set.headers[Headers.ClearSiteData] = '"cookies", "storage"';
+    set.headers[HttpHeaders.ClearSiteData] = '"cookies", "storage"';
     set.status = HttpStatus.OK;
     return { data: { message: 'Logged out successfully' } };
   });

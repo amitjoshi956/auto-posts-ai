@@ -6,7 +6,7 @@ export type PostDocument = {
   article: string;
   tags: string[];
   userId: mongoose.Types.ObjectId;
-  topicId: mongoose.Types.ObjectId | null;
+  topicId: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 } & mongoose.Document;
@@ -17,8 +17,7 @@ const PostSchema = new Schema<PostDocument>(
     article: { type: String, required: true },
     tags: { type: [String], default: [] },
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
-    // Stored for future topic→posts linking, omitted from API responses for now
-    topicId: { type: Schema.Types.ObjectId, ref: 'Topic', default: null },
+    topicId: { type: Schema.Types.ObjectId, ref: 'Topic', required: true },
   },
   {
     timestamps: true,

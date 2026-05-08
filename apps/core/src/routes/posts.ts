@@ -118,13 +118,14 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
         return { hasErrors: true, error: 'Not Found' };
       }
 
-      const { title, article, tags } = body;
+      const { title, article, tags, topicId } = body;
 
       try {
         const post = await Posts.create({
           title,
           article,
           tags,
+          topicId: new mongoose.Types.ObjectId(topicId),
           userId: new mongoose.Types.ObjectId(user!._id),
         });
         set.status = HttpStatus.CREATED;

@@ -1,0 +1,83 @@
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/colors' as color;
+@use '@assets/scss/variables' as var;
+@use '@assets/scss/typography' as typ;
+
+.message {
+  --message--icon-color: #{color.$blue-400};
+  --message--padding: #{var.$space-16 var.$space-16};
+  --message--image-size: #{mixin.toRem(60px)};
+
+  @include mixin.flex(flex-start, center, column);
+  gap: var.$space-20;
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--message--padding);
+  border-radius: var.$radius-lg;
+  border: 1px solid color.$gray-400;
+  background-color: color.$black-200;
+  color: color.$white-200;
+
+  &--info {
+    --message--icon-color: #{color.$blue-500};
+  }
+
+  &--success {
+    --message--icon-color: #{color.$green-400};
+  }
+
+  &--warning {
+    --message--icon-color: #{color.$yellow-500};
+  }
+
+  &--error {
+    --message--icon-color: #{color.$red-500};
+  }
+
+  &__icon-wrapper {
+    @include mixin.flex(center, center);
+    flex-shrink: 0;
+    color: var(--message--icon-color);
+  }
+
+  &__content {
+    @include mixin.flex(flex-start, center, column);
+    gap: var.$space-12;
+  }
+
+  &__image {
+    @include mixin.icon-dimensions(var(--message--image-size));
+  }
+
+  &__title {
+    color: color.$gray-100;
+    font-weight: typ.$font-weight--medium;
+    line-height: typ.$line-height--normal;
+    word-break: break-word;
+    text-align: center;
+  }
+
+  &__subtitle {
+    color: color.$gray-200;
+    font-size: typ.$font-size--lg;
+    font-weight: typ.$font-weight--regular;
+    line-height: typ.$line-height--normal;
+    word-break: break-word;
+    text-align: center;
+  }
+
+  @include mixin.md {
+    --message--padding: #{var.$space-32 var.$space-64};
+    --message--image-size: #{mixin.toRem(80px)};
+  }
+
+  @include mixin.lg {
+    --message--padding: #{var.$space-40 var.$space-80};
+    --message--image-size: #{mixin.toRem(100px)};
+  }
+
+  @include mixin.xl {
+    --message--padding: #{var.$space-64 var.$space-108};
+    --message--image-size: #{mixin.toRem(120px)};
+  }
+}

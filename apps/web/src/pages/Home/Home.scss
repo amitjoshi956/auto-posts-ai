@@ -3,7 +3,16 @@
 @use '@assets/scss/variables' as var;
 
 .home {
+  @include mixin.flex(flex-start, flex-start, column);
   @include mixin.page-padding;
+  flex: 1 0;
+  width: 100%;
+
+  &__content {
+    @include mixin.flex(center, center);
+    width: 100%;
+    min-height: 70%;
+  }
 
   &__welcome-msg {
     margin-bottom: var.$space-64;

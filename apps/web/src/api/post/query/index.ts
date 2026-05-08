@@ -1,12 +1,12 @@
 import { qClient } from '@api/client';
 import { getLatestPost, getAllPosts, getPostById, updatePost, deletePost } from '../post-service';
-import { createQuery, createLazyQuery, createMutation } from '@common/utils/query';
+import { createQuery, createMutation } from '@common/utils/query';
 import { QueryCacheKey } from '@base/const';
 import type { Post, UpdatePostPayload } from '@autoposts/shared';
 
 // ─── Queries ────────────────────────────────────────────────────────────────
 
-export const useLatestPost = createLazyQuery<Post>(
+export const useLatestPost = createQuery<Post>(
   [QueryCacheKey.GeneratedPost],
   () => getLatestPost(),
   { retry: false }

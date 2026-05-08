@@ -44,6 +44,27 @@
     max-height: 100%;
     box-sizing: border-box;
     margin: var.$space-10 var.$space-20 var.$space-20;
+    white-space: pre-wrap;
+
+    &--edit {
+      width: calc(100% - #{var.$space-40});
+      max-height: 100%;
+      box-sizing: border-box;
+      margin: var.$space-10 var.$space-20 var.$space-20;
+      padding: var.$space-10;
+      background: transparent;
+      border: 1px dashed color.$cyan-400;
+      border-radius: var.$radius-sm;
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      resize: vertical;
+      outline: none;
+
+      &:focus {
+        border-style: solid;
+      }
+    }
   }
 
   &__actions {

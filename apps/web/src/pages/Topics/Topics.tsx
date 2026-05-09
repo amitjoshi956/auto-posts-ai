@@ -53,6 +53,7 @@ const Topics: FC = () => {
           </ul>
         ) : (
           <Message
+            className="topics__no-data"
             message="No topics planned yet"
             subtitle="Create your first one to get started"
             variant="warning"

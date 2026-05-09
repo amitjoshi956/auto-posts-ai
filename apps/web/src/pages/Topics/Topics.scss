@@ -10,7 +10,7 @@
 
   &__header {
     @include mixin.flex(space-between, center);
-    margin-bottom: var.$space-28;
+    margin-bottom: var.$space-40;
   }
 
   &__title {
@@ -23,14 +23,20 @@
   }
 
   &__content {
-    @include mixin.flex(center, center);
+    @include mixin.flex(flex-start, stretch, column);
     width: 100%;
     min-height: 70%;
   }
 
+  &__no-data {
+    margin-top: var.$space-108;
+    place-self: center;
+  }
+
   &__list {
-    list-style: none;
     @include mixin.flex(flex-start, stretch, column);
+    flex: 1 0;
+    list-style: none;
     gap: var.$space-12;
   }
 

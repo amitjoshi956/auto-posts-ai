@@ -40,7 +40,7 @@
   &__label {
     @include mixin.flex(space-between, center);
     font-size: typ.$font-size--sm;
-    color: mixin.hexa(color.$gray-200, 0.52);
+    color: color.$gray-200;
     margin-top: var.$space-8;
   }
 
@@ -56,7 +56,7 @@
     color: mixin.hexa(color.$white-100, 0.87);
     background-color: color.$black-200;
     border: 1px solid mixin.hexa(color.$gray-600, 0.53);
-    border-radius: var.$radius-md;
+    border-radius: var.$radius-sm;
     padding: var.$space-10 var.$space-12;
     margin-top: var.$space-4;
     outline: none;

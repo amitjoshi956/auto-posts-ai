@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useTopics } from '@api/topic/query';
 import { NoteAddIcon, StickyNoteIcon } from '@assets/icons';
-import { Button, Icon, Loader } from '@components/base';
+import { Button, Loader, Message } from '@components/base';
 import { TopicCard, AddTopicModal } from '@components/.';
 
 import './Topics.scss';
@@ -23,39 +23,46 @@ const Topics: FC = () => {
 
   const hasTopics = topics && topics.length > 0;
 
+  const AddButton = () => (
+    <Button
+      variant={addBtnVariant}
+      size={addBtnSize}
+      className="topics__add-btn"
+      icon={NoteAddIcon}
+      iconSize={addIconSize}
+      label="Add Topic"
+      onClick={() => setIsModalOpen(true)}
+    />
+  );
+
   return (
     <div className="topics">
       <div className="topics__header">
         <h2 className="topics__title">Topics</h2>
-        <Button
-          variant={addBtnVariant}
-          size={addBtnSize}
-          className="topics__add-btn"
-          icon={NoteAddIcon}
-          iconSize={addIconSize}
-          label="Add Topic"
-          onClick={() => setIsModalOpen(true)}
-        />
+        {<AddButton />}
       </div>
 
-      {hasTopics ? (
-        <ul className="topics__list">
-          {topics.map((topic) => (
-            <li key={topic._id} className="topics__list-item">
-              <TopicCard topic={topic} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="topics__empty">
-          <Icon className="topics__empty-icon" icon={StickyNoteIcon} size="xl" />
-          <p className="topics__empty-text">
-            No topics planned yet. Create your first one to get started!
-          </p>
-        </div>
-      )}
+      <div className="topics__content">
+        {hasTopics ? (
+          <ul className="topics__list">
+            {topics.map((topic) => (
+              <li key={topic._id} className="topics__list-item">
+                <TopicCard topic={topic} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Message
+            message="No topics planned yet"
+            subtitle="Create your first one to get started"
+            variant="warning"
+            iconSrc={StickyNoteIcon}
+            actions={<AddButton />}
+          />
+        )}
+      </div>
 
-      <AddTopicModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {isModalOpen && <AddTopicModal isOpen={true} onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 };

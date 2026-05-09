@@ -67,12 +67,12 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
         <input
           id="topic-title"
           className="add-topic-modal__input"
+          required
+          autoFocus
           type="text"
           placeholder="e.g. React Server Components deep-dive"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required
-          autoFocus
         />
 
         <label className="add-topic-modal__label" htmlFor="topic-plan">
@@ -85,10 +85,10 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
           id="topic-plan"
           className="add-topic-modal__textarea"
           placeholder="Outline what the post should cover…"
-          value={plan}
-          onChange={(e) => setPlan(e.target.value)}
-          maxLength={TopicDefaults.PLAN_MAX_LENGTH}
           rows={4}
+          value={plan}
+          maxLength={TopicDefaults.PLAN_MAX_LENGTH}
+          onChange={(e) => setPlan(e.target.value)}
         />
 
         <label className="add-topic-modal__label" htmlFor="topic-datetime">
@@ -97,10 +97,10 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
         <input
           id="topic-datetime"
           className="add-topic-modal__input"
+          required
           type="datetime-local"
           value={dateTime}
           onChange={(e) => setDateTime(e.target.value)}
-          required
         />
 
         <div className="add-topic-modal__actions">

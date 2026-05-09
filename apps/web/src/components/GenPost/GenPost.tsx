@@ -1,21 +1,22 @@
 import { useState } from 'react';
-import { CopyIcon, LinkedinIcon, EditIcon, SaveIcon } from '@assets/icons';
+import { Link } from 'react-router';
+import { CopyIcon, LinkedinIcon, EditIcon, SaveIcon, CancelIcon } from '@assets/icons';
 import { Button, Icon, Message } from '@components/base';
 import { Nodata } from '@assets/icons';
 
 import './GenPost.scss';
-import { Link } from 'react-router';
 
 export type GenPostProps = {
   content: string;
+  onUpdate?: (content: string) => void;
 };
 
-const GenPost: React.FC<GenPostProps> = ({ content }) => {
+const GenPost: React.FC<GenPostProps> = ({ content, onUpdate }) => {
   const [generatedPost, setGeneratedPost] = useState<string>(content);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const actionBtnLabel = isEditing ? 'Save' : 'Edit';
-  const actionBtnIcon = isEditing ? SaveIcon : EditIcon;
+  const actionBtnLabel = isEditing ? (content === generatedPost ? 'Cancel' : 'Save') : 'Edit';
+  const actionBtnIcon = isEditing ? (content === generatedPost ? CancelIcon : SaveIcon) : EditIcon;
 
   const handlePost = () => {
     if (generatedPost) {
@@ -34,6 +35,15 @@ const GenPost: React.FC<GenPostProps> = ({ content }) => {
     setIsEditing((prev) => !prev);
   };
 
+  const handleAction = () => {
+    if (isEditing) {
+      toggleEdit();
+      onUpdate?.(generatedPost);
+    } else {
+      toggleEdit();
+    }
+  };
+
   if (!content) {
     return (
       <Message
@@ -50,16 +60,17 @@ const GenPost: React.FC<GenPostProps> = ({ content }) => {
     <div className="gen-post">
       <div className="gen-post__article-container">
         <div className="gen-post__article-actions">
-          <button className="gen-post__article-action" onClick={toggleEdit}>
+          <button className="gen-post__article-action" onClick={handleAction}>
             <Icon icon={actionBtnIcon} size="sm" />
             {actionBtnLabel}
           </button>
         </div>
         {isEditing ? (
           <textarea
-            className="gen-post__article--edit"
+            className="gen-post__article gen-post__article--edit"
+            name="genPost-articleEdit"
             value={generatedPost}
-            rows={10}
+            rows={23}
             onChange={(e) => setGeneratedPost(e.target.value)}
           />
         ) : (
@@ -67,8 +78,20 @@ const GenPost: React.FC<GenPostProps> = ({ content }) => {
         )}
       </div>
       <div className="gen-post__actions">
-        <Button variant="ghost" icon={CopyIcon} label="Copy" onClick={handleCopy} />
-        <Button variant="filled" icon={LinkedinIcon} label="Post" onClick={handlePost} />
+        <Button
+          variant="ghost"
+          disabled={isEditing}
+          icon={CopyIcon}
+          label="Copy"
+          onClick={handleCopy}
+        />
+        <Button
+          variant="filled"
+          disabled={isEditing}
+          icon={LinkedinIcon}
+          label="Post"
+          onClick={handlePost}
+        />
       </div>
     </div>
   );

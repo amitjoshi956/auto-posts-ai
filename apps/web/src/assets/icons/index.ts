@@ -16,6 +16,7 @@ import {
   CheckmarkCircle01Icon as SuccessIcon,
   Alert01Icon as WarningIcon,
   CancelCircleIcon as ErrorIcon,
+  Cancel01Icon as CancelIcon,
 } from '@hugeicons/core-free-icons';
 
 const Nodata =
@@ -39,5 +40,6 @@ export {
   SuccessIcon,
   WarningIcon,
   ErrorIcon,
+  CancelIcon,
   Nodata,
 };

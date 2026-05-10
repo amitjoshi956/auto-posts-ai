@@ -1,0 +1,55 @@
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/colors' as color;
+@use '@assets/scss/typography' as typ;
+@use '@assets/scss/variables' as var;
+
+.posts {
+  @include mixin.flex(flex-start, stretch, column);
+  @include mixin.page-padding;
+  flex: 1 0;
+  width: 100%;
+  min-height: 70%;
+
+  &__header {
+    @include mixin.flex(flex-start, center);
+  }
+
+  &__title {
+    @include mixin.font-style(
+      typ.$font-primary,
+      typ.$font-size--h2,
+      mixin.hexa(color.$white-100, 0.87),
+      typ.$font-weight--light
+    );
+    margin-bottom: var.$space-40;
+  }
+
+  &__content {
+    @include mixin.flex(flex-start, stretch, column);
+    width: 100%;
+    min-height: 70%;
+    flex: 1 0;
+  }
+
+  &__no-data {
+    place-self: center;
+    margin-top: var.$space-108;
+  }
+
+  &__list {
+    @include mixin.flex(flex-start, stretch, column);
+    gap: var.$space-14;
+  }
+
+  &__list-item {
+    padding: var.$space-8 var.$space-16;
+    border: 1px solid color.$gray-300;
+    border-radius: var.$radius-md;
+    @include mixin.font-style(
+      typ.$font-primary,
+      typ.$font-size--base,
+      mixin.hexa(color.$white-100, 0.87),
+      typ.$font-weight--light
+    );
+  }
+}

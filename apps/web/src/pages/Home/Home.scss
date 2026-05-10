@@ -9,7 +9,7 @@
   width: 100%;
 
   &__content {
-    @include mixin.flex(center, center);
+    @include mixin.flex(flex-start, center, column);
     width: 100%;
     min-height: 70%;
   }

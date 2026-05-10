@@ -25,13 +25,15 @@ export const useUpdatePost = createMutation<Post, { id: string; payload: UpdateP
   ({ id, payload }) => updatePost(id, payload),
   {
     onSuccess: () => {
-      qClient.invalidateQueries({ queryKey: [QueryCacheKey.Posts, QueryCacheKey.GeneratedPost] });
+      qClient.invalidateQueries({ queryKey: [QueryCacheKey.GeneratedPost] });
+      qClient.invalidateQueries({ queryKey: [QueryCacheKey.Posts] });
     },
   }
 );
 
 export const useDeletePost = createMutation<{ deleted: boolean }, string>((id) => deletePost(id), {
   onSuccess: () => {
-    qClient.invalidateQueries({ queryKey: [QueryCacheKey.Posts, QueryCacheKey.GeneratedPost] });
+    qClient.invalidateQueries({ queryKey: [QueryCacheKey.Posts] });
+    qClient.invalidateQueries({ queryKey: [QueryCacheKey.GeneratedPost] });
   },
 });

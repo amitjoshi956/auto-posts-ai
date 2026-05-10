@@ -1,6 +1,6 @@
 import type { NavMenuItem } from '@base/type';
 import { AppRoutes } from '@base/const';
-import { HomeIcon, LibraryIcon } from '@assets/icons';
+import { HomeIcon, LibraryIcon, PostsIcon } from '@assets/icons';
 import { Icon } from '@components/base';
 
 export const NavConfig: NavMenuItem[] = [
@@ -15,5 +15,11 @@ export const NavConfig: NavMenuItem[] = [
     path: AppRoutes.Topics,
     showMenu: true,
     icon: (props) => <Icon {...props} icon={LibraryIcon} />,
+  },
+  {
+    label: 'Posts',
+    path: AppRoutes.Posts,
+    showMenu: true,
+    icon: (props) => <Icon {...props} icon={PostsIcon} />,
   },
 ];

@@ -17,6 +17,7 @@ import {
   Alert01Icon as WarningIcon,
   CancelCircleIcon as ErrorIcon,
   Cancel01Icon as CancelIcon,
+  NewsIcon as PostsIcon,
 } from '@hugeicons/core-free-icons';
 
 const Nodata =
@@ -41,5 +42,6 @@ export {
   WarningIcon,
   ErrorIcon,
   CancelIcon,
+  PostsIcon,
   Nodata,
 };

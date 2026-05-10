@@ -47,6 +47,7 @@ const GenPost: React.FC<GenPostProps> = ({ content, onUpdate }) => {
   if (!content) {
     return (
       <Message
+        className="gen-post__no-data"
         image={Nodata}
         variant="warning"
         message="No post available"

@@ -7,6 +7,7 @@ import { Loader } from '@components/base';
 const Auth = lazy(() => import('@pages/Auth'));
 const Home = lazy(() => import('@pages/Home'));
 const Topics = lazy(() => import('@pages/Topics'));
+const Posts = lazy(() => import('@pages/Posts'));
 
 import './App.scss';
 
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           {isAuthenticated && <Route path="/" element={<Home userName={userName} />} />}
           {isAuthenticated && <Route path="/topics" element={<Topics />} />}
+          {isAuthenticated && <Route path="/posts" element={<Posts />} />}
           {!isAuthenticated && <Route path="/" element={<Auth />} />}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

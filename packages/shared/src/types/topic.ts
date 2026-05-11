@@ -1,7 +1,11 @@
 import { z } from 'zod';
-import { CreateTopicSchema, UpdateTopicSchema, TopicResponseSchema } from '../schemas/topic.schema';
+import {
+  TopicPayloadSchema,
+  TopicResponseSchema,
+  UpdateTopicSchema,
+} from '../schemas/topic.schema';
 
-export type CreateTopicPayload = z.infer<typeof CreateTopicSchema>;
+export type TopicPayload = z.infer<typeof TopicPayloadSchema>;
 
 export type UpdateTopicPayload = z.infer<typeof UpdateTopicSchema>;
 

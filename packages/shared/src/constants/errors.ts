@@ -30,6 +30,4 @@ export const TopicErrors = {
   CREATE_FAILED: 'Failed to create topic',
   UPDATE_FAILED: 'Failed to update topic',
   DELETE_FAILED: 'Failed to delete topic',
-  GENERATION_DATE_REQUIRED:
-    'A generation date and time is required when moving a topic back to draft',
 } as const;

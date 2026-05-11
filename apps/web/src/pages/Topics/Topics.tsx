@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
+import { useDevice } from '@common/hooks';
 import { useTopics } from '@api/topic/query';
 import { NoteAddIcon, StickyNoteIcon } from '@assets/icons';
 import { Button, Loader, Message } from '@components/base';
 import { TopicCard, AddTopicModal } from '@components/.';
 
 import './Topics.scss';
-import { useDevice } from '@common/hooks';
 
 const Topics: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,8 +54,8 @@ const Topics: FC = () => {
         ) : (
           <Message
             className="topics__no-data"
-            message="No topics planned yet"
-            subtitle="Create your first one to get started"
+            message="No topics yet"
+            subtitle="Create your first topic to get started"
             variant="warning"
             iconSrc={StickyNoteIcon}
             actions={<AddButton />}

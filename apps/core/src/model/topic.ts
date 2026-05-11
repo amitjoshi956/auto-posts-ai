@@ -1,12 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
-import { TopicStatus, TopicDefaults } from '@autoposts/shared';
+import { TopicDefaults } from '@autoposts/shared';
 
 export type TopicDocument = {
   _id: mongoose.Types.ObjectId;
   title: string;
-  plan?: string;
-  generationDateTime: Date | null;
-  status: TopicStatus;
+  description?: string;
   parentId: mongoose.Types.ObjectId | null;
   userId: mongoose.Types.ObjectId;
   createdAt: Date;
@@ -19,19 +17,9 @@ const TopicSchema = new Schema<TopicDocument>(
       type: String,
       required: true,
     },
-    plan: {
+    description: {
       type: String,
-      maxlength: TopicDefaults.PLAN_MAX_LENGTH,
-    },
-    // Nullable: cleared when status transitions to THINKING or ARCHIVED
-    generationDateTime: {
-      type: Date,
-      default: null,
-    },
-    status: {
-      type: String,
-      enum: Object.values(TopicStatus),
-      default: TopicStatus.DRAFT,
+      maxlength: TopicDefaults.DESCRIPTION_MAX_LENGTH,
     },
     parentId: {
       type: Schema.Types.ObjectId,

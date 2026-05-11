@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { CopyIcon, LinkedinIcon, EditIcon, SaveIcon, CancelIcon } from '@assets/icons';
+import { AppRoutes as R } from '@base/const';
+import { CopyIcon, LinkedinIcon, EditIcon, SaveIcon, CancelIcon, Nodata } from '@assets/icons';
 import { Button, Icon, Message } from '@components/base';
-import { Nodata } from '@assets/icons';
 
 import './GenPost.scss';
 
@@ -50,9 +50,8 @@ const GenPost: React.FC<GenPostProps> = ({ content, onUpdate }) => {
         className="gen-post__no-data"
         image={Nodata}
         variant="warning"
-        message="No post available"
-        subtitle="Schedule a topic to see your post generated"
-        actions={<Link to="/topics">Create a Topic</Link>}
+        message="No posts yet"
+        actions={<Link to={R.Posts}>Plan your first post</Link>}
       />
     );
   }

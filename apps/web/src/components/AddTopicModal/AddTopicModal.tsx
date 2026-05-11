@@ -13,17 +13,15 @@ type AddTopicModalProps = {
 const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [title, setTitle] = useState('');
-  const [plan, setPlan] = useState('');
-  const [dateTime, setDateTime] = useState('');
+  const [description, setDescription] = useState('');
 
   const [createTopic, { isPending }] = useCreateTopic();
 
-  const isSubmitDisabled = isPending || !title.trim() || !dateTime;
+  const isSubmitDisabled = isPending || !title.trim();
 
   const resetForm = () => {
     setTitle('');
-    setPlan('');
-    setDateTime('');
+    setDescription('');
   };
 
   const handleClose = () => {
@@ -33,12 +31,10 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !dateTime) return;
-
-    const generationDateTime = new Date(dateTime).toISOString();
+    if (!title.trim()) return;
 
     createTopic(
-      { title: title.trim(), plan: plan.trim() || undefined, generationDateTime },
+      { title: title.trim(), description: description.trim() || undefined },
       {
         onSuccess: () => handleClose(),
       }
@@ -75,32 +71,20 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <label className="add-topic-modal__label" htmlFor="topic-plan">
-          Plan
+        <label className="add-topic-modal__label" htmlFor="topic-description">
+          Description
           <span className="add-topic-modal__char-count">
-            {plan.length}/{TopicDefaults.PLAN_MAX_LENGTH}
+            {description.length}/{TopicDefaults.DESCRIPTION_MAX_LENGTH}
           </span>
         </label>
         <textarea
-          id="topic-plan"
+          id="topic-description"
           className="add-topic-modal__textarea"
-          placeholder="Outline what the post should cover…"
+          placeholder="Briefly describe this topic…"
           rows={4}
-          value={plan}
-          maxLength={TopicDefaults.PLAN_MAX_LENGTH}
-          onChange={(e) => setPlan(e.target.value)}
-        />
-
-        <label className="add-topic-modal__label" htmlFor="topic-datetime">
-          Schedule Date & Time
-        </label>
-        <input
-          id="topic-datetime"
-          className="add-topic-modal__input"
-          required
-          type="datetime-local"
-          value={dateTime}
-          onChange={(e) => setDateTime(e.target.value)}
+          value={description}
+          maxLength={TopicDefaults.DESCRIPTION_MAX_LENGTH}
+          onChange={(e) => setDescription(e.target.value)}
         />
 
         <div className="add-topic-modal__actions">

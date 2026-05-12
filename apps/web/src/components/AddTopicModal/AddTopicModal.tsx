@@ -1,7 +1,7 @@
-import { FC, useRef, useState, FormEvent, useEffect } from 'react';
-import { TopicDefaults } from '@autoposts/shared';
+import { FC, useState, FormEvent } from 'react';
 import { useCreateTopic } from '@api/topic/query';
-import { Button } from '@components/base';
+import { TopicDefaults } from '@autoposts/shared';
+import { Modal } from '@components/base';
 
 import './AddTopicModal.scss';
 
@@ -11,7 +11,6 @@ type AddTopicModalProps = {
 };
 
 const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -41,22 +40,25 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
     );
   };
 
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    if (isOpen && !dialog.open) {
-      dialog.showModal();
-    } else if (!isOpen && dialog.open) {
-      dialog.close();
-    }
-  }, [isOpen]);
-
   return (
-    <dialog ref={dialogRef} className="add-topic-modal" onClose={handleClose}>
-      <form className="add-topic-modal__form" onSubmit={handleSubmit}>
-        <h2 className="add-topic-modal__heading">New Topic</h2>
-
+    <Modal
+      open={isOpen}
+      className="add-topic-modal"
+      header="New Topic"
+      showDefaultFooter
+      submitBtnProps={{
+        label: 'Create Topic',
+        form: 'add-topic-form',
+        type: 'submit',
+        disabled: isSubmitDisabled,
+        isLoading: isPending,
+      }}
+      closeBtnProps={{
+        label: 'Cancel',
+      }}
+      onClose={handleClose}
+    >
+      <form id="add-topic-form" className="add-topic-modal__form" onSubmit={handleSubmit}>
         <label className="add-topic-modal__label" htmlFor="topic-title">
           Title
         </label>
@@ -86,17 +88,8 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
           maxLength={TopicDefaults.DESCRIPTION_MAX_LENGTH}
           onChange={(e) => setDescription(e.target.value)}
         />
-
-        <div className="add-topic-modal__actions">
-          <Button type="button" size="sm" variant="outlined" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button size="sm" type="submit" disabled={isSubmitDisabled} isLoading={isPending}>
-            Create Topic
-          </Button>
-        </div>
       </form>
-    </dialog>
+    </Modal>
   );
 };
 

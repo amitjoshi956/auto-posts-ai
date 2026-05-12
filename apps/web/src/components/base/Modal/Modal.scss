@@ -1,0 +1,69 @@
+@use '@assets/scss/colors' as color;
+@use '@assets/scss/typography' as typ;
+@use '@assets/scss/mixins' as mixin;
+@use '@assets/scss/variables' as var;
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: min(mixin.toRem(480px), 90vw);
+  max-height: 90vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  background-color: color.$black-300;
+  color: mixin.hexa(color.$white-100, 0.87);
+  border: 1px solid mixin.hexa(color.$gray-600, 0.53);
+  border-radius: var.$radius-pill;
+  box-shadow: 0 mixin.toRem(8px) mixin.toRem(32px) mixin.hexa(color.$black-600, 0.4);
+
+  &::backdrop {
+    background: mixin.hexa(color.$black-400, 0.6);
+    backdrop-filter: blur(mixin.toRem(4px));
+  }
+
+  &__header {
+    @include mixin.flex(space-between, center);
+    padding: var.$space-24 var.$space-32 var.$space-12;
+    flex-shrink: 0;
+  }
+
+  &__heading {
+    @include mixin.font-style(
+      typ.$font-primary,
+      typ.$font-size--h6,
+      mixin.hexa(color.$white-100, 0.87),
+      typ.$font-weight--medium
+    );
+    margin: 0;
+  }
+
+  &__close-btn {
+    border: none;
+    background-color: transparent;
+    border-radius: var.$radius-md;
+    padding: var.$space-6 !important;
+    color: color.$white-400;
+
+    &:hover {
+      border: none;
+      outline: none;
+      background-color: color.$gray-500;
+    }
+  }
+
+  &__body {
+    padding: var.$space-12 var.$space-32;
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+
+  &__footer {
+    @include mixin.flex(flex-end, center);
+    padding: var.$space-16 var.$space-32 var.$space-24;
+    gap: var.$space-10;
+    flex-shrink: 0;
+  }
+}

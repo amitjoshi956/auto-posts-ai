@@ -2,14 +2,14 @@ import { Elysia } from 'elysia';
 import mongoose from 'mongoose';
 import {
   HttpStatus,
-  HttpHeaders,
-  PostErrors,
+  PostStatus,
   BasePermission,
-  CreatePostSchema,
+  SchedulePostSchema,
   UpdatePostSchema,
   GetPostsQuerySchema,
 } from '@autoposts/shared';
-import { env } from '@base/config/env';
+import { PostErrors, JobName } from '@base/const';
+import { postGenerationQueue } from '@base/config/queue';
 import Posts from '@model/posts';
 import { authGuard, requirePermission } from '@plugins/.';
 
@@ -19,7 +19,13 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   // ─── GET /posts/latest ────────────────────────────────────────────────────
   // Returns the most recently generated article for the authenticated user.
   .get('/latest', async ({ user, set }) => {
-    const post = await Posts.findOne({ userId: user!._id }).sort({ createdAt: -1 }).lean();
+    const post = await Posts.findOne({
+      userId: user!._id,
+      status: PostStatus.Ready,
+      article: { $ne: '' },
+    })
+      .sort({ plannedFor: -1 })
+      .lean();
 
     if (!post) {
       set.status = HttpStatus.NOT_FOUND;
@@ -32,7 +38,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
 
   // ─── GET /posts ───────────────────────────────────────────────────────────
   // Returns all articles for the authenticated user, newest first.
-  // Accepts an optional ?topicId= query param to filter by topic.
+  // Accepts optional ?topicId= and ?status= query params to filter.
   .get(
     '/',
     async ({ user, set, query }) => {
@@ -40,6 +46,10 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
 
       if (query.topicId) {
         filter.topicId = new mongoose.Types.ObjectId(query.topicId);
+      }
+
+      if (query.status) {
+        filter.status = query.status;
       }
 
       const posts = await Posts.find(filter).sort({ createdAt: -1 }).lean();
@@ -104,30 +114,28 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   })
 
   // ─── POST /posts ──────────────────────────────────────────────────────────
-  // Creates a new post. Internal-only — guarded by X-Internal-Key header.
-  // Returns 404 to external callers so the endpoint is invisible.
+  // Creates a new draft post. If plannedFor is set, enqueues a delayed
+  // BullMQ generation job. Server enforces status=draft and article=''.
   .post(
     '/',
-    async ({ body, user, set, request }) => {
-      // ── Internal-only guard ──────────────────────────────────────────────
-      const internalKey = request.headers.get(HttpHeaders.XInternalKey);
-      const expectedKey = env.internalApiKey;
-
-      if (!expectedKey || internalKey !== expectedKey) {
-        set.status = HttpStatus.NOT_FOUND;
-        return { hasErrors: true, error: 'Not Found' };
-      }
-
-      const { title, article, tags, topicId } = body;
+    async ({ body, user, set }) => {
+      const { title, plan, plannedFor, topicId, tags } = body;
 
       try {
         const post = await Posts.create({
           title,
-          article,
+          plan,
           tags,
+          status: PostStatus.Draft,
+          article: '',
+          plannedFor: plannedFor ? new Date(plannedFor) : null,
           topicId: new mongoose.Types.ObjectId(topicId),
           userId: new mongoose.Types.ObjectId(user!._id),
         });
+
+        const delay = plannedFor ? Math.max(new Date(plannedFor).getTime() - Date.now(), 0) : 0;
+        await postGenerationQueue.add(JobName.Generate, { postId: post._id.toString() }, { delay });
+
         set.status = HttpStatus.CREATED;
         return { data: post };
       } catch {
@@ -136,9 +144,37 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
       }
     },
     {
-      body: CreatePostSchema,
+      body: SchedulePostSchema,
     }
   )
+
+  // ─── POST /posts/:id/trigger ────────────────────────────────────────────────
+  // Immediately enqueues a generation job.
+  .post('/:id/trigger', async ({ params, user, set }) => {
+    try {
+      const post = await Posts.findById(params.id);
+
+      if (!post) {
+        set.status = HttpStatus.NOT_FOUND;
+        return { hasErrors: true, error: PostErrors.NOT_FOUND };
+      }
+
+      if (post.userId.toString() !== user!._id) {
+        set.status = HttpStatus.FORBIDDEN;
+        return { hasErrors: true, error: PostErrors.FORBIDDEN };
+      }
+
+      await postGenerationQueue.add(JobName.Generate, {
+        postId: post._id.toString(),
+      });
+
+      set.status = HttpStatus.OK;
+      return { data: { triggered: true } };
+    } catch {
+      set.status = HttpStatus.INTERNAL_SERVER_ERROR;
+      return { hasErrors: true, error: PostErrors.ENQUEUE_FAILED };
+    }
+  })
 
   // ─── PUT /posts/:id ───────────────────────────────────────────────────────
   // Updates a post — only if it belongs to the authenticated user.

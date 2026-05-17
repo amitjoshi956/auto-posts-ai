@@ -7,6 +7,13 @@ export type UserDocument = {
   email: string;
   password: string;
   permissions: BasePermission[];
+  preferences: {
+    generationFrequency: {
+      enabled: boolean;
+      cron: string | null;
+      timezone: string;
+    };
+  };
 } & mongoose.Document;
 
 const UserSchema = new Schema<UserDocument>({
@@ -33,6 +40,18 @@ const UserSchema = new Schema<UserDocument>({
   permissions: {
     type: [String],
     default: UserRole.GUEST_USER,
+  },
+  preferences: {
+    type: {
+      generationFrequency: {
+        enabled: { type: Boolean, default: false },
+        cron: { type: String, default: null },
+        timezone: { type: String, default: 'UTC' },
+      },
+    },
+    default: () => ({
+      generationFrequency: { enabled: false, cron: null, timezone: 'UTC' },
+    }),
   },
 });
 

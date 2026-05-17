@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["bun-types"],
+    "paths": {
+      "@config/*": ["./src/config/*"],
+      "@services/*": ["./src/services/*"],
+      "@jobs/*": ["./src/jobs/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

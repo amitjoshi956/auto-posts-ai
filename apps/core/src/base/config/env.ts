@@ -9,6 +9,10 @@ const envSchema = z.object({
   jwtSecret: z.string(),
   allowedOrigins: z.array(z.string()),
   internalApiKey: z.string(),
+
+  // TODO: why redis and gemini keys are placed in core? Shouldn't they be in workers service?
+  redisUrl: z.string(),
+  geminiApiKey: z.string(),
 });
 
 export const env = envSchema.parse({
@@ -23,6 +27,8 @@ export const env = envSchema.parse({
 
   apiKey: process.env.API_KEY,
   internalApiKey: process.env.INTERNAL_API_KEY,
+  redisUrl: process.env.REDIS_URL,
+  geminiApiKey: process.env.GEMINI_API_KEY,
 
   dbUri: process.env.DB_CONNECT,
   dbName: process.env.DB_NAME,

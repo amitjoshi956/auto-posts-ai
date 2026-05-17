@@ -1,3 +1,5 @@
+import { z } from 'zod';
+import { UpdatePreferencesSchema } from '../schemas/user.schema';
 import { BasePermission } from '../enums/permissions';
 
 export type UserProfile = {
@@ -11,3 +13,5 @@ export type JwtPayload = {
   email: string;
   permissions: BasePermission[];
 };
+
+export type UpdatePreferencesPayload = z.infer<typeof UpdatePreferencesSchema>;

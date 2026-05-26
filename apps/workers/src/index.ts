@@ -1,10 +1,10 @@
 import { Worker } from 'bullmq';
-import IORedis from 'ioredis';
+import Redis from 'ioredis';
 import { env } from '@config/env';
-import { QueueName, JobName } from '@config/constants';
-import { handleGenerateJob } from '@jobs/post-engine';
+import { QueueName, JobName } from '@const/values';
+import { handleGenerateJob } from '@jobs/posts.job';
 
-const redisConnection = new IORedis(env.redisUrl, {
+const redis = new Redis(env.redisUrl, {
   maxRetriesPerRequest: null,
 });
 
@@ -18,7 +18,7 @@ export const postGenerationWorker = new Worker(
     return { success: false, message: `Unknown job type: ${job.name}` };
   },
   {
-    connection: redisConnection,
+    connection: redis,
   }
 );
 

@@ -1,5 +1,5 @@
 import { Job } from 'bullmq';
-import PostModel from '@config/models';
+import { PostModel, PostStatus } from '@autoposts/shared';
 import { generateWithGemini } from '@services/gemini';
 
 export async function handleGenerateJob(
@@ -12,16 +12,16 @@ export async function handleGenerateJob(
     throw new Error(`Post not found: ${postId}`);
   }
 
-  if (post.status !== 'draft') {
+  if (post.status !== PostStatus.Draft) {
     return { success: true, message: 'Post is not in draft status' };
   }
 
-  await PostModel.findByIdAndUpdate(post._id, { status: 'generating' });
+  await PostModel.findByIdAndUpdate(post._id, { status: PostStatus.Generating });
 
   try {
     const article = await generateWithGemini({ title: post.title, plan: post.plan });
 
-    const updates: Record<string, unknown> = { article, status: 'ready' };
+    const updates: Record<string, unknown> = { article, status: PostStatus.Ready };
 
     if (!post.plannedFor) {
       updates.plannedFor = new Date();
@@ -32,10 +32,10 @@ export async function handleGenerateJob(
     return { success: true, postId: post._id.toString() };
   } catch (error) {
     if (job.attemptsMade >= job.opts.attempts!) {
-      await PostModel.findByIdAndUpdate(post._id, { status: 'failed' });
+      await PostModel.findByIdAndUpdate(post._id, { status: PostStatus.Failed });
       throw error;
     } else {
-      await PostModel.findByIdAndUpdate(post._id, { status: 'draft' });
+      await PostModel.findByIdAndUpdate(post._id, { status: PostStatus.Draft });
       throw error;
     }
   }
@@ -46,7 +46,7 @@ export async function handleSchedulingJob(job: Job): Promise<void> {
 
   const post = await PostModel.findOne({
     userId,
-    status: 'draft',
+    status: PostStatus.Draft,
     plannedFor: null,
   }).sort({ createdAt: 1 });
 

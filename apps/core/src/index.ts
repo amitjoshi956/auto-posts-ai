@@ -4,7 +4,6 @@ import { HttpHeaders, HttpMethods } from '@autoposts/shared';
 import { env } from '@base/config/env';
 import { connectDB } from '@plugins/db';
 import { authRoutes, postRoutes, userRoutes, topicRoutes } from '@routes/.';
-import '@queues/worker'; // Start the worker
 
 const PORT = env.port;
 const ALLOWED_ORIGINS = env.allowedOrigins;

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "types": ["bun-types"],
     "paths": {
+      "@const/*": ["./src/const/*"],
       "@config/*": ["./src/config/*"],
       "@services/*": ["./src/services/*"],
       "@jobs/*": ["./src/jobs/*"]

@@ -7,10 +7,10 @@ import {
   SchedulePostSchema,
   UpdatePostSchema,
   GetPostsQuerySchema,
+  PostModel,
 } from '@autoposts/shared';
 import { PostErrors, JobName } from '@base/const';
 import { postGenerationQueue } from '@base/config/queue';
-import Posts from '@model/posts';
 import { authGuard, requirePermission } from '@plugins/.';
 
 export const postRoutes = new Elysia({ prefix: '/posts' })
@@ -19,7 +19,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   // ─── GET /posts/latest ────────────────────────────────────────────────────
   // Returns the most recently generated article for the authenticated user.
   .get('/latest', async ({ user, set }) => {
-    const post = await Posts.findOne({
+    const post = await PostModel.findOne({
       userId: user!._id,
       status: PostStatus.Ready,
       article: { $ne: '' },
@@ -52,7 +52,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
         filter.status = query.status;
       }
 
-      const posts = await Posts.find(filter).sort({ createdAt: -1 }).lean();
+      const posts = await PostModel.find(filter).sort({ createdAt: -1 }).lean();
 
       set.status = HttpStatus.OK;
       return { data: posts };
@@ -78,7 +78,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
         filter.userId = new mongoose.Types.ObjectId(user!._id);
       }
 
-      const result = await Posts.deleteMany(filter);
+      const result = await PostModel.deleteMany(filter);
 
       set.status = HttpStatus.OK;
       return { data: { deletedCount: result.deletedCount } };
@@ -92,7 +92,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   // Returns a single post by ID with ownership check.
   .get('/:id', async ({ params, user, set }) => {
     try {
-      const post = await Posts.findById(params.id).lean();
+      const post = await PostModel.findById(params.id).lean();
 
       if (!post) {
         set.status = HttpStatus.NOT_FOUND;
@@ -122,7 +122,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
       const { title, plan, plannedFor, topicId, tags } = body;
 
       try {
-        const post = await Posts.create({
+        const post = await PostModel.create({
           title,
           plan,
           tags,
@@ -152,7 +152,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   // Immediately enqueues a generation job.
   .post('/:id/trigger', async ({ params, user, set }) => {
     try {
-      const post = await Posts.findById(params.id);
+      const post = await PostModel.findById(params.id);
 
       if (!post) {
         set.status = HttpStatus.NOT_FOUND;
@@ -182,7 +182,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
     '/:id',
     async ({ params, body, user, set }) => {
       try {
-        const post = await Posts.findById(params.id);
+        const post = await PostModel.findById(params.id);
         if (!post) {
           set.status = HttpStatus.NOT_FOUND;
           return { hasErrors: true, error: PostErrors.NOT_FOUND };
@@ -194,7 +194,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
           return { hasErrors: true, error: PostErrors.FORBIDDEN };
         }
 
-        const updated = await Posts.findByIdAndUpdate(params.id, body, { new: true }).lean();
+        const updated = await PostModel.findByIdAndUpdate(params.id, body, { new: true }).lean();
         set.status = HttpStatus.OK;
         return { data: updated };
       } catch {
@@ -211,7 +211,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   // Deletes a single post. Ownership check or SUPER bypass.
   .delete('/:id', async ({ params, user, set }) => {
     try {
-      const post = await Posts.findById(params.id);
+      const post = await PostModel.findById(params.id);
 
       if (!post) {
         set.status = HttpStatus.NOT_FOUND;
@@ -226,7 +226,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
         return { hasErrors: true, error: PostErrors.FORBIDDEN };
       }
 
-      await Posts.findByIdAndDelete(params.id);
+      await PostModel.findByIdAndDelete(params.id);
 
       set.status = HttpStatus.OK;
       return { data: { deleted: true } };

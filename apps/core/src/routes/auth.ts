@@ -8,9 +8,9 @@ import {
   LoginSchema,
   SignupSchema,
   UserRole,
+  UserModel,
 } from '@autoposts/shared';
 import { env } from '@base/config/env';
-import User from '@model/user';
 import { authGuard, authPlugin } from '@plugins/auth';
 
 const JwtSecret = env.jwtSecret;
@@ -22,7 +22,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
     '/login',
     async ({ body, set, setAuthCookie }) => {
       const { email, password } = body;
-      const user = await User.findOne({ email });
+      const user = await UserModel.findOne({ email });
       if (!user) {
         set.status = HttpStatus.UNAUTHORIZED;
         return { hasErrors: true, error: ErrorMessages.INVALID_CREDENTIALS };
@@ -62,7 +62,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
     async ({ body, set, setAuthCookie }) => {
       const { email, password, fullName } = body;
 
-      const existingUser = await User.findOne({ email });
+      const existingUser = await UserModel.findOne({ email });
       if (existingUser) {
         set.status = HttpStatus.CONFLICT;
         return { hasErrors: true, error: ErrorMessages.USER_ALREADY_EXISTS };
@@ -70,7 +70,7 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
 
       const hashedPassword = await Bun.password.hash(password);
 
-      const newUser = await new User({
+      const newUser = await new UserModel({
         email,
         password: hashedPassword,
         fullName,

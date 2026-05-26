@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { TopicDefaults } from '@autoposts/shared';
+import { TopicDefaults } from '../constants';
 
-export type TopicDocument = {
+type Topic = {
   _id: mongoose.Types.ObjectId;
   title: string;
   description?: string;
@@ -11,7 +11,7 @@ export type TopicDocument = {
   updatedAt: Date;
 } & mongoose.Document;
 
-const TopicSchema = new Schema<TopicDocument>(
+const TopicSchema = new Schema<Topic>(
   {
     title: {
       type: String,
@@ -36,5 +36,4 @@ const TopicSchema = new Schema<TopicDocument>(
   { timestamps: true }
 );
 
-const TopicModel = mongoose.model<TopicDocument>('Topic', TopicSchema);
-export default TopicModel;
+export const TopicModel = mongoose.model('Topic', TopicSchema);

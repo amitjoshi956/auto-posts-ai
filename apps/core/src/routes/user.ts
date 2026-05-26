@@ -1,13 +1,12 @@
 import { Elysia } from 'elysia';
-import { HttpStatus, ErrorMessages, UpdatePreferencesSchema } from '@autoposts/shared';
-import User from '@model/user';
+import { HttpStatus, ErrorMessages, UpdatePreferencesSchema, UserModel } from '@autoposts/shared';
 import { authGuard } from '@plugins/auth';
 
 export const userRoutes = new Elysia({ prefix: '/user' })
   .use(authGuard)
   // ─── GET /user/me ─────────────────────────────────────────────────────────
   .get('/me', async ({ user, set }) => {
-    const dbUser = await User.findById(user!._id).select('-password -__v');
+    const dbUser = await UserModel.findById(user!._id).select('-password -__v');
     if (!dbUser) {
       set.status = HttpStatus.NOT_FOUND;
       return { hasErrors: true, error: ErrorMessages.USER_NOT_FOUND };
@@ -27,7 +26,7 @@ export const userRoutes = new Elysia({ prefix: '/user' })
   .put(
     '/preferences',
     async ({ body, user, set }) => {
-      const dbUser = await User.findById(user!._id);
+      const dbUser = await UserModel.findById(user!._id);
       if (!dbUser) {
         set.status = HttpStatus.NOT_FOUND;
         return { hasErrors: true, error: ErrorMessages.USER_NOT_FOUND };

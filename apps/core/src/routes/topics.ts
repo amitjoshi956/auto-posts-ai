@@ -1,7 +1,12 @@
 import { Elysia } from 'elysia';
 import mongoose from 'mongoose';
-import { HttpStatus, TopicErrors, TopicPayloadSchema, UpdateTopicSchema } from '@autoposts/shared';
-import Topic from '@model/topic';
+import {
+  HttpStatus,
+  TopicErrors,
+  TopicPayloadSchema,
+  UpdateTopicSchema,
+  TopicModel,
+} from '@autoposts/shared';
 import { authGuard } from '@plugins/auth';
 
 export const topicRoutes = new Elysia({ prefix: '/topics' })
@@ -10,7 +15,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
   // ─── GET /topics ──────────────────────────────────────────────────────────
   // Returns all topics for the authenticated user, newest first.
   .get('/', async ({ user, set }) => {
-    const topics = await Topic.find({ userId: user!._id }).sort({ createdAt: -1 }).lean();
+    const topics = await TopicModel.find({ userId: user!._id }).sort({ createdAt: -1 }).lean();
 
     set.status = HttpStatus.OK;
     return { data: topics };
@@ -19,7 +24,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
   // ─── GET /topics/:id ──────────────────────────────────────────────────────
   // Returns a single topic — must belong to the authenticated user.
   .get('/:id', async ({ params, user, set }) => {
-    const topic = await Topic.findById(params.id).lean();
+    const topic = await TopicModel.findById(params.id).lean();
 
     if (!topic) {
       set.status = HttpStatus.NOT_FOUND;
@@ -43,7 +48,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
       const { title, description, parentId } = body;
 
       try {
-        const topic = await Topic.create({
+        const topic = await TopicModel.create({
           title,
           description,
           parentId: parentId ? new mongoose.Types.ObjectId(parentId) : null,
@@ -67,7 +72,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
   .put(
     '/:id',
     async ({ params, body, user, set }) => {
-      const topic = await Topic.findById(params.id);
+      const topic = await TopicModel.findById(params.id);
 
       if (!topic) {
         set.status = HttpStatus.NOT_FOUND;
@@ -80,7 +85,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
       }
 
       try {
-        const updated = await Topic.findByIdAndUpdate(params.id, body, { new: true }).lean();
+        const updated = await TopicModel.findByIdAndUpdate(params.id, body, { new: true }).lean();
 
         set.status = HttpStatus.OK;
         return { data: updated };
@@ -97,7 +102,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
   // ─── DELETE /topics/:id ───────────────────────────────────────────────────
   // Deletes a topic — ownership check enforced.
   .delete('/:id', async ({ params, user, set }) => {
-    const topic = await Topic.findById(params.id);
+    const topic = await TopicModel.findById(params.id);
 
     if (!topic) {
       set.status = HttpStatus.NOT_FOUND;
@@ -110,7 +115,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
     }
 
     try {
-      await Topic.findByIdAndDelete(params.id);
+      await TopicModel.findByIdAndDelete(params.id);
       set.status = HttpStatus.OK;
       return { data: { message: 'Topic deleted successfully' } };
     } catch {

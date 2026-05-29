@@ -8,8 +8,7 @@
       "@plugins/*": ["./src/plugins/*"],
       "@middleware/*": ["./src/middleware/*"],
       "@utils/*": ["./src/utils/*"],
-      "@base/*": ["./src/base/*"],
-      "@queues/*": ["./src/queues/*"]
+      "@base/*": ["./src/base/*"]
     }
   },
   "include": ["src/**/*"]

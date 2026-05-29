@@ -9,11 +9,13 @@ import {
   GetPostsQuerySchema,
   PostModel,
 } from '@autoposts/shared';
-import { PostErrors, JobName } from '@base/const';
-import { postGenerationQueue } from '@base/config/queue';
-import { authGuard, requirePermission } from '@plugins/.';
+import { PostErrors } from '@base/const';
+import { Jobs } from '@autoposts/shared';
+import { postEngineQueue } from '@base/config/queue';
+import { authGuard, loggerPlugin, requirePermission } from '@plugins/.';
 
 export const postRoutes = new Elysia({ prefix: '/posts' })
+  .use(loggerPlugin)
   .use(authGuard)
 
   // ─── GET /posts/latest ────────────────────────────────────────────────────
@@ -118,7 +120,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
   // BullMQ generation job. Server enforces status=draft and article=''.
   .post(
     '/',
-    async ({ body, user, set }) => {
+    async ({ body, user, set, logger }) => {
       const { title, plan, plannedFor, topicId, tags } = body;
 
       try {
@@ -134,7 +136,19 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
         });
 
         const delay = plannedFor ? Math.max(new Date(plannedFor).getTime() - Date.now(), 0) : 0;
-        await postGenerationQueue.add(JobName.Generate, { postId: post._id.toString() }, { delay });
+        try {
+          await postEngineQueue.add(
+            Jobs.Generate,
+            { postId: post._id.toString(), userId: user!._id },
+            { delay }
+          );
+        } catch (err) {
+          logger.logError('Failed to enqueue generation job', {
+            postId: post._id.toString(),
+            plannedFor,
+            error: String(err),
+          });
+        }
 
         set.status = HttpStatus.CREATED;
         return { data: post };
@@ -150,7 +164,7 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
 
   // ─── POST /posts/:id/trigger ────────────────────────────────────────────────
   // Immediately enqueues a generation job.
-  .post('/:id/trigger', async ({ params, user, set }) => {
+  .post('/:id/trigger', async ({ params, user, set, logger }) => {
     try {
       const post = await PostModel.findById(params.id);
 
@@ -164,9 +178,17 @@ export const postRoutes = new Elysia({ prefix: '/posts' })
         return { hasErrors: true, error: PostErrors.FORBIDDEN };
       }
 
-      await postGenerationQueue.add(JobName.Generate, {
-        postId: post._id.toString(),
-      });
+      try {
+        await postEngineQueue.add(Jobs.Generate, {
+          postId: post._id.toString(),
+          userId: user!._id,
+        });
+      } catch (err) {
+        logger.logError('Failed to enqueue trigger job', {
+          postId: post._id.toString(),
+          error: String(err),
+        });
+      }
 
       set.status = HttpStatus.OK;
       return { data: { triggered: true } };

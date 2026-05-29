@@ -1,8 +1,8 @@
-export const QueueName = {
-  PostGeneration: 'post-generation',
+export const Queues = {
+  PostEngine: 'post-engine',
 } as const;
 
-export const JobName = {
+export const Jobs = {
   Generate: 'generate',
   Schedule: 'schedule',
 } as const;

@@ -1,20 +1,32 @@
 import { Worker } from 'bullmq';
-import Redis from 'ioredis';
+import { Queues, Jobs, JobDefaults, Logger } from '@autoposts/shared';
+import { connectToRedis } from '@autoposts/shared/config';
 import { env } from '@config/env';
-import { QueueName, JobName } from '@const/values';
 import { handleGenerateJob } from '@jobs/posts.job';
+import { startRecoveryScanner } from '@jobs/recovery';
+import { createQueue } from '@autoposts/shared/config';
 
-const redis = new Redis(env.redisUrl, {
-  maxRetriesPerRequest: null,
+const logger = new Logger('workers');
+const redis = connectToRedis(env.redisUrl);
+
+const postEngineQueue = createQueue(Queues.PostEngine, redis, {
+  attempts: JobDefaults.MAX_ATTEMPTS,
+  backoff: { type: 'exponential', delay: JobDefaults.BACKOFF_DELAY_MS },
+  removeOnComplete: true,
+  removeOnFail: false,
 });
 
-export const postGenerationWorker = new Worker(
-  QueueName.PostGeneration,
+export const postEngineWorker = new Worker(
+  Queues.PostEngine,
   async (job) => {
-    if (job.name === JobName.Generate) {
+    if (job.name === Jobs.Generate) {
       return await handleGenerateJob(job);
     }
 
+    logger.logWarning('Unknown job type received', {
+      jobName: job.name,
+      jobId: job.id,
+    });
     return { success: false, message: `Unknown job type: ${job.name}` };
   },
   {
@@ -22,14 +34,23 @@ export const postGenerationWorker = new Worker(
   }
 );
 
-postGenerationWorker.on('completed', (job) => {
-  console.log(`✅ Job ${job.id} completed:`, job.data);
+postEngineWorker.on('completed', (job) => {
+  logger.logInfo('Job completed', { jobId: job.id, data: job.data });
 });
 
-postGenerationWorker.on('failed', (job, err) => {
-  console.error(`❌ Job ${job?.id} failed:`, err.message);
+postEngineWorker.on('failed', (job, err) => {
+  logger.logError('Job failed', {
+    jobId: job?.id,
+    error: err.message,
+    attemptsMade: job?.attemptsMade,
+  });
 });
 
-postGenerationWorker.on('error', (err) => {
-  console.error('❌ Worker error:', err);
+postEngineWorker.on('error', (err) => {
+  logger.logError('Worker error', { error: err.message });
 });
+
+// Start the DLQ recovery scanner
+startRecoveryScanner(postEngineQueue);
+
+logger.logInfo('Worker service started', { queue: Queues.PostEngine });

@@ -1,10 +1,7 @@
 import { Worker } from 'bullmq';
-import { Queues, Jobs, JobDefaults, Logger } from '@autoposts/shared';
-import { connectToRedis } from '@autoposts/shared/config';
+import { Queues, Jobs, JobDefaults, Logger, connectToRedis, createQueue } from '@autoposts/shared';
 import { env } from '@config/env';
-import { handleGenerateJob } from '@jobs/posts.job';
-import { startRecoveryScanner } from '@jobs/recovery';
-import { createQueue } from '@autoposts/shared/config';
+import { handleGenerateJob, startRecoveryScanner } from '@jobs/.';
 
 const logger = new Logger('workers');
 const redis = connectToRedis(env.redisUrl);

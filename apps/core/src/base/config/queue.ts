@@ -1,6 +1,4 @@
-import { connectToRedis, createQueue } from '@autoposts/shared/config';
-import { Queues, JobDefaults } from '@autoposts/shared';
-import type { Queue } from '@autoposts/shared/config';
+import { Queues, JobDefaults, connectToRedis, createQueue, type Queue } from '@autoposts/shared';
 import { env } from './env';
 
 const redis = connectToRedis(env.redisUrl);

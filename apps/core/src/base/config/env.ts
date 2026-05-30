@@ -2,13 +2,11 @@ import z from 'zod';
 
 const envSchema = z.object({
   port: z.coerce.number(),
-  apiKey: z.string(),
   nodeEnv: z.enum(['development', 'production']),
   dbUri: z.url(),
   dbName: z.string(),
   jwtSecret: z.string(),
   allowedOrigins: z.array(z.string()),
-  internalApiKey: z.string(),
   redisUrl: z.string(),
 });
 
@@ -22,10 +20,7 @@ export const env = envSchema.parse({
     .map((o) => o.trim())
     .filter(Boolean),
 
-  apiKey: process.env.API_KEY,
-  internalApiKey: process.env.INTERNAL_API_KEY,
   redisUrl: process.env.REDIS_URL,
-
   dbUri: process.env.DB_CONNECT,
   dbName: process.env.DB_NAME,
 });

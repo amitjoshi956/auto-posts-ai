@@ -1,6 +1,7 @@
 import z from 'zod';
 
 const envSchema = z.object({
+  port: z.number(),
   nodeEnv: z.enum(['development', 'production']),
   dbUri: z.url(),
   dbName: z.string(),
@@ -9,6 +10,7 @@ const envSchema = z.object({
 });
 
 export const env = envSchema.parse({
+  port: process.env.PORT,
   nodeEnv: process.env.NODE_ENV,
   redisUrl: process.env.REDIS_URL,
   geminiApiKey: process.env.GEMINI_API_KEY,

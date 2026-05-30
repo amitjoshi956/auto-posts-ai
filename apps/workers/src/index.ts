@@ -8,6 +8,7 @@ import {
   createQueue,
   QueueDefaults,
   QueuePrefixes,
+  HttpStatus,
 } from '@autoposts/shared';
 import { env } from '@config/env';
 import { handleGenerateJob, startRecoveryScanner } from '@jobs/.';
@@ -65,3 +66,21 @@ postEngineWorker.on('error', (err) => {
 startRecoveryScanner(postEngineQueue);
 
 logger.logInfo('Worker service started', { queue: Queues.PostEngine });
+
+Bun.serve({
+  port: env.port,
+  fetch(request) {
+    const url = new URL(request.url);
+
+    if (url.pathname === '/health' || url.pathname === '/') {
+      return new Response(JSON.stringify({ status: 'ok', service: 'workers' }), {
+        status: HttpStatus.OK,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response('Not Found', { status: HttpStatus.NOT_FOUND });
+  },
+});
+
+logger.logInfo(`Health check server listening on port ${env.port}`);

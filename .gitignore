@@ -53,3 +53,6 @@ coverage/
 
 # Ignore secrets
 secret.*
+
+# AI Planning & Generation
+plan/

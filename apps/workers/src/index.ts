@@ -1,17 +1,31 @@
 import { Worker } from 'bullmq';
-import { Queues, Jobs, JobDefaults, Logger, connectToRedis, createQueue } from '@autoposts/shared';
+import {
+  type Queue,
+  Queues,
+  Jobs,
+  Logger,
+  connectToRedis,
+  createQueue,
+  QueueDefaults,
+  QueuePrefixes,
+} from '@autoposts/shared';
 import { env } from '@config/env';
 import { handleGenerateJob, startRecoveryScanner } from '@jobs/.';
 
 const logger = new Logger('workers');
 const redis = connectToRedis(env.redisUrl);
 
-const postEngineQueue = createQueue(Queues.PostEngine, redis, {
-  attempts: JobDefaults.MAX_ATTEMPTS,
-  backoff: { type: 'exponential', delay: JobDefaults.BACKOFF_DELAY_MS },
-  removeOnComplete: true,
-  removeOnFail: false,
-});
+const postEngineQueue: Queue = createQueue(
+  Queues.PostEngine,
+  redis,
+  {
+    attempts: QueueDefaults.MAX_ATTEMPTS,
+    backoff: { type: QueueDefaults.BACKOFF_TYPE, delay: QueueDefaults.BACKOFF_DELAY_MS },
+    removeOnComplete: QueueDefaults.REMOVE_ON_COMPLETE,
+    removeOnFail: QueueDefaults.REMOVE_ON_FAIL,
+  },
+  QueuePrefixes.PostEngine
+);
 
 export const postEngineWorker = new Worker(
   Queues.PostEngine,

@@ -1,16 +1,25 @@
 import { Queue, type JobsOptions } from 'bullmq';
 import Redis from 'ioredis';
-
-export type { Queue };
+import { QueueDefaults } from '../constants';
 
 export function connectToRedis(redisUrl: string): Redis {
-  return new Redis(redisUrl, { maxRetriesPerRequest: null });
+  const isTls = redisUrl.startsWith('rediss://');
+
+  return new Redis(redisUrl, {
+    maxRetriesPerRequest: null,
+    ...(isTls && { tls: {} }),
+  });
 }
 
 export function createQueue(
   name: string,
   connection: Redis,
-  defaultJobOptions?: JobsOptions
+  defaultJobOptions?: JobsOptions,
+  prefix?: string
 ): Queue {
-  return new Queue(name, { connection, defaultJobOptions });
+  const prefixName = prefix ? `${QueueDefaults.PREFIX}:${prefix}` : QueueDefaults.PREFIX;
+
+  return new Queue(name, { connection, defaultJobOptions, prefix: prefixName });
 }
+
+export type { Queue };

@@ -1,11 +1,23 @@
-import { Queues, JobDefaults, connectToRedis, createQueue, type Queue } from '@autoposts/shared';
+import {
+  type Queue,
+  Queues,
+  connectToRedis,
+  createQueue,
+  QueueDefaults,
+  QueuePrefixes,
+} from '@autoposts/shared';
 import { env } from './env';
 
 const redis = connectToRedis(env.redisUrl);
 
-export const postEngineQueue: Queue = createQueue(Queues.PostEngine, redis, {
-  attempts: JobDefaults.MAX_ATTEMPTS,
-  backoff: { type: 'exponential', delay: JobDefaults.BACKOFF_DELAY_MS },
-  removeOnComplete: true,
-  removeOnFail: false,
-});
+export const postEngineQueue: Queue = createQueue(
+  Queues.PostEngine,
+  redis,
+  {
+    attempts: QueueDefaults.MAX_ATTEMPTS,
+    backoff: { type: QueueDefaults.BACKOFF_TYPE, delay: QueueDefaults.BACKOFF_DELAY_MS },
+    removeOnComplete: QueueDefaults.REMOVE_ON_COMPLETE,
+    removeOnFail: QueueDefaults.REMOVE_ON_FAIL,
+  },
+  QueuePrefixes.PostEngine
+);

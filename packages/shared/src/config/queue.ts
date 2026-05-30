@@ -1,4 +1,4 @@
-import { ConnectionOptions, Queue, type JobsOptions } from 'bullmq';
+import { Queue, type JobsOptions } from 'bullmq';
 import Redis from 'ioredis';
 import { QueueDefaults } from '../constants';
 
@@ -13,7 +13,7 @@ export function connectToRedis(redisUrl: string): Redis {
 
 export function createQueue(
   name: string,
-  connection: ConnectionOptions,
+  connection: Redis,
   defaultJobOptions?: JobsOptions,
   prefix?: string
 ): Queue {

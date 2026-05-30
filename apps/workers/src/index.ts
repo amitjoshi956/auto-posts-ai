@@ -43,6 +43,7 @@ export const postEngineWorker = new Worker(
   },
   {
     connection: redis,
+    prefix: `${QueueDefaults.PREFIX}:${QueuePrefixes.PostEngine}`,
   }
 );
 

@@ -16,6 +16,7 @@
     "build:workers": "bun run --filter '@autoposts/workers' build",
     "typecheck": "bun run --filter '*' typecheck",
     "typecheck:core": "bun run --filter '@autoposts/core' typecheck",
-    "typecheck:web": "bun run --filter '@autoposts/web' typecheck"
+    "typecheck:web": "bun run --filter '@autoposts/web' typecheck",
+    "typecheck:workers": "bun run --filter '@autoposts/workers' typecheck"
   }
 }

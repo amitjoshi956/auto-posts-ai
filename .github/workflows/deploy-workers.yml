@@ -1,0 +1,52 @@
+name: Deploy Workers
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/workers/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'bun.lock'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Typecheck
+        run: bun run typecheck:workers
+
+      - name: Build Workers Binary
+        run: bun run build:workers
+
+      - name: Prepare Publish Directory
+        run: |
+          mkdir -p apps/workers/dist
+          mv apps/workers/autoposts-workers apps/workers/dist/
+          # Ensure execution permissions on the binary
+          chmod +x apps/workers/dist/autoposts-workers
+
+      - name: Deploy to Release Branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apps/workers/dist
+          publish_branch: release-workers
+          force_orphan: true
+          commit_message: 'chore(deploy): build workers binary [skip ci]'

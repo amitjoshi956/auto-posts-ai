@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@autoposts/be-specific": "workspace:*",
     "@autoposts/shared": "workspace:*",
     "@elysiajs/cors": "^1.4.1",
     "@sinclair/typebox": "^0.34.49",

@@ -10,14 +10,9 @@
     "./types": "./src/types/index.ts",
     "./constants": "./src/constants/index.ts",
     "./enums": "./src/enums/index.ts",
-    "./utils": "./src/utils/index.ts",
-    "./model": "./src/model/index.ts",
-    "./config": "./src/config/index.ts"
+    "./utils": "./src/utils/index.ts"
   },
   "dependencies": {
-    "bullmq": "^5.76.9",
-    "ioredis": "5.10.1",
-    "mongoose": "^9.6.2",
     "zod": "^4.3.6"
   },
   "devDependencies": {

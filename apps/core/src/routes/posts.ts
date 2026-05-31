@@ -7,8 +7,8 @@ import {
   SchedulePostSchema,
   UpdatePostSchema,
   GetPostsQuerySchema,
-  PostModel,
 } from '@autoposts/shared';
+import { PostModel } from '@autoposts/be-specific';
 import { PostErrors } from '@base/const';
 import { Jobs } from '@autoposts/shared';
 import { postEngineQueue } from '@base/config/queue';

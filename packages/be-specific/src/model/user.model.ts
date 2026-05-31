@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { EmailRegex, ErrorMessages } from '../constants';
-import { UserRole } from '../enums';
+import { EmailRegex, ErrorMessages, UserRole } from '@autoposts/shared';
 
 export type UserDocument = {
   _id: mongoose.Types.ObjectId;
@@ -53,7 +52,7 @@ const UserSchema = new Schema<UserDocument>(
       default: () => ({
         generationFrequency: { enabled: false, cron: null, timezone: 'UTC' },
       }),
-    }, 
+    },
   },
   { timestamps: true }
 );

@@ -1,15 +1,6 @@
 import { Worker } from 'bullmq';
-import {
-  type Queue,
-  Queues,
-  Jobs,
-  Logger,
-  connectToRedis,
-  createQueue,
-  QueueDefaults,
-  QueuePrefixes,
-  HttpStatus,
-} from '@autoposts/shared';
+import { Queues, Jobs, Logger, QueueDefaults, QueuePrefixes, HttpStatus } from '@autoposts/shared';
+import { type Queue, connectToRedis, createQueue } from '@autoposts/be-specific';
 import { env } from '@config/env';
 import { handleGenerateJob, startRecoveryScanner } from '@jobs/.';
 

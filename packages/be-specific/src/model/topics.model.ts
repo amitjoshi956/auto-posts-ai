@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { TopicDefaults } from '../constants';
+import { TopicDefaults } from '@autoposts/shared';
 
 type Topic = {
   _id: mongoose.Types.ObjectId;

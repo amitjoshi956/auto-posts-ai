@@ -1,12 +1,7 @@
 import { Elysia } from 'elysia';
 import mongoose from 'mongoose';
-import {
-  HttpStatus,
-  TopicErrors,
-  TopicPayloadSchema,
-  UpdateTopicSchema,
-  TopicModel,
-} from '@autoposts/shared';
+import { HttpStatus, TopicErrors, TopicPayloadSchema, UpdateTopicSchema } from '@autoposts/shared';
+import { TopicModel } from '@autoposts/be-specific';
 import { authGuard } from '@plugins/auth';
 
 export const topicRoutes = new Elysia({ prefix: '/topics' })

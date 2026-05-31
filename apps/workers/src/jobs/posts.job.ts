@@ -1,4 +1,5 @@
-import { PostModel, PostStatus, Logger } from '@autoposts/shared';
+import { PostStatus, Logger } from '@autoposts/shared';
+import { PostModel } from '@autoposts/be-specific';
 import { Job } from 'bullmq';
 import { generateWithGemini } from '@services/gemini';
 import { notifyUser } from '@services/notify';

@@ -1,5 +1,6 @@
 import { Elysia } from 'elysia';
-import { HttpStatus, ErrorMessages, UpdatePreferencesSchema, UserModel } from '@autoposts/shared';
+import { HttpStatus, ErrorMessages, UpdatePreferencesSchema } from '@autoposts/shared';
+import { UserModel } from '@autoposts/be-specific';
 import { authGuard } from '@plugins/auth';
 
 export const userRoutes = new Elysia({ prefix: '/user' })

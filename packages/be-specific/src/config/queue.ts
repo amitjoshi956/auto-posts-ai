@@ -1,6 +1,6 @@
 import { Queue, type JobsOptions } from 'bullmq';
 import Redis from 'ioredis';
-import { QueueDefaults } from '../constants';
+import { QueueDefaults } from '@autoposts/shared';
 
 export function connectToRedis(redisUrl: string): Redis {
   const isTls = redisUrl.startsWith('rediss://');

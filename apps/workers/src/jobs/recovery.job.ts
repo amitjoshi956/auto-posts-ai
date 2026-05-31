@@ -1,5 +1,6 @@
 import { Queue } from 'bullmq';
-import { PostModel, PostStatus, Logger, Time } from '@autoposts/shared';
+import { PostStatus, Logger, Time } from '@autoposts/shared';
+import { PostModel } from '@autoposts/be-specific';
 import { notifyUser } from '@services/notify';
 
 const logger = new Logger('workers');

@@ -8,8 +8,8 @@ import {
   LoginSchema,
   SignupSchema,
   UserRole,
-  UserModel,
 } from '@autoposts/shared';
+import { UserModel } from '@autoposts/be-specific';
 import { env } from '@base/config/env';
 import { authGuard, authPlugin } from '@plugins/auth';
 

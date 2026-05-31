@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@autoposts/be-specific": "workspace:*",
     "@autoposts/shared": "workspace:*",
     "@google/genai": "^2.3.0",
     "bullmq": "^5.76.9",

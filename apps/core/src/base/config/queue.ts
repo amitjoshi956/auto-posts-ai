@@ -1,11 +1,5 @@
-import {
-  type Queue,
-  Queues,
-  connectToRedis,
-  createQueue,
-  QueueDefaults,
-  QueuePrefixes,
-} from '@autoposts/shared';
+import { Queues, QueueDefaults, QueuePrefixes } from '@autoposts/shared';
+import { type Queue, connectToRedis, createQueue } from '@autoposts/be-specific';
 import { env } from './env';
 
 const redis = connectToRedis(env.redisUrl);

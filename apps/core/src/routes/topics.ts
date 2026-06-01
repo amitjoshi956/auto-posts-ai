@@ -40,7 +40,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
   .post(
     '/',
     async ({ body, user, set }) => {
-      const { title, description, parentId } = body;
+      const { title, description, parentId, color } = body;
 
       try {
         const topic = await TopicModel.create({
@@ -48,6 +48,7 @@ export const topicRoutes = new Elysia({ prefix: '/topics' })
           description,
           parentId: parentId ? new mongoose.Types.ObjectId(parentId) : null,
           userId: new mongoose.Types.ObjectId(user!._id),
+          color,
         });
 
         set.status = HttpStatus.CREATED;

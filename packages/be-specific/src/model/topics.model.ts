@@ -5,6 +5,7 @@ type Topic = {
   _id: mongoose.Types.ObjectId;
   title: string;
   description?: string;
+  color?: string;
   parentId: mongoose.Types.ObjectId | null;
   userId: mongoose.Types.ObjectId;
   createdAt: Date;
@@ -20,6 +21,9 @@ const TopicSchema = new Schema<Topic>(
     description: {
       type: String,
       maxlength: TopicDefaults.DESCRIPTION_MAX_LENGTH,
+    },
+    color: {
+      type: String,
     },
     parentId: {
       type: Schema.Types.ObjectId,

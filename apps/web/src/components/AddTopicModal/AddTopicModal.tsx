@@ -1,7 +1,8 @@
 import { FC, useState, FormEvent } from 'react';
 import { useCreateTopic } from '@api/topic/query';
-import { TopicDefaults } from '@autoposts/shared';
+import { TopicDefaults, TopicPresetColors } from '@autoposts/shared';
 import { Modal } from '@components/base';
+import ColorPicker from '@components/ColorPicker';
 
 import './AddTopicModal.scss';
 
@@ -13,6 +14,7 @@ type AddTopicModalProps = {
 const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
 
   const [createTopic, { isPending }] = useCreateTopic();
 
@@ -21,6 +23,7 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
   const resetForm = () => {
     setTitle('');
     setDescription('');
+    setSelectedColor('');
   };
 
   const handleClose = () => {
@@ -33,7 +36,11 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
     if (!title.trim()) return;
 
     createTopic(
-      { title: title.trim(), description: description.trim() || undefined },
+      {
+        title: title.trim(),
+        description: description.trim() || undefined,
+        color: selectedColor || undefined,
+      },
       {
         onSuccess: () => handleClose(),
       }
@@ -87,6 +94,13 @@ const AddTopicModal: FC<AddTopicModalProps> = ({ isOpen, onClose }) => {
           value={description}
           maxLength={TopicDefaults.DESCRIPTION_MAX_LENGTH}
           onChange={(e) => setDescription(e.target.value)}
+        />
+
+        <label className="add-topic-modal__label">Color</label>
+        <ColorPicker
+          value={selectedColor}
+          presetColors={TopicPresetColors}
+          onChange={setSelectedColor}
         />
       </form>
     </Modal>

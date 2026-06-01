@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TopicDefaults } from '../constants/values';
+import { TopicDefaults, HexColorRegex } from '../constants';
 
 export const TopicPayloadSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -11,6 +11,7 @@ export const TopicPayloadSchema = z.object({
     )
     .optional(),
   parentId: z.string().nullable().optional(),
+  color: z.string().regex(HexColorRegex, 'Invalid color hex code').optional().nullable(),
 });
 
 export const UpdateTopicSchema = TopicPayloadSchema.partial();
@@ -21,5 +22,6 @@ export const TopicResponseSchema = z.object({
   description: z.string().optional(),
   parentId: z.string().nullable(),
   userId: z.string(),
+  color: z.string().regex(HexColorRegex, 'Invalid color hex code').optional().nullable(),
   createdAt: z.union([z.string(), z.date()]),
 });
